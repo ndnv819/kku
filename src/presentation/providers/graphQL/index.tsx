@@ -5,7 +5,6 @@ import {
   NormalizedCacheObject,
 } from '@apollo/client';
 import { createApolloClient } from '@infrastructure/graphql/apollo_client';
-import { GET_SHOPS } from '@infrastructure/graphql/queries/shop';
 import merge from 'deepmerge';
 import isEqual from 'lodash/isEqual';
 import { ReactNode, useRef } from 'react';
