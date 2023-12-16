@@ -1,5 +1,8 @@
 {
-  "extends": "@tsconfig/strictest/tsconfig.json",
+  "extends": [
+    "@tsconfig/strictest/tsconfig.json",
+    "@tsconfig/next/tsconfig.json"
+  ],
   "compilerOptions": {
     "target": "ES6",
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -9,8 +12,15 @@
     "resolveJsonModule": true,
     "jsx": "preserve",
     "incremental": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    "typeRoots": ["./node_modules/@types", "./types"],
     "paths": {
-      "@/*": ["./src/*"]
+      "@application/*": ["./src/application/*"],
+      "@infrastructure/*": ["./src/infrastructure/*"],
+      "@presentation/*": ["./src/presentation/*"],
+      "@assets/*": ["./public/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

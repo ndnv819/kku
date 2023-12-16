@@ -1,7 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+node_modules
+*.log
+*.lock
+package-lock.json
 /.pnp
 .pnp.js
 .yarn/install-state.gz
@@ -15,6 +18,11 @@
 
 # production
 /build
+dist
+es
+lib
+logs
+test-output
 
 # misc
 .DS_Store
@@ -34,3 +42,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# husky
+.husky/prepare-commit-msg

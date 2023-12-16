@@ -5,8 +5,10 @@
     "csstools.postcss",
     "bradlc.vscode-tailwindcss",
     "Orta.vscode-jest",
-    "humao.rest-client",
     "yoavbls.pretty-ts-errors",
-    "stylelint.vscode-stylelint"
+    "stylelint.vscode-stylelint",
+    "orta.vscode-jest",
+    "christian-kohler.path-intellisense",
+    "apollographql.vscode-apollo"
   ]
 }

@@ -2,18 +2,11 @@
   "extends": [
     "stylelint-config-standard-scss",
     "stylelint-config-tailwindcss/scss",
-    "stylelint-prettier/recommended",
-    "stylelint-config-prettier",
-    "stylelint-config-prettier-scss"
+    "stylelint-config-recess-order",
+    "stylelint-prettier/recommended"
   ],
-  "plugins": ["stylelint-order", "stylelint-scss"],
+  "plugins": ["stylelint-scss", "stylelint-order"],
   "rules": {
-    "prettier/prettier": true,
-
-    "order/order": ["custom-properties", "declarations"],
-    "order/properties-order": ["width", "height"],
-    "order/properties-alphabetical-order": true,
-
     "selector-max-id": 3,
 
     "at-rule-no-unknown": null,

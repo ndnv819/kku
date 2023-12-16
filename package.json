@@ -2,27 +2,47 @@
   "name": "kku-web",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://github.com/ndnv819/kku",
+  "bugs": {
+    "url": "https://github.com/ndnv819/kku/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ndnv819/kku.git"
+  },
+  "license": "MIT",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3000",
     "build": "next build",
+    "build:analyze": "ANALYZE=true next build",
     "start": "next start",
-    "lint": "stylelint --allow-empty-input \"**/*.{css,scss}\" && next lint"
+    "lint": "stylelint --allow-empty-input \"**/*.{css,scss}\" && next lint",
+    "prepare": "husky install"
   },
   "dependencies": {
-    "@apollo/client": "^3.8.8",
+    "@apollo/client": "3.8.8",
     "@reduxjs/toolkit": "2.0.1",
-    "@tanstack/react-query": "^5.13.4",
-    "@tanstack/react-query-devtools": "^5.13.5",
-    "graphql": "^16.8.1",
+    "@tanstack/react-query": "5.13.4",
+    "@tanstack/react-query-devtools": "5.13.5",
+    "deepmerge": "4.3.1",
+    "graphql": "16.8.1",
+    "lodash": "4.17.21",
     "next": "14.0.4",
+    "next-redux-wrapper-future": "1.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-redux": "^9.0.4",
-    "recoil": "^0.7.7"
+    "react-redux": "9.0.4",
+    "react-toastify": "9.1.3",
+    "react-virtualized": "9.22.5",
+    "recoil": "0.7.7",
+    "zod": "3.22.4"
   },
   "devDependencies": {
-    "@tanstack/eslint-plugin-query": "^5.12.1",
+    "@next/bundle-analyzer": "14.0.4",
+    "@tanstack/eslint-plugin-query": "5.12.1",
+    "@tsconfig/next": "2.0.1",
     "@tsconfig/strictest": "2.0.2",
+    "@types/lodash": "4.14.202",
     "@types/node": "20.10.4",
     "@types/react": "18.2.45",
     "@types/react-dom": "18.2.17",
@@ -40,18 +60,41 @@
     "eslint-plugin-simple-import-sort": "10.0.0",
     "eslint-plugin-tailwindcss": "3.13.0",
     "eslint-plugin-unused-imports": "3.0.0",
+    "husky": "8.0.3",
+    "lint-staged": "15.2.0",
     "postcss": "8.4.32",
     "prettier": "3.1.1",
     "sass": "1.69.5",
     "stylelint": "16.0.2",
-    "stylelint-config-prettier": "9.0.5",
-    "stylelint-config-prettier-scss": "1.0.0",
+    "stylelint-config-recess-order": "4.4.0",
     "stylelint-config-standard-scss": "12.0.0",
     "stylelint-config-tailwindcss": "0.0.7",
     "stylelint-order": "6.0.4",
     "stylelint-prettier": "5.0.0",
     "stylelint-scss": "6.0.0",
     "tailwindcss": "3.3.6",
-    "typescript": "5.3.3"
+    "typescript": "5.3.3",
+    "typescript-plugin-css-modules": "5.0.2"
+  },
+  "lint-staged": {
+    "*.md": [
+      "prettier --write --no-error-on-unmatched-pattern"
+    ],
+    "*.json": [
+      "prettier --write --no-error-on-unmatched-pattern"
+    ],
+    "*.{js,jsx}": [
+      "prettier --write",
+      "stylelint --fix",
+      "eslint --fix"
+    ],
+    "*.{ts,tsx}": [
+      "prettier --parser=typescript --write",
+      "stylelint --fix",
+      "eslint --fix"
+    ],
+    "*.{css,scss}": [
+      "stylelint --fix"
+    ]
   }
 }

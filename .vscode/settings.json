@@ -5,7 +5,7 @@
     "package-lock.json": true
   },
   "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
   "editor.codeActionsOnSave": [
     "source.addMissingImports",
     "source.fixAll.eslint",
@@ -23,11 +23,10 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "prettier.ignorePath": ".gitignore",
+  "stylelint.validate": ["css", "scss"],
   "css.validate": false,
   "less.validate": false,
   "scss.validate": false,
-  "files.associations": {
-    "*.scss": "tailwindcss",
-    "*.css": "tailwindcss"
-  }
+  "javascript.suggest.paths": false,
+  "typescript.suggest.paths": false
 }
