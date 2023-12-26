@@ -1,0 +1,16 @@
+query GetShops {
+  shops {
+    id
+    name
+    petAllowedLocations
+    tel
+    address
+    addressLoad
+    latitude
+    longitude
+    thumbnails
+    source {
+      sourceUrl
+    }
+  }
+}

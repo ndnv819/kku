@@ -1,0 +1,16 @@
+query GetNearestShops($latitude: Float!, $longitude: Float!, $distanceKm: Int) {
+  nearestShops(latitude: $latitude, longitude: $longitude, distanceKm: $distanceKm) {
+    id
+    name
+    petAllowedLocations
+    tel
+    address
+    addressLoad
+    latitude
+    longitude
+    thumbnails
+    source {
+      sourceUrl
+    }
+  }
+}

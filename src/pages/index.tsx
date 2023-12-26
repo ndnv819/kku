@@ -1,15 +1,8 @@
-import { gql, useQuery } from '@apollo/client';
-
-const querySyntax = gql`
-  query MyQuery {
-    shops {
-      id
-    }
-  }
-`;
+import { useQuery } from '@apollo/client';
+import { GetShopsDocument, GetShopsQuery } from 'src/generated/graphql';
 
 export default function Home() {
-  const { data } = useQuery(querySyntax);
+  const { data } = useQuery<GetShopsQuery>(GetShopsDocument);
 
   console.log(data);
 

@@ -1,3 +1,6 @@
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
+
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends Record<string, unknown>> = {
@@ -17,6 +20,7 @@ export type Incremental<T> =
   | {
       [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
     };
+const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export interface Scalars {
   ID: { input: string; output: string };
@@ -360,3 +364,218 @@ export interface _Service {
   __typename?: '_Service';
   sdl: Scalars['String']['output'];
 }
+
+export type GetShopsQueryVariables = Exact<Record<string, never>>;
+
+export interface GetShopsQuery {
+  __typename?: 'Query';
+  shops: {
+    __typename?: 'Shop';
+    id: string;
+    name: string;
+    petAllowedLocations: PetAllowedLocationEnum;
+    tel: string;
+    address: string;
+    addressLoad: string;
+    latitude: number;
+    longitude: number;
+    thumbnails: string[];
+    source: { __typename?: 'ShopSource'; sourceUrl: string };
+  }[];
+}
+
+export type GetNearestShopsQueryVariables = Exact<{
+  latitude: Scalars['Float']['input'];
+  longitude: Scalars['Float']['input'];
+  distanceKm?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export interface GetNearestShopsQuery {
+  __typename?: 'Query';
+  nearestShops: {
+    __typename?: 'Shop';
+    id: string;
+    name: string;
+    petAllowedLocations: PetAllowedLocationEnum;
+    tel: string;
+    address: string;
+    addressLoad: string;
+    latitude: number;
+    longitude: number;
+    thumbnails: string[];
+    source: { __typename?: 'ShopSource'; sourceUrl: string };
+  }[];
+}
+
+export const GetShopsDocument = gql`
+  query GetShops {
+    shops {
+      id
+      name
+      petAllowedLocations
+      tel
+      address
+      addressLoad
+      latitude
+      longitude
+      thumbnails
+      source {
+        sourceUrl
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetShopsQuery__
+ *
+ * To run a query within a React component, call `useGetShopsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetShopsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetShopsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetShopsQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetShopsQuery, GetShopsQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetShopsQuery, GetShopsQueryVariables>(
+    GetShopsDocument,
+    options,
+  );
+}
+export function useGetShopsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetShopsQuery,
+    GetShopsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetShopsQuery, GetShopsQueryVariables>(
+    GetShopsDocument,
+    options,
+  );
+}
+export function useGetShopsSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetShopsQuery,
+    GetShopsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetShopsQuery, GetShopsQueryVariables>(
+    GetShopsDocument,
+    options,
+  );
+}
+export type GetShopsQueryHookResult = ReturnType<typeof useGetShopsQuery>;
+export type GetShopsLazyQueryHookResult = ReturnType<
+  typeof useGetShopsLazyQuery
+>;
+export type GetShopsSuspenseQueryHookResult = ReturnType<
+  typeof useGetShopsSuspenseQuery
+>;
+export type GetShopsQueryResult = Apollo.QueryResult<
+  GetShopsQuery,
+  GetShopsQueryVariables
+>;
+export const GetNearestShopsDocument = gql`
+  query GetNearestShops(
+    $latitude: Float!
+    $longitude: Float!
+    $distanceKm: Int
+  ) {
+    nearestShops(
+      latitude: $latitude
+      longitude: $longitude
+      distanceKm: $distanceKm
+    ) {
+      id
+      name
+      petAllowedLocations
+      tel
+      address
+      addressLoad
+      latitude
+      longitude
+      thumbnails
+      source {
+        sourceUrl
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetNearestShopsQuery__
+ *
+ * To run a query within a React component, call `useGetNearestShopsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetNearestShopsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetNearestShopsQuery({
+ *   variables: {
+ *      latitude: // value for 'latitude'
+ *      longitude: // value for 'longitude'
+ *      distanceKm: // value for 'distanceKm'
+ *   },
+ * });
+ */
+export function useGetNearestShopsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetNearestShopsQuery,
+    GetNearestShopsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetNearestShopsQuery, GetNearestShopsQueryVariables>(
+    GetNearestShopsDocument,
+    options,
+  );
+}
+export function useGetNearestShopsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetNearestShopsQuery,
+    GetNearestShopsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetNearestShopsQuery,
+    GetNearestShopsQueryVariables
+  >(GetNearestShopsDocument, options);
+}
+export function useGetNearestShopsSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetNearestShopsQuery,
+    GetNearestShopsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    GetNearestShopsQuery,
+    GetNearestShopsQueryVariables
+  >(GetNearestShopsDocument, options);
+}
+export type GetNearestShopsQueryHookResult = ReturnType<
+  typeof useGetNearestShopsQuery
+>;
+export type GetNearestShopsLazyQueryHookResult = ReturnType<
+  typeof useGetNearestShopsLazyQuery
+>;
+export type GetNearestShopsSuspenseQueryHookResult = ReturnType<
+  typeof useGetNearestShopsSuspenseQuery
+>;
+export type GetNearestShopsQueryResult = Apollo.QueryResult<
+  GetNearestShopsQuery,
+  GetNearestShopsQueryVariables
+>;
