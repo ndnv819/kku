@@ -58,6 +58,7 @@
         "unnamedComponents": ["arrow-function"]
       }
     ],
+    "react/require-default-props": "off", // defaultProps를 사용하지 않고 object style로 직접선언함
     // naming
     "no-param-reassign": ["error", { "props": false }],
     "no-underscore-dangle": ["error", { "allow": ["_id"] }], // MongoDB _id 는 제외

@@ -22,5 +22,3 @@ export const errorLink: ApolloLink = onError(
 export const httpLink: ApolloLink = new HttpLink({
   uri: `${process.env.NEXT_PUBLIC_BACKEND_URL}/graphql`,
 });
-
-console.log(`${process.env.NEXT_PUBLIC_BACKEND_URL}/graphql`);

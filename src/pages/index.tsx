@@ -1,14 +1,24 @@
 import { useQuery } from '@apollo/client';
+import { Typography } from '@presentation/components/atoms/typography';
+import { useCallback } from 'react';
 import { GetShopsDocument, GetShopsQuery } from 'src/generated/graphql';
 
 export default function Home() {
   const { data } = useQuery<GetShopsQuery>(GetShopsDocument);
 
-  console.log(data);
+  const onChangeTheme = useCallback((): void => {
+    document.documentElement.classList.toggle('dark');
+  }, []);
 
   return (
     <div>
       <p>dasdas</p>
+      <Typography as="h1" type="secondary">
+        Text
+      </Typography>
+      <button type="button" onClick={onChangeTheme}>
+        Change Theme
+      </button>
     </div>
   );
 }
