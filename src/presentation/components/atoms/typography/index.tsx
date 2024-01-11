@@ -24,6 +24,7 @@ export const Typography = forwardRef(
       'text-primary-500': type === 'primary',
       'text-secondary-500': type === 'secondary',
       'text-neutral-500': type === 'neutral',
+      'font-pretendard-bold': true,
     });
 
     // @ts-ignore

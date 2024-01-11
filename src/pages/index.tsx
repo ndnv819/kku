@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <div>
-      <p>dasdas</p>
+      <p>텍스트 테스트</p>
       <Typography as="h1" type="secondary">
         Text
       </Typography>

@@ -4,40 +4,100 @@
 
 :root {
   // PRIMARY COLOR
-  --c-primary-50: 238, 242, 255;
-  --c-primary-100: 224, 231, 255;
-  --c-primary-200: 199, 210, 254;
-  --c-primary-300: 165, 180, 252;
-  --c-primary-400: 129, 140, 248;
-  --c-primary-500: 99, 102, 241;
-  --c-primary-600: 79, 70, 229;
-  --c-primary-700: 67, 56, 202;
-  --c-primary-800: 55, 48, 163;
-  --c-primary-900: 49, 46, 129;
+  --c-primary-100: #f2f6ff;
+  --c-primary-200: #d9e4ff;
+  --c-primary-300: #a6c1ff;
+  --c-primary-400: #598bff;
+  --c-primary-500: #36f;
+  --c-primary-600: #274bdb;
+  --c-primary-700: #1a34b8;
+  --c-primary-800: #102694;
+  --c-primary-900: #091c7a;
 
-  // SECONDARY COLOR
-  --c-secondary-50: 240, 253, 250;
-  --c-secondary-100: 204, 251, 241;
-  --c-secondary-200: 153, 246, 228;
-  --c-secondary-300: 153, 246, 228;
-  --c-secondary-400: 45, 212, 191;
-  --c-secondary-500: 20, 184, 166;
-  --c-secondary-600: 13, 148, 136;
-  --c-secondary-700: 15, 118, 110;
-  --c-secondary-800: 17, 94, 89;
-  --c-secondary-900: 19, 78, 74;
+  // BASIC COLOR
+  --c-basic-100: #fff;
+  --c-basic-200: #f7f9fc;
+  --c-basic-300: #edf1f7;
+  --c-basic-400: #e4e9f2;
+  --c-basic-500: #c5cee0;
+  --c-basic-600: #8f9bb3;
+  --c-basic-700: #2e3a59;
+  --c-basic-800: #222b45;
+  --c-basic-900: #192038;
+  --c-basic-1000: #151a30;
+  --c-basic-1100: #101426;
 
-  // NEUTRAL COLOR
-  --c-neutral-50: 249, 250, 251;
-  --c-neutral-100: 243, 244, 246;
-  --c-neutral-200: 229, 231, 235;
-  --c-neutral-300: 209, 213, 219;
-  --c-neutral-400: 156, 163, 175;
-  --c-neutral-500: 107, 114, 128;
-  --c-neutral-600: 75, 85, 99;
-  --c-neutral-700: 55, 65, 81;
-  --c-neutral-800: 31, 41, 55;
-  --c-neutral-900: 17, 24, 39;
+  // SUCCESS COLOR
+  --c-success-100: #f0fff5;
+  --c-success-200: #ccfce3;
+  --c-success-300: #8cfac7;
+  --c-success-400: #2ce59b;
+  --c-success-500: #00d68f;
+  --c-success-600: #00b887;
+  --c-success-700: #00997a;
+  --c-success-800: #007d6c;
+  --c-success-900: #004a45;
+
+  // INFO COLOR
+  --c-info-100: #f2f8ff;
+  --c-info-200: #c7e2ff;
+  --c-info-300: #94cbff;
+  --c-info-400: #42aaff;
+  --c-info-500: #0095ff;
+  --c-info-600: #006fd6;
+  --c-info-700: #0057c2;
+  --c-info-800: #0041a8;
+  --c-info-900: #002885;
+
+  // WARNING COLOR
+  --c-warning-100: #fffdf2;
+  --c-warning-200: #fff1c2;
+  --c-warning-300: #ffe59e;
+  --c-warning-400: #ffc94d;
+  --c-warning-500: #fa0;
+  --c-warning-600: #db8b00;
+  --c-warning-700: #b86e00;
+  --c-warning-800: #945400;
+  --c-warning-900: #703c00;
+
+  // DANGER COLOR
+  --c-danger-100: #fff2f2;
+  --c-danger-200: #ffd6d9;
+  --c-danger-300: #ffa8b4;
+  --c-danger-400: #ff708d;
+  --c-danger-500: #ff3d71;
+  --c-danger-600: #db2c66;
+  --c-danger-700: #b81d5b;
+  --c-danger-800: #94124e;
+  --c-danger-900: #700940;
+}
+
+// Scss Variable
+$font-family-pretendard: 'Pretendard', sans-serif;
+
+.font-pretendard {
+  font-family: $font-family-pretendard;
+  font-weight: 400;
+}
+
+.font-pretendard-medium {
+  font-family: $font-family-pretendard;
+  font-weight: 500;
+}
+
+.font-pretendard-semibold {
+  font-family: $font-family-pretendard;
+  font-weight: 600;
+}
+
+.font-pretendard-bold {
+  font-family: $font-family-pretendard;
+  font-weight: 700;
+}
+
+.font-pretendard-extrabold {
+  font-family: $font-family-pretendard;
+  font-weight: 800;
 }
 
 html {
