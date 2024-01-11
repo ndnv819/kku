@@ -6,8 +6,25 @@ export default {
   title: 'Example/Typography',
   component: Typography,
   argTypes: {
-    type: {
-      control: { type: 'select', options: ['primary', 'secondary', 'neutral'] },
+    status: {
+      control: {
+        type: 'select',
+        options: [
+          'primary',
+          'secondary',
+          'neutral',
+          'success',
+          'info',
+          'warning',
+          'danger',
+        ],
+      },
+    },
+    category: {
+      control: {
+        type: 'select',
+        options: ['s1', 's2', 'p1', 'p2', 'c1', 'c2', 'label'],
+      },
     },
     as: {
       control: {
@@ -22,7 +39,7 @@ export const Primary = (args: TypographyProps<'p'>) => (
   <Typography {...args}>Sample Text</Typography>
 );
 Primary.args = {
-  type: 'primary',
+  status: 'primary',
   as: 'p',
 };
 
@@ -30,6 +47,6 @@ export const Secondary = (args: TypographyProps<'p'>) => (
   <Typography {...args}>Sample Text</Typography>
 );
 Secondary.args = {
-  type: 'secondary',
+  status: 'secondary',
   as: 'p',
 };

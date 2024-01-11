@@ -1,17 +1,19 @@
 import type { Config } from 'tailwindcss';
 
-function customColors(cssVar: string): string {
+/*
+function 'var(cssVar: string): string {
   // @ts-ignore
   return ({ opacityVariable, opacityValue }) => {
     if (opacityValue !== undefined) {
-      return `rgba(var(${cssVar}), ${opacityValue})`;
+      return `rgba(var(${cssVar})', ${opacityValue})`;
     }
     if (opacityVariable !== undefined) {
-      return `rgba(var(${cssVar}), var(${opacityVariable}, 1))`;
+      return `rgba(var(${cssVar})', var(${opacityVariable}, 1))`;
     }
     return `rgb(var(${cssVar}))`;
   };
 }
+*/
 
 const config: Config = {
   content: [
@@ -29,70 +31,70 @@ const config: Config = {
       },
       colors: {
         primary: {
-          100: customColors('--c-primary-100'),
-          200: customColors('--c-primary-200'),
-          300: customColors('--c-primary-300'),
-          400: customColors('--c-primary-400'),
-          500: customColors('--c-primary-500'),
-          600: customColors('--c-primary-600'),
-          700: customColors('--c-primary-700'),
-          800: customColors('--c-primary-800'),
-          900: customColors('--c-primary-900'),
+          100: 'var(--c-primary-100)',
+          200: 'var(--c-primary-200)',
+          300: 'var(--c-primary-300)',
+          400: 'var(--c-primary-400)',
+          500: 'var(--c-primary-500)',
+          600: 'var(--c-primary-600)',
+          700: 'var(--c-primary-700)',
+          800: 'var(--c-primary-800)',
+          900: 'var(--c-primary-900)',
         },
         basic: {
-          100: customColors('--c-basic-100'),
-          200: customColors('--c-basic-200'),
-          300: customColors('--c-basic-300'),
-          400: customColors('--c-basic-400'),
-          500: customColors('--c-basic-500'),
-          600: customColors('--c-basic-600'),
-          700: customColors('--c-basic-700'),
-          800: customColors('--c-basic-800'),
-          900: customColors('--c-basic-900'),
+          100: 'var(--c-basic-100)',
+          200: 'var(--c-basic-200)',
+          300: 'var(--c-basic-300)',
+          400: 'var(--c-basic-400)',
+          500: 'var(--c-basic-500)',
+          600: 'var(--c-basic-600)',
+          700: 'var(--c-basic-700)',
+          800: 'var(--c-basic-800)',
+          900: 'var(--c-basic-900)',
         },
         success: {
-          100: customColors('--c-success-100'),
-          200: customColors('--c-success-200'),
-          300: customColors('--c-success-300'),
-          400: customColors('--c-success-400'),
-          500: customColors('--c-success-500'),
-          600: customColors('--c-success-600'),
-          700: customColors('--c-success-700'),
-          800: customColors('--c-success-800'),
-          900: customColors('--c-success-900'),
+          100: 'var(--c-success-100)',
+          200: 'var(--c-success-200)',
+          300: 'var(--c-success-300)',
+          400: 'var(--c-success-400)',
+          500: 'var(--c-success-500)',
+          600: 'var(--c-success-600)',
+          700: 'var(--c-success-700)',
+          800: 'var(--c-success-800)',
+          900: 'var(--c-success-900)',
         },
         info: {
-          100: customColors('--c-info-100'),
-          200: customColors('--c-info-200'),
-          300: customColors('--c-info-300'),
-          400: customColors('--c-info-400'),
-          500: customColors('--c-info-500'),
-          600: customColors('--c-info-600'),
-          700: customColors('--c-info-700'),
-          800: customColors('--c-info-800'),
-          900: customColors('--c-info-900'),
+          100: 'var(--c-info-100)',
+          200: 'var(--c-info-200)',
+          300: 'var(--c-info-300)',
+          400: 'var(--c-info-400)',
+          500: 'var(--c-info-500)',
+          600: 'var(--c-info-600)',
+          700: 'var(--c-info-700)',
+          800: 'var(--c-info-800)',
+          900: 'var(--c-info-900)',
         },
         warning: {
-          100: customColors('--c-warning-100'),
-          200: customColors('--c-warning-200'),
-          300: customColors('--c-warning-300'),
-          400: customColors('--c-warning-400'),
-          500: customColors('--c-warning-500'),
-          600: customColors('--c-warning-600'),
-          700: customColors('--c-warning-700'),
-          800: customColors('--c-warning-800'),
-          900: customColors('--c-warning-900'),
+          100: 'var(--c-warning-100)',
+          200: 'var(--c-warning-200)',
+          300: 'var(--c-warning-300)',
+          400: 'var(--c-warning-400)',
+          500: 'var(--c-warning-500)',
+          600: 'var(--c-warning-600)',
+          700: 'var(--c-warning-700)',
+          800: 'var(--c-warning-800)',
+          900: 'var(--c-warning-900)',
         },
         danger: {
-          100: customColors('--c-danger-100'),
-          200: customColors('--c-danger-200'),
-          300: customColors('--c-danger-300'),
-          400: customColors('--c-danger-400'),
-          500: customColors('--c-danger-500'),
-          600: customColors('--c-danger-600'),
-          700: customColors('--c-danger-700'),
-          800: customColors('--c-danger-800'),
-          900: customColors('--c-danger-900'),
+          100: 'var(--c-danger-100)',
+          200: 'var(--c-danger-200)',
+          300: 'var(--c-danger-300)',
+          400: 'var(--c-danger-400)',
+          500: 'var(--c-danger-500)',
+          600: 'var(--c-danger-600)',
+          700: 'var(--c-danger-700)',
+          800: 'var(--c-danger-800)',
+          900: 'var(--c-danger-900)',
         },
       },
     },

@@ -13,12 +13,13 @@ export default function Home() {
   return (
     <div>
       <p>텍스트 테스트</p>
-      <Typography as="h1" type="secondary">
+      <Typography as="h1" category="c1">
         Text
       </Typography>
       <button type="button" onClick={onChangeTheme}>
         Change Theme
       </button>
+      <Typography category="c1">카테고리</Typography>
     </div>
   );
 }
