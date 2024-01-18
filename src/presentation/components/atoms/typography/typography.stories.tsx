@@ -33,6 +33,20 @@ const Component = (args: _TypographyProps): JSX.Element => {
   return <Typography {...args}>테스트 텍스트</Typography>;
 };
 type Story = StoryObj<typeof Typography>;
+export const Default: Story = {
+  args: {
+    as: 'p',
+  },
+  render: Component,
+};
+
+export const Heading: Story = {
+  args: {
+    as: 'h1',
+  },
+  render: Component,
+};
+
 export const Primary: Story = {
   args: {
     status: 'primary',
@@ -41,10 +55,3 @@ export const Primary: Story = {
   render: Component,
 };
 
-export const Secondary: Story = {
-  args: {
-    status: 'success',
-    as: 'p',
-  },
-  render: Component,
-};

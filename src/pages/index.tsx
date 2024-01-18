@@ -19,6 +19,7 @@ export default function Home() {
       <button type="button" onClick={onChangeTheme}>
         Change Theme
       </button>
+      <Typography category="c1">카테고리</Typography>
     </div>
   );
 }
