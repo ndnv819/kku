@@ -54,3 +54,4 @@ export const Primary: Story = {
   },
   render: Component,
 };
+
