@@ -1,14 +1,15 @@
 import type { Config } from 'tailwindcss';
 
 /*
-function 'var(cssVar: string): string {
+** Example: 'var(--c-primary-100)',
+function customColors(cssVar: string): string {
   // @ts-ignore
   return ({ opacityVariable, opacityValue }) => {
     if (opacityValue !== undefined) {
-      return `rgba(var(${cssVar})', ${opacityValue})`;
+      return `rgba(var(${cssVar}), ${opacityValue})`;
     }
     if (opacityVariable !== undefined) {
-      return `rgba(var(${cssVar})', var(${opacityVariable}, 1))`;
+      return `rgba(var(${cssVar}), var(${opacityVariable}, 1))`;
     }
     return `rgb(var(${cssVar}))`;
   };
