@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client';
+import { Button } from '@presentation/components/atoms/button';
 import { Typography } from '@presentation/components/atoms/typography';
 import { useCallback } from 'react';
 import { GetShopsDocument, GetShopsQuery } from 'src/generated/graphql';
@@ -20,6 +21,14 @@ export default function Home() {
         Change Theme
       </button>
       <Typography category="c1">카테고리</Typography>
+      <Button status="success" appearances="outline" sizes="large">
+        CLICK
+      </Button>
+      <Button onClick={onChangeTheme}>DEfault</Button>
+      <Button>
+        <div>🏠</div>
+        <p>With icon</p>
+      </Button>
     </div>
   );
 }

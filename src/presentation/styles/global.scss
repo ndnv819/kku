@@ -13,6 +13,12 @@
   --c-primary-700: #1a34b8;
   --c-primary-800: #102694;
   --c-primary-900: #091c7a;
+  --c-transparent-primary-8: rgba(51, 102, 255, 0.08);
+  --c-transparent-primary-16: rgba(51, 102, 255, 0.16);
+  --c-transparent-primary-24: rgba(51, 102, 255, 0.24);
+  --c-transparent-primary-32: rgba(51, 102, 255, 0.32);
+  --c-transparent-primary-40: rgba(51, 102, 255, 0.4);
+  --c-transparent-primary-48: rgba(51, 102, 255, 0.48);
 
   // BASIC COLOR
   --c-basic-100: #fff;
@@ -26,6 +32,12 @@
   --c-basic-900: #192038;
   --c-basic-1000: #151a30;
   --c-basic-1100: #101426;
+  --c-transparent-basic-8: rgba(143, 155, 179, 0.08);
+  --c-transparent-basic-16: rgba(143, 155, 179, 0.16);
+  --c-transparent-basic-24: rgba(143, 155, 179, 0.24);
+  --c-transparent-basic-32: rgba(143, 155, 179, 0.32);
+  --c-transparent-basic-40: rgba(143, 155, 179, 0.4);
+  --c-transparent-basic-48: rgba(143, 155, 179, 0.48);
 
   // SUCCESS COLOR
   --c-success-100: #f0fff5;
@@ -37,6 +49,12 @@
   --c-success-700: #00997a;
   --c-success-800: #007d6c;
   --c-success-900: #004a45;
+  --c-transparent-success-8: rgba(0, 214, 143, 0.08);
+  --c-transparent-success-16: rgba(0, 214, 143, 0.16);
+  --c-transparent-success-24: rgba(0, 214, 143, 0.24);
+  --c-transparent-success-32: rgba(0, 214, 143, 0.32);
+  --c-transparent-success-40: rgba(0, 214, 143, 0.4);
+  --c-transparent-success-48: rgba(0, 214, 143, 0.48);
 
   // INFO COLOR
   --c-info-100: #f2f8ff;
@@ -48,6 +66,12 @@
   --c-info-700: #0057c2;
   --c-info-800: #0041a8;
   --c-info-900: #002885;
+  --c-transparent-info-8: rgba(0, 149, 255, 0.08);
+  --c-transparent-info-16: rgba(0, 149, 255, 0.16);
+  --c-transparent-info-24: rgba(0, 149, 255, 0.24);
+  --c-transparent-info-32: rgba(0, 149, 255, 0.32);
+  --c-transparent-info-40: rgba(0, 149, 255, 0.4);
+  --c-transparent-info-48: rgba(0, 149, 255, 0.48);
 
   // WARNING COLOR
   --c-warning-100: #fffdf2;
@@ -59,6 +83,12 @@
   --c-warning-700: #b86e00;
   --c-warning-800: #945400;
   --c-warning-900: #703c00;
+  --c-transparent-warning-8: rgba(255, 170, 0, 0.08);
+  --c-transparent-warning-16: rgba(255, 170, 0, 0.16);
+  --c-transparent-warning-24: rgba(255, 170, 0, 0.24);
+  --c-transparent-warning-32: rgba(255, 170, 0, 0.32);
+  --c-transparent-warning-40: rgba(255, 170, 0, 0.4);
+  --c-transparent-warning-48: rgba(255, 170, 0, 0.48);
 
   // DANGER COLOR
   --c-danger-100: #fff2f2;
@@ -70,6 +100,12 @@
   --c-danger-700: #b81d5b;
   --c-danger-800: #94124e;
   --c-danger-900: #700940;
+  --c-transparent-danger-8: rgba(255, 61, 113, 0.08);
+  --c-transparent-danger-16: rgba(255, 61, 113, 0.16);
+  --c-transparent-danger-24: rgba(255, 61, 113, 0.24);
+  --c-transparent-danger-32: rgba(255, 61, 113, 0.32);
+  --c-transparent-danger-40: rgba(255, 61, 113, 0.4);
+  --c-transparent-danger-48: rgba(255, 61, 113, 0.48);
 }
 
 // Scss Variable
@@ -141,6 +177,15 @@ h6 {
   font-style: normal;
   font-weight: 700;
   line-height: 24px;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border: none;
+  border-radius: 4px;
+  outline: none;
 }
 
 html {
