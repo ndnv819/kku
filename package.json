@@ -43,7 +43,7 @@
     "react-dom": "18.2.0",
     "react-redux": "9.0.4",
     "react-toastify": "9.1.3",
-    "react-virtualized": "9.22.5",
+    "react-virtualized": "^9.22.5",
     "recoil": "0.7.7",
     "string.prototype.replaceall": "^1.0.8",
     "zod": "3.22.4"
