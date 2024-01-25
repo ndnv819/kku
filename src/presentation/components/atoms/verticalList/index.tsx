@@ -8,7 +8,7 @@ import {
 
 import { EmptyView } from '../emptyView';
 
-interface ListTypeProps<T> {
+export interface ListTypeProps<T> {
   index: number;
   item: T;
   style: CSSProperties;
@@ -16,7 +16,7 @@ interface ListTypeProps<T> {
 
 export interface ListProps<T> {
   data: T[];
-  totalElements: number;
+  totalElements?: number;
   rowHeight?: number;
   rowRenderer: ComponentType<ListTypeProps<T>>;
   emptyRenderer?: ComponentType;

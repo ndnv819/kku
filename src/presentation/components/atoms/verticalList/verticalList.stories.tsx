@@ -1,20 +1,21 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable import/no-extraneous-dependencies */
 import { faker } from '@faker-js/faker';
-import { Story } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 
-import { ListProps, VerticalList } from './index';
+import { ListProps, ListTypeProps, VerticalList } from './index';
 
 interface User {
-  _id: string;
+  id: string;
   username: string;
   email: string;
   avatar: string;
   birthday: Date;
 }
 
-function createFakeUserData(): User {
+function createMockData(): User {
   return {
-    _id: faker.string.uuid(),
+    id: faker.string.uuid(),
     username: faker.internet.userName(),
     email: faker.internet.email(),
     avatar: faker.image.avatar(),
@@ -22,34 +23,20 @@ function createFakeUserData(): User {
   };
 }
 
-function createRandomUsers(count: number): User[] {
-  return faker.helpers.multiple(createFakeUserData, { count });
-}
+const users: User[] = faker.helpers.multiple(createMockData, {count: 100});
 
-export default {
-  title: 'Atom/VerticalList',
-  component: VerticalList,
-};
+function RowRenderer(props: ListTypeProps<User>) {
+  const { item, style } = props;
 
-const Component = (args: ListProps<User>): JSX.Element => {
-  const users = createRandomUsers(100);
-  return <VerticalList {...args} data={users} totalElements={users.length} />;
-};
-
-export const Default: Story<ListProps<User>> = (args) => (
-  <Component {...args} />
-);
-
-Default.args = {
-  rowRenderer: ({ index, item, style }) => (
+  return (
     <div
-      key={index}
+      key={item.id}
       style={{
-        ...style,
         borderBottom: '1px solid #ccc',
         padding: '10px',
         display: 'flex',
         alignItems: 'center',
+        ...style,
       }}
     >
       <img
@@ -62,5 +49,58 @@ Default.args = {
         <p>{item.email}</p>
       </div>
     </div>
-  ),
+  );
+}
+
+const Component = (args: ListProps<User>): JSX.Element => {
+  return <VerticalList<User> {...args} />;
+};
+
+// 1. MetaData
+export default {
+  title: 'Atom/Vertical List',
+  component: Component,
+  argTypes: {
+    rowHeight: {
+      control: {
+        type: 'number',
+      },
+    },
+    data: {
+      control: {
+        type: 'object',
+      },
+    },
+  },
+} as Meta<typeof Component>;
+
+type Story = StoryObj<typeof Component>;
+
+export const Default: Story = {
+  args: {
+    data: users,
+    totalElements: users.length,
+    rowHeight: 100,
+    rowRenderer: RowRenderer,
+  },
+  render: Component,
+};
+
+export const RowHeight200: Story = {
+  args: {
+    data: users,
+    totalElements: users.length,
+    rowHeight: 200,
+    rowRenderer: RowRenderer,
+  },
+  render: Component,
+};
+
+export const Empty: Story = {
+  args: {
+    data: [],
+    totalElements: 0,
+    rowRenderer: RowRenderer,
+  },
+  render: Component,
 };
