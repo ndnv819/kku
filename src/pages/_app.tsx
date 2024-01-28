@@ -4,6 +4,7 @@ import '../env';
 
 import { wrapper } from '@application/store';
 import { GraphqlProvider } from '@presentation/providers/graphQL';
+import { NaverMapProvider } from '@presentation/providers/naverMap';
 import { ToastProvider } from '@presentation/providers/toast';
 import type { AppProps } from 'next/app';
 import localFont from 'next/font/local';
@@ -61,7 +62,9 @@ export default function App({
         <RecoilRoot>
           <main className={myFont.className}>
             <ToastProvider>
-              <Component {...props.pageProps} />
+              <NaverMapProvider>
+                <Component {...props.pageProps} />
+              </NaverMapProvider>
             </ToastProvider>
           </main>
         </RecoilRoot>

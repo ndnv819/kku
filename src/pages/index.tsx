@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { Button } from '@presentation/components/atoms/button';
+import { NaverMap } from '@presentation/components/atoms/naverMap';
 import { Typography } from '@presentation/components/atoms/typography';
 import { useCallback } from 'react';
 import { GetShopsDocument, GetShopsQuery } from 'src/generated/graphql';
@@ -29,6 +30,7 @@ export default function Home() {
         <div>🏠</div>
         <p>With icon</p>
       </Button>
+      <NaverMap />
     </div>
   );
 }
