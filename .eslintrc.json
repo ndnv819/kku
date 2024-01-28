@@ -26,12 +26,7 @@
   ],
   "rules": {
     // prettier
-    "prettier/prettier": [
-      "error",
-      {
-        "endOfLine": "crlf"
-      }
-    ],
+    "prettier/prettier": "error",
     // type
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/no-explicit-any": "off",
