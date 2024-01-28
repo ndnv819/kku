@@ -1,9 +1,8 @@
 import { useWindowSize } from '@application/hooks/common/use_window_size';
-import { renderHook } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react';
 
 describe('useWindowSize hook', () => {
   beforeAll(() => {
-    // Mock window resize properties
     Object.defineProperty(window, 'innerWidth', {
       writable: true,
       configurable: true,
@@ -25,10 +24,11 @@ describe('useWindowSize hook', () => {
   test('should update size on window resize', () => {
     const { result } = renderHook(() => useWindowSize());
 
-    // Change window size
-    window.innerWidth = 1024;
-    window.innerHeight = 768;
-    window.dispatchEvent(new Event('resize'));
+    act(() => {
+      window.innerWidth = 1024;
+      window.innerHeight = 768;
+      window.dispatchEvent(new Event('resize'));
+    });
 
     expect(result.current.width).toBe(1024);
     expect(result.current.height).toBe(768);
