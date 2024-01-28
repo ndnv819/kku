@@ -1,7 +1,7 @@
 import { useWindowSize } from '@application/hooks/common/use_window_size';
 import { act, renderHook } from '@testing-library/react';
 
-describe('useWindowSize hook', () => {
+describe('[Hooks] useWindowSize', () => {
   beforeAll(() => {
     Object.defineProperty(window, 'innerWidth', {
       writable: true,
@@ -15,17 +15,19 @@ describe('useWindowSize hook', () => {
     });
   });
 
-  test('should return current window size', () => {
+  test('현재 window size(width, height)를 반환한다', () => {
     const { result } = renderHook(() => useWindowSize());
     expect(result.current.width).toBe(800);
     expect(result.current.height).toBe(600);
   });
 
-  test('should update size on window resize', () => {
+  test('resize 이후의 변화된 window size(width, height)를 반환한다', () => {
     const { result } = renderHook(() => useWindowSize());
 
     act(() => {
+      // noinspection JSConstantReassignment
       window.innerWidth = 1024;
+      // noinspection JSConstantReassignment
       window.innerHeight = 768;
       window.dispatchEvent(new Event('resize'));
     });
