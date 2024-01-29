@@ -2,20 +2,20 @@ import { useCallback, useEffect, useState } from 'react';
 
 export function useGeolocation() {
   const [location, setLocation] = useState<{
-    errorMessage: string;
     isLoading: boolean;
+    errorMessage: string;
     coords?: {
       latitude: number;
       longitude: number;
     };
-  }>({ errorMessage: '', isLoading: false, coords: undefined });
+  }>({ isLoading: false, errorMessage: '', coords: undefined });
 
   // only success
   const handleSuccess = useCallback((position: GeolocationPosition) => {
     const { latitude, longitude } = position.coords;
     setLocation({
-      errorMessage: '',
       isLoading: false,
+      errorMessage: '',
       coords: { latitude, longitude },
     });
   }, []);
@@ -23,8 +23,8 @@ export function useGeolocation() {
   // only failure
   const handleError = useCallback((positionError: GeolocationPositionError) => {
     setLocation({
-      errorMessage: positionError.message,
       isLoading: false,
+      errorMessage: positionError.message,
       coords: undefined,
     });
   }, []);
@@ -41,8 +41,8 @@ export function useGeolocation() {
   useEffect(() => {
     if (!navigator.geolocation) {
       setLocation({
-        errorMessage: 'no navigator',
         isLoading: false,
+        errorMessage: 'no navigator',
         coords: undefined,
       });
     }
