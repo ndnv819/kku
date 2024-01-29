@@ -1,22 +1,22 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
+
+interface Geolocation {
+  isLoading: boolean;
+  error?: GeolocationPositionError;
+  data?: GeolocationPosition;
+}
 
 export function useGeolocation() {
-  const [location, setLocation] = useState<{
-    isLoading: boolean;
-    errorMessage: string;
-    coords?: {
-      latitude: number;
-      longitude: number;
-    };
-  }>({ isLoading: false, errorMessage: '', coords: undefined });
+  const [location, setLocation] = useState<Geolocation>({
+    isLoading: false,
+  });
 
   // only success
   const handleSuccess = useCallback((position: GeolocationPosition) => {
-    const { latitude, longitude } = position.coords;
     setLocation({
       isLoading: false,
-      errorMessage: '',
-      coords: { latitude, longitude },
+      error: undefined,
+      data: position,
     });
   }, []);
 
@@ -24,13 +24,13 @@ export function useGeolocation() {
   const handleError = useCallback((positionError: GeolocationPositionError) => {
     setLocation({
       isLoading: false,
-      errorMessage: positionError.message,
-      coords: undefined,
+      error: positionError,
+      data: undefined,
     });
   }, []);
 
   // only request
-  const handleCurrentPosition = useCallback(() => {
+  const getCurrentPosition = useCallback(() => {
     setLocation((prevLocation) => ({
       ...prevLocation,
       isLoading: true,
@@ -38,19 +38,8 @@ export function useGeolocation() {
     navigator.geolocation.getCurrentPosition(handleSuccess, handleError);
   }, []);
 
-  useEffect(() => {
-    if (!navigator.geolocation) {
-      setLocation({
-        isLoading: false,
-        errorMessage: 'no navigator',
-        coords: undefined,
-      });
-    }
-
-    handleCurrentPosition();
-  }, [handleCurrentPosition]);
-
   return {
     location,
+    getCurrentPosition,
   };
 }
