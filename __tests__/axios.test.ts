@@ -1,46 +1,83 @@
-import { instance, requestGet } from '@infrastructure/axios';
+import {
+  instance,
+  requestDelete,
+  requestGet,
+  requestPost,
+  requestPut,
+} from '@infrastructure/axios';
 import MockAdapter from 'axios-mock-adapter';
 
-interface GetTest {
+interface TodoType {
   userId: number;
-  id: number;
+  id?: number;
   title: string;
   completed: boolean;
 }
 
 describe('[Network]', () => {
-  // global
   let mock: MockAdapter;
 
-  // beforeAll, describe, afterAll 순서 보장 가능
-  beforeAll(() => {
+  beforeEach(() => {
     mock = new MockAdapter(instance);
   });
 
-  // nested describe
-  describe('[Network] 1. request get', () => {
-    // mocking
-    test('Get 데이터 받아오기', async () => {
-      // 내가 원하는 res값 생성
-      const data: GetTest = {
+  describe('[Request] GET', () => {
+    test('mocking data를 주입해서 requestGet이 올바르게 작동하는지 확인', async () => {
+      const data: TodoType = {
         userId: 1,
         id: 1,
         title: 'title',
         completed: false,
       };
-      // 가상의 get
+
       mock.onGet('/todos/1').reply(200, data);
-      //
+
       const res = await requestGet('/todos/1');
       expect(res).toEqual(data);
     });
   });
 
-  // mocking test가 끝나면 메모리에서 빠져야 하니까 restore
-  afterAll(() => {
-    mock.restore();
+  describe('[Request] POST', () => {
+    test('mocking data를 주입해서 requestPost가 올바르게 작동하는지 확인', async () => {
+      const data: TodoType = {
+        userId: 1,
+        title: 'post test',
+        completed: true,
+      };
+
+      mock.onPost('/todos').reply(200, data);
+
+      const res = await requestPost('/todos', data);
+      expect(res).toEqual(data);
+    });
   });
 
-  // TODO:: post, put ,delete 추가
-  // TODO:: fresh하게 갈려면 beforeEach, afterEach 사용
+  describe('[Request] PUT', () => {
+    test('mocking data를 주입해서 requestPut이 올바르게 작동하는지 확인', async () => {
+      const data: TodoType = {
+        userId: 1,
+        id: 1,
+        title: 'put test',
+        completed: true,
+      };
+
+      mock.onPut('/todos').reply(200, data);
+
+      const res = await requestPut('/todos', data);
+      expect(res).toEqual(data);
+    });
+  });
+
+  describe('[Request] DELETE', () => {
+    test('mocking data를 주입해서 requestDelete가 올바르게 작동하는지 확인', async () => {
+      mock.onDelete('/todos/1').reply(200, {});
+
+      const res = await requestDelete('/todos/1');
+      expect(res).toEqual({});
+    });
+  });
+
+  afterEach(() => {
+    mock.restore();
+  });
 });
