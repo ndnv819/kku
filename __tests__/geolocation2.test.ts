@@ -1,4 +1,4 @@
-import { useGeolocation } from '@application/hooks/location';
+import { useGeolocation } from '@application/hooks/location/useGeolocation';
 import { act, renderHook } from '@testing-library/react';
 
 describe('[Hooks] useGeolocation', () => {

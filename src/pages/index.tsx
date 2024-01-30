@@ -1,18 +1,12 @@
 import { useQuery } from '@apollo/client';
-import { useGeolocation } from '@application/hooks/location';
 import { Button } from '@presentation/components/atoms/button';
 import { NaverMap } from '@presentation/components/atoms/naverMap';
 import { Typography } from '@presentation/components/atoms/typography';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { GetShopsDocument, GetShopsQuery } from 'src/generated/graphql';
 
 export default function Home() {
   const { data } = useQuery<GetShopsQuery>(GetShopsDocument);
-  const { location } = useGeolocation();
-
-  useEffect(() => {
-    console.log(location);
-  }, [location]);
 
   const onChangeTheme = useCallback((): void => {
     document.documentElement.classList.toggle('dark');
