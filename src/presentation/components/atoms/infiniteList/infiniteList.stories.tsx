@@ -3,7 +3,7 @@
 import { faker } from '@faker-js/faker'; // Adjust the import according to your project structure
 import { ListTypeProps } from '@presentation/components/atoms/verticalList';
 import { Meta, StoryObj } from '@storybook/react';
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { InfiniteList, type InfiniteListProps } from './index';
 
@@ -28,7 +28,7 @@ function createMockData(): User {
 const users: User[] = faker.helpers.multiple(createMockData, { count: 100 });
 
 function RowRenderer(props: ListTypeProps<User>) {
-  const { item, style } = props;
+  const { index, item, style } = props;
 
   return (
     <div
@@ -41,6 +41,7 @@ function RowRenderer(props: ListTypeProps<User>) {
         ...style,
       }}
     >
+      <h3 style={{ marginRight: 16 }}>{index + 1}</h3>
       <img
         src={item.avatar}
         alt={item.username}
@@ -62,12 +63,19 @@ const InfiniteListComponent = (args: InfiniteListProps<User>): JSX.Element => {
   const fetchNextPage = async (): Promise<void> => {
     setTimeout(() => {
       const moreData = users.slice(data.length, data.length + 30);
-      setData([...data, ...moreData]);
-      if (data.length >= users.length - 30) {
-        setHasNextPage(false);
-      }
+      setData((prevData) => [...prevData, ...moreData]);
+      // if (data.length >= users.length - 30) {
+      //   // if문에 걸리지 않음
+      //   setHasNextPage(false); // 값이 false로 업데이트 되지 않음 -> useEffect로 분리
+      // }
     }, 1000);
   };
+
+  useEffect(() => {
+    if (data.length >= users.length - 30) {
+      setHasNextPage(false);
+    }
+  }, [data, users]);
 
   return (
     <InfiniteList<User>
@@ -76,7 +84,7 @@ const InfiniteListComponent = (args: InfiniteListProps<User>): JSX.Element => {
       hasNextPage={hasNextPage}
       isFetchingNextPage={false}
       fetchNextPage={fetchNextPage}
-      rowRenderer={RowRenderer}
+      rowComponent={RowRenderer}
     />
   );
 };
@@ -99,8 +107,8 @@ type Story = StoryObj<typeof InfiniteListComponent>;
 export const Default: Story = {
   args: {
     rowHeight: 100,
-    emptyRenderer: () => <div>No items available.</div>,
-    bottomLoaderRender: () => <div>Loading more...</div>,
+    emptyComponent: () => <div>No items available.</div>,
+    bottomLoaderComponent: () => <div>Loading more...</div>,
   },
   render: InfiniteListComponent,
 };
@@ -108,8 +116,8 @@ export const Default: Story = {
 export const RowHeight200: Story = {
   args: {
     rowHeight: 200,
-    emptyRenderer: () => <div>No items available.</div>,
-    bottomLoaderRender: () => <div>Loading more...</div>,
+    emptyComponent: () => <div>No items available.</div>,
+    bottomLoaderComponent: () => <div>Loading more...</div>,
   },
   render: InfiniteListComponent,
 };
@@ -122,8 +130,8 @@ export const Empty: Story = {
     fetchNextPage: () => {},
     rowRenderer: RowRenderer,
     rowHeight: 100,
-    emptyRenderer: () => <div>No items available.</div>,
-    bottomLoaderRender: () => <div>Loading more...</div>,
+    emptyComponent: () => <div>No items available.</div>,
+    bottomLoaderComponent: () => <div>Loading more...</div>,
   },
   render: InfiniteListComponent,
 };
