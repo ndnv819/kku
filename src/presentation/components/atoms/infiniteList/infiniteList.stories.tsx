@@ -26,7 +26,7 @@ function createMockData(): User {
 
 const users: User[] = faker.helpers.multiple(createMockData, { count: 100 });
 
-function RowComponent(props: InfiniteListRowType<User>) {
+function RowComponent(props: InfiniteListRowType<User>): JSX.Element {
   const { rowIndex, item, style } = props;
 
   return (
@@ -63,8 +63,7 @@ const InfiniteListComponent = (args: InfiniteListProps<User>): JSX.Element => {
     setTimeout(() => {
       const moreData = users.slice(data.length, data.length + 30);
       setData((prevData) => [...prevData, ...moreData]);
-      // NOTE:: bottom loader를 확인하기 위해서 20초로 늘림
-    }, 20000);
+    }, 5000);
   };
 
   useEffect(() => {
@@ -85,7 +84,6 @@ const InfiniteListComponent = (args: InfiniteListProps<User>): JSX.Element => {
   );
 };
 
-// 1. MetaData
 export default {
   title: 'Atom/InfiniteList',
   component: InfiniteListComponent,
@@ -103,10 +101,6 @@ type Story = StoryObj<typeof InfiniteListComponent>;
 export const Default: Story = {
   args: {
     rowHeight: 100,
-    emptyComponent: () => <div>No items available.</div>,
-    bottomLoaderComponent: () => (
-      <div style={{ textAlign: 'center', width: '100%' }}>Loading more...</div>
-    ),
   },
   render: InfiniteListComponent,
 };
@@ -114,8 +108,16 @@ export const Default: Story = {
 export const RowHeight200: Story = {
   args: {
     rowHeight: 200,
-    emptyComponent: () => <div>No items available.</div>,
-    bottomLoaderComponent: () => <div>Loading more...</div>,
+  },
+  render: InfiniteListComponent,
+};
+
+export const CustomBottomLoader: Story = {
+  args: {
+    rowHeight: 100,
+    bottomLoaderComponent: () => (
+      <div style={{ textAlign: 'center', marginTop: 20 }}>Loading more...</div>
+    ),
   },
   render: InfiniteListComponent,
 };
@@ -128,8 +130,21 @@ export const Empty: Story = {
     fetchNextPage: () => {},
     rowComponent: RowComponent,
     rowHeight: 100,
-    emptyComponent: () => <div>No items available.</div>,
-    bottomLoaderComponent: () => <div>Loading more...</div>,
+  },
+  render: InfiniteListComponent,
+};
+
+export const CustomEmptyComponent: Story = {
+  args: {
+    items: [],
+    hasNextPage: false,
+    isFetchingNextPage: false,
+    fetchNextPage: () => {},
+    rowComponent: RowComponent,
+    rowHeight: 100,
+    emptyComponent: () => (
+      <div style={{ textAlign: 'center' }}>No items available.</div>
+    ),
   },
   render: InfiniteListComponent,
 };
