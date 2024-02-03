@@ -5,9 +5,10 @@ export function DefaultLoader(): JSX.Element {
         display: 'flex',
         alignItems: 'center',
         backgroundColor: 'black',
+        width: '100%',
       }}
     >
-      <p style={{ color: 'white' }}>loading...</p>
+      <p style={{ color: 'red', fontSize: 30 }}>loading...</p>
     </div>
   );
 }

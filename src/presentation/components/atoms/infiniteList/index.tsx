@@ -1,4 +1,4 @@
-import { ComponentType, CSSProperties, useCallback, useMemo } from 'react';
+import { ComponentType, useCallback, useMemo } from 'react';
 import {
   AutoSizer,
   Index,
@@ -8,24 +8,22 @@ import {
   WindowScroller,
 } from 'react-virtualized';
 
-import { EmptyView } from '../emptyView';
 import { DefaultLoader } from '../loader';
 
-export interface ListTypeProps<T> {
-  index: number;
+export interface InfiniteListRowType<T> {
+  rowIndex: number;
+  style: React.CSSProperties;
   item: T;
-  style: CSSProperties;
 }
 
 export interface InfiniteListProps<T> {
   data: T[];
-  totalElements: number;
-  rowHeight?: number;
-  rowComponent: ComponentType<ListTypeProps<T>>;
   emptyComponent?: ComponentType;
+  rowComponent: ComponentType<InfiniteListRowType<T>>;
   overscanRowCount?: number;
+  rowHeight?: number;
   // for react-query
-  hasNextPage?: boolean;
+  hasNextPage: boolean;
   isFetchingNextPage: boolean;
   fetchNextPage: () => Promise<any>;
   bottomLoaderComponent?: ComponentType;
@@ -33,69 +31,76 @@ export interface InfiniteListProps<T> {
 
 export function InfiniteList<T>({
   data,
-  totalElements, // 추가하면 좋은 속성
-  rowHeight = 100,
-  rowComponent: RowComponent,
   emptyComponent: EmptyComponent,
-  overscanRowCount = 0,
+  rowComponent: RowComponent,
+  overscanRowCount = 10,
+  rowHeight = 100,
   // for react-query
   hasNextPage,
   isFetchingNextPage,
   fetchNextPage,
   bottomLoaderComponent: BottomLoaderComponent,
-}: InfiniteListProps<T>) {
+}: InfiniteListProps<T>): JSX.Element {
+  // 1. include loader height within the list with +1
   const rowCount = useMemo(() => {
     return hasNextPage ? data.length + 1 : data.length;
   }, [data, hasNextPage]);
 
-  const isRowLoaded = useCallback(
-    ({ index }: Index): boolean => {
-      return !!data[index];
-    },
-    [data],
-  );
+  // 2. render empty
+  const noRowsRenderer = useCallback((): JSX.Element => {
+    if (EmptyComponent) {
+      return <EmptyComponent />;
+    }
+    return <p>no data</p>;
+  }, [EmptyComponent]);
 
-  const onBottomLoaderRenderer = useCallback((): JSX.Element => {
+  // 3. render bottom loader
+  const bottomLoaderRenderer = useCallback(() => {
     if (BottomLoaderComponent) {
       return <BottomLoaderComponent />;
     }
     return <DefaultLoader />;
   }, [BottomLoaderComponent]);
 
-  const onRowRenderer = useCallback(
+  // 3. render row or loader
+  const rowRenderer = useCallback(
     (props: ListRowProps): JSX.Element => {
       if (data[props.index] === undefined) {
-        return onBottomLoaderRenderer();
+        return bottomLoaderRenderer();
       }
       return (
         <RowComponent
-          key={props.index}
-          index={props.index}
-          item={data[props.index]!}
+          key={props.key}
+          rowIndex={props.index}
           style={props.style}
+          item={data[props.index]}
         />
       );
     },
     [data],
   );
 
-  // eslint-disable-next-line consistent-return
-  const loadMoreRows = useCallback(() => {
-    if (!isFetchingNextPage && hasNextPage) {
+  // 3. load more
+  const loadMoreRows = useCallback((): Promise<any> => {
+    if (hasNextPage && !isFetchingNextPage) {
       return fetchNextPage();
     }
-  }, [isFetchingNextPage, hasNextPage]);
+    return () => {};
+  }, [hasNextPage, isFetchingNextPage]);
 
-  const onEmptyRenderer = useCallback((): JSX.Element => {
-    if (EmptyComponent) {
-      return <EmptyComponent />;
-    }
-    return <EmptyView />;
-  }, [EmptyComponent]);
+  // 4. check if row is rendered
+  const isRowLoaded = useCallback(
+    ({ index }: Index): boolean => {
+      // NOTE:: https://github.com/bvaughn/react-virtualized/blob/master/docs/creatingAnInfiniteLoadingList.md
+      // return !hasNextPage || index < data.length;
+      return !!data[index];
+    },
+    [data],
+  );
 
   return (
     <WindowScroller>
-      {({ height, isScrolling, scrollTop, onChildScroll }) => (
+      {({ height, isScrolling, onChildScroll, scrollTop }) => (
         <InfiniteLoader
           isRowLoaded={isRowLoaded}
           loadMoreRows={loadMoreRows}
@@ -112,12 +117,12 @@ export function InfiniteList<T>({
                   isScrolling={isScrolling}
                   scrollTop={scrollTop}
                   onScroll={onChildScroll}
+                  noRowsRenderer={noRowsRenderer}
                   onRowsRendered={onRowsRendered}
-                  rowCount={rowCount}
-                  rowHeight={rowHeight}
-                  rowRenderer={onRowRenderer}
-                  noRowsRenderer={onEmptyRenderer}
+                  rowRenderer={rowRenderer}
                   overscanRowCount={overscanRowCount}
+                  rowHeight={rowHeight}
+                  rowCount={rowCount}
                 />
               )}
             </AutoSizer>
@@ -127,5 +132,3 @@ export function InfiniteList<T>({
     </WindowScroller>
   );
 }
-
-InfiniteList.displayName = InfiniteList;

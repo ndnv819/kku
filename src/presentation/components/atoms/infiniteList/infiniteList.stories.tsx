@@ -1,11 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable import/no-extraneous-dependencies */
 import { faker } from '@faker-js/faker'; // Adjust the import according to your project structure
-import { ListTypeProps } from '@presentation/components/atoms/verticalList';
 import { Meta, StoryObj } from '@storybook/react';
 import { useEffect, useState } from 'react';
 
-import { InfiniteList, type InfiniteListProps } from './index';
+import { InfiniteList, InfiniteListProps, InfiniteListRowType } from './index';
 
 interface User {
   id: string;
@@ -27,8 +26,8 @@ function createMockData(): User {
 
 const users: User[] = faker.helpers.multiple(createMockData, { count: 100 });
 
-function RowRenderer(props: ListTypeProps<User>) {
-  const { index, item, style } = props;
+function RowComponent(props: InfiniteListRowType<User>) {
+  const { rowIndex, item, style } = props;
 
   return (
     <div
@@ -41,7 +40,7 @@ function RowRenderer(props: ListTypeProps<User>) {
         ...style,
       }}
     >
-      <h3 style={{ marginRight: 16 }}>{index + 1}</h3>
+      <h3 style={{ marginRight: 16 }}>{rowIndex + 1}</h3>
       <img
         src={item.avatar}
         alt={item.username}
@@ -64,11 +63,8 @@ const InfiniteListComponent = (args: InfiniteListProps<User>): JSX.Element => {
     setTimeout(() => {
       const moreData = users.slice(data.length, data.length + 30);
       setData((prevData) => [...prevData, ...moreData]);
-      // if (data.length >= users.length - 30) {
-      //   // if문에 걸리지 않음
-      //   setHasNextPage(false); // 값이 false로 업데이트 되지 않음 -> useEffect로 분리
-      // }
-    }, 1000);
+      // NOTE:: bottom loader를 확인하기 위해서 20초로 늘림
+    }, 20000);
   };
 
   useEffect(() => {
@@ -84,7 +80,7 @@ const InfiniteListComponent = (args: InfiniteListProps<User>): JSX.Element => {
       hasNextPage={hasNextPage}
       isFetchingNextPage={false}
       fetchNextPage={fetchNextPage}
-      rowComponent={RowRenderer}
+      rowComponent={RowComponent}
     />
   );
 };
@@ -108,7 +104,9 @@ export const Default: Story = {
   args: {
     rowHeight: 100,
     emptyComponent: () => <div>No items available.</div>,
-    bottomLoaderComponent: () => <div>Loading more...</div>,
+    bottomLoaderComponent: () => (
+      <div style={{ textAlign: 'center', width: '100%' }}>Loading more...</div>
+    ),
   },
   render: InfiniteListComponent,
 };
@@ -128,7 +126,7 @@ export const Empty: Story = {
     hasNextPage: false,
     isFetchingNextPage: false,
     fetchNextPage: () => {},
-    rowRenderer: RowRenderer,
+    rowComponent: RowComponent,
     rowHeight: 100,
     emptyComponent: () => <div>No items available.</div>,
     bottomLoaderComponent: () => <div>Loading more...</div>,
