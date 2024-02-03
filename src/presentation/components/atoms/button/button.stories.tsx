@@ -28,7 +28,7 @@ export default {
 } as Meta<typeof Button>;
 
 const Component = (args: ButtonProps): JSX.Element => {
-  return <Button {...args}>클릭하기</Button>;
+  return <Button {...args} />;
 };
 type Story = StoryObj<typeof Button>;
 
@@ -37,6 +37,17 @@ export const Default: Story = {
     status: 'primary',
     appearances: 'filled',
     sizes: 'medium',
+    children: <p>CLICK</p>,
+  },
+  render: Component,
+};
+
+export const LongText: Story = {
+  args: {
+    status: 'primary',
+    appearances: 'filled',
+    sizes: 'medium',
+    children: <p>후기 작성하고 100톨 받기</p>,
   },
   render: Component,
 };
