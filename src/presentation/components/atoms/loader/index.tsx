@@ -1,14 +1,15 @@
-export function DefaultLoader(): JSX.Element {
+import styles from './styles.module.scss';
+import { DefaultLoaderProps } from './types';
+
+export function DefaultLoader({ key, style }: DefaultLoaderProps): JSX.Element {
   return (
     <div
+      key={key}
       style={{
-        display: 'flex',
-        alignItems: 'center',
-        backgroundColor: 'black',
-        width: '100%',
+        ...style,
       }}
     >
-      <p style={{ color: 'red', fontSize: 30 }}>loading...</p>
+      <span className={styles.loader} />
     </div>
   );
 }
