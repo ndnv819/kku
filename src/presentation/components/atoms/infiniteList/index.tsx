@@ -41,12 +41,10 @@ export function InfiniteList<T>({
   fetchNextPage,
   bottomLoaderComponent: BottomLoaderComponent,
 }: InfiniteListProps<T>): JSX.Element {
-  // 1. include loader height within the list with +1
   const rowCount = useMemo(() => {
     return hasNextPage ? data.length + 1 : data.length;
   }, [data, hasNextPage]);
 
-  // 2. render empty
   const noRowsRenderer = useCallback((): JSX.Element => {
     if (EmptyComponent) {
       return <EmptyComponent />;
@@ -54,19 +52,35 @@ export function InfiniteList<T>({
     return <p>no data</p>;
   }, [EmptyComponent]);
 
-  // 3. render bottom loader
-  const bottomLoaderRenderer = useCallback(() => {
-    if (BottomLoaderComponent) {
-      return <BottomLoaderComponent />;
-    }
-    return <DefaultLoader />;
-  }, [BottomLoaderComponent]);
+  // NOTE:: ListRowProps을 loader component에게도 전달해줘야 List 내부에서 위치를 잡을 수 있음
+  const bottomLoaderRenderer = useCallback(
+    (props: ListRowProps): JSX.Element => {
+      if (BottomLoaderComponent) {
+        return (
+          <div key={props.key} style={{ ...props.style }}>
+            <BottomLoaderComponent />
+          </div>
+        );
+      }
+      return (
+        <DefaultLoader
+          key={props.key}
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            ...props.style,
+          }}
+        />
+      );
+    },
+    [BottomLoaderComponent, data],
+  );
 
-  // 3. render row or loader
   const rowRenderer = useCallback(
     (props: ListRowProps): JSX.Element => {
       if (data[props.index] === undefined) {
-        return bottomLoaderRenderer();
+        return bottomLoaderRenderer(props);
       }
       return (
         <RowComponent
@@ -80,7 +94,6 @@ export function InfiniteList<T>({
     [data],
   );
 
-  // 3. load more
   const loadMoreRows = useCallback((): Promise<any> => {
     if (hasNextPage && !isFetchingNextPage) {
       return fetchNextPage();
@@ -88,11 +101,8 @@ export function InfiniteList<T>({
     return () => {};
   }, [hasNextPage, isFetchingNextPage]);
 
-  // 4. check if row is rendered
   const isRowLoaded = useCallback(
     ({ index }: Index): boolean => {
-      // NOTE:: https://github.com/bvaughn/react-virtualized/blob/master/docs/creatingAnInfiniteLoadingList.md
-      // return !hasNextPage || index < data.length;
       return !!data[index];
     },
     [data],
