@@ -1,4 +1,4 @@
-import {
+import type {
   PolymorphicComponentProps,
   PolymorphicRef,
 } from '@presentation/components/dynamic_tag_types';

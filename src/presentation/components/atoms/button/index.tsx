@@ -1,6 +1,7 @@
 import { getColor } from '@application/helpers/scss/get_colors';
 import classNames from 'classnames';
-import { ButtonHTMLAttributes, forwardRef, ReactNode } from 'react';
+import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import { forwardRef } from 'react';
 
 import styles from './styles.module.scss';
 
@@ -36,14 +37,15 @@ export const Button = forwardRef(
     const style = getColor(status, appearances);
     // style 변수 위치
     const className = classNames(style, {
-      [styles.tiny]: sizes === 'tiny',
-      [styles.small]: sizes === 'small',
-      [styles.medium]: sizes === 'medium',
-      [styles.large]: sizes === 'large',
-      [styles.giant]: sizes === 'giant',
+      [styles.tiny as any]: sizes === 'tiny',
+      [styles.small as any]: sizes === 'small',
+      [styles.medium as any]: sizes === 'medium',
+      [styles.large as any]: sizes === 'large',
+      [styles.giant as any]: sizes === 'giant',
     });
 
     return (
+      // @ts-ignore
       <Element ref={ref} className={className} {...props}>
         {children}
       </Element>

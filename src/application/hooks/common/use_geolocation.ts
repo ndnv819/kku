@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 interface GeolocationState {
   isLoading: boolean;
@@ -14,11 +14,8 @@ export function useGeolocation() {
   });
   const [watchId, setWatchId] = useState<number | undefined>(undefined);
 
-  const isGeolocationAvailable = useMemo((): boolean => {
-    // eslint-disable-next-line
-    return (
-      typeof navigator !== 'undefined' && navigator.geolocation !== undefined
-    );
+  const isGeolocationAvailable = useCallback((): boolean => {
+    return window && window.navigator?.geolocation !== undefined;
   }, []);
 
   const updateGeolocationData = useCallback(
@@ -41,16 +38,23 @@ export function useGeolocation() {
   );
 
   const getCurrentPosition = useCallback((): void => {
+    if (!window || !window.navigator) {
+      return;
+    }
+
     setLocation({ isLoading: true });
-    navigator.geolocation.getCurrentPosition(
+    window.navigator.geolocation.getCurrentPosition(
       updateGeolocationData,
       updateGeolocationError,
     );
   }, []);
 
   const watchPosition = useCallback((): void => {
+    if (!window || !window.navigator) {
+      return;
+    }
     setLocation({ isLoading: true });
-    const id = navigator.geolocation.watchPosition(
+    const id = window.navigator.geolocation.watchPosition(
       updateGeolocationData,
       updateGeolocationError,
     );
@@ -58,16 +62,22 @@ export function useGeolocation() {
   }, []);
 
   const clearWatch = useCallback((): void => {
+    if (!window || !window.navigator) {
+      return;
+    }
     if (!watchId) {
       return;
     }
 
-    navigator.geolocation.clearWatch(watchId);
+    window.navigator.geolocation.clearWatch(watchId);
     setWatchId(undefined);
   }, [watchId]);
 
   useEffect(() => {
-    if (!isGeolocationAvailable) {
+    if (!window || !window.navigator) {
+      return () => {};
+    }
+    if (!isGeolocationAvailable()) {
       updateGeolocationError(geolocationNotSupportedError);
       return () => {};
     }

@@ -12,7 +12,6 @@
     "at-rule-no-unknown": null,
     "scss/at-rule-no-unknown": true
   },
-
   "reportDescriptionlessDisables": true,
   "reportInvalidScopeDisables": true,
   "reportNeedlessDisables": true

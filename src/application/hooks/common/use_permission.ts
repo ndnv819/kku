@@ -6,12 +6,15 @@ export function usePermission(permissionName: PermissionName) {
   >('prompt');
 
   useEffect(() => {
-    if (!navigator.permissions) {
+    if (!window.navigator) {
+      return;
+    }
+    if (!window.navigator.permissions) {
       setPermissionStatus('unsupported');
       return;
     }
 
-    navigator.permissions
+    window.navigator.permissions
       .query({ name: permissionName })
       .then((result) => {
         setPermissionStatus(result.state);

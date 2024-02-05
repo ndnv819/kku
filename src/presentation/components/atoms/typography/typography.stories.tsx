@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { _TypographyProps, Typography } from './index';
+import type { _TypographyProps } from './index';
+import { Typography } from './index';
 
 // MetaData 작성
 export default {
@@ -54,4 +55,3 @@ export const Primary: Story = {
   },
   render: Component,
 };
-

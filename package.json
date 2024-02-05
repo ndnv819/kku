@@ -13,7 +13,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "next dev -p 3000",
-    "build": "npm run generate && npm run lint:fix && next build",
+    "build": "npm run lint:fix && next build",
+    "build:withgraphql": "npm run generate && npm run lint:fix && next build",
     "build:analyze": "ANALYZE=true next build",
     "start": "next start",
     "lint": "stylelint --allow-empty-input \"**/*.{css,scss}\" && next lint",

@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper-future';
 
 import { StoreEnumZod } from '../constants';
-import { ShopFilterState, ShopTypeEnum } from './types';
+import type { ShopFilterState, ShopTypeEnum } from './types';
 
 const initialState: ShopFilterState = {
   type: '전체',

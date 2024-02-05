@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable import/no-extraneous-dependencies */
 import { faker } from '@faker-js/faker';
-import { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
-import { ListProps, ListTypeProps, VerticalList } from './index';
+import type { ListProps, ListTypeProps } from './index';
+import { VerticalList } from './index';
 
 interface User {
   id: string;

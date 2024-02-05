@@ -1,10 +1,10 @@
-import { ComponentType, useCallback, useMemo } from 'react';
+import type { ComponentType } from 'react';
+import { useCallback, useMemo } from 'react';
+import type { Index, ListRowProps } from 'react-virtualized';
 import {
   AutoSizer,
-  Index,
   InfiniteLoader,
   List,
-  ListRowProps,
   WindowScroller,
 } from 'react-virtualized';
 
@@ -26,7 +26,7 @@ export interface InfiniteListProps<T> {
   hasNextPage: boolean;
   isFetchingNextPage: boolean;
   fetchNextPage: () => Promise<any> | void;
-  bottomLoaderRender?: ComponentType;
+  bottomLoaderComponent?: ComponentType;
 }
 
 export function InfiniteList<T>({
@@ -45,7 +45,7 @@ export function InfiniteList<T>({
     return hasNextPage ? data.length + 1 : data.length;
   }, [data, hasNextPage]);
 
-  const noRowsRenderer = useCallback((): JSX.Element => {
+  const onEmptyRenderer = useCallback((): JSX.Element => {
     if (EmptyComponent) {
       return <EmptyComponent />;
     }
@@ -77,17 +77,18 @@ export function InfiniteList<T>({
     [BottomLoaderComponent, data],
   );
 
-  const rowRenderer = useCallback(
+  const onRowRenderer = useCallback(
     (props: ListRowProps): JSX.Element => {
-      if (data[props.index] === undefined) {
+      if (!data[props.index]) {
         return bottomLoaderRenderer(props);
       }
+
       return (
         <RowComponent
           key={props.key}
           rowIndex={props.index}
           style={props.style}
-          item={data[props.index]}
+          item={data[props.index]!}
         />
       );
     },
@@ -96,9 +97,11 @@ export function InfiniteList<T>({
 
   const loadMoreRows = useCallback((): Promise<any> => {
     if (hasNextPage && !isFetchingNextPage) {
+      // @ts-ignore
       return fetchNextPage();
     }
-    return () => {};
+    // @ts-ignore
+    return async () => {};
   }, [hasNextPage, isFetchingNextPage]);
 
   const isRowLoaded = useCallback(

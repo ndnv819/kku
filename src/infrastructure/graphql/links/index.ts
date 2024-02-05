@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-import { ApolloLink, HttpLink } from '@apollo/client';
+import type { ApolloLink } from '@apollo/client';
+import { HttpLink } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 import { sendError } from '@infrastructure/logger';
 

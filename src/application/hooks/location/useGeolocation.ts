@@ -31,11 +31,15 @@ export function useGeolocation() {
 
   // only request
   const getCurrentPosition = useCallback(() => {
+    if (!window.navigator) {
+      return;
+    }
+
     setLocation((prevLocation) => ({
       ...prevLocation,
       isLoading: true,
     }));
-    navigator.geolocation.getCurrentPosition(handleSuccess, handleError);
+    window.navigator.geolocation.getCurrentPosition(handleSuccess, handleError);
   }, []);
 
   return {

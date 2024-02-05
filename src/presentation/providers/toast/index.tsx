@@ -1,6 +1,6 @@
 import 'react-toastify/dist/ReactToastify.css';
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { ToastContainer } from 'react-toastify';
 
 export function ToastProvider({

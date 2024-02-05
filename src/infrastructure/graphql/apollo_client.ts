@@ -1,9 +1,5 @@
-import {
-  ApolloClient,
-  from,
-  InMemoryCache,
-  NormalizedCacheObject,
-} from '@apollo/client';
+import type { NormalizedCacheObject } from '@apollo/client';
+import { ApolloClient, from, InMemoryCache } from '@apollo/client';
 
 import { errorLink, httpLink } from './links';
 
