@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-export function usePermissions(name: PermissionName) {
+export function usePermission(name: PermissionName) {
   const [permissionState, setPermissionState] = useState<
     PermissionState | 'error'
   >();
