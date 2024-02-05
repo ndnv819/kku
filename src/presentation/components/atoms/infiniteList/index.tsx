@@ -26,10 +26,9 @@ export interface InfiniteListProps<T> {
   // react-query
   hasNextPage?: boolean;
   isFetchingNextPage: boolean;
-  fetchNextPage: () => Promise<any>;
+  fetchNextPage: () => Promise<any> | void;
   bottomLoaderRender?: ComponentType;
 }
-
 
 export function InfiniteList<T>({
   data,
@@ -43,7 +42,6 @@ export function InfiniteList<T>({
   fetchNextPage,
   bottomLoaderRender: LoaderComponent,
 }: InfiniteListProps<T>) {
-
   const rowCount = useMemo(() => {
     return data.length;
   }, [data]);
@@ -77,46 +75,43 @@ export function InfiniteList<T>({
   }, [LoaderComponent]);
 
   const isRowLoaded = useCallback(
-    ({index}: {index: number}): boolean => {
+    ({ index }: { index: number }): boolean => {
       return !!data[index];
     },
     [data],
   );
 
-
   return (
-    <>
-      <WindowScroller>
-        {({ height, isScrolling, scrollTop }) => (
-          <InfiniteLoader
-            isRowLoaded={isRowLoaded}
-            loadMoreRows={fetchNextPage}
-            rowCount={rowCount}
-          >
-            {({ onRowsRendered, registerChild }) => (
-              <AutoSizer disableHeight>
-                {({ width }) => (
-                  <List
-                    ref={registerChild}
-                    height={height}
-                    width={width}
-                    isScrolling={isScrolling}
-                    scrollTop={scrollTop}
-                    onRowsRendered={onRowsRendered}
-                    rowCount={rowCount}
-                    rowHeight={rowHeight}
-                    rowRenderer={onRowRenderer}
-                    noRowsRenderer={onEmptyRenderer}
-                    overscanRowCount={overscanRowCount}
-                  />
-                )}
-              </AutoSizer>
-            )}
-          </InfiniteLoader>
-        )}
-      </WindowScroller>
-      {isFetchingNextPage && onLoaderRenderer}
-    </>
+    <InfiniteLoader
+      isRowLoaded={isRowLoaded}
+      loadMoreRows={fetchNextPage}
+      rowCount={rowCount}
+    >
+      {({ onRowsRendered, registerChild }) => (
+        <WindowScroller>
+          {({ height, isScrolling, onChildScroll, scrollTop }) => (
+            <AutoSizer disableHeight>
+              {({ width }) => (
+                <List
+                  ref={registerChild}
+                  height={height}
+                  width={width}
+                  isScrolling={isScrolling}
+                  scrollTop={scrollTop}
+                  onRowsRendered={onRowsRendered}
+                  rowCount={rowCount}
+                  rowHeight={rowHeight}
+                  rowRenderer={onRowRenderer}
+                  noRowsRenderer={onEmptyRenderer}
+                  overscanRowCount={overscanRowCount}
+                  onScroll={onChildScroll}
+                />
+              )}
+            </AutoSizer>
+          )}
+        </WindowScroller>
+      )}
+    </InfiniteLoader>
   );
 }
 

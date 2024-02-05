@@ -15,7 +15,10 @@ export function useGeolocation() {
   const [watchId, setWatchId] = useState<number | undefined>(undefined);
 
   const isGeolocationAvailable = useMemo((): boolean => {
-    return navigator.geolocation !== undefined;
+    // eslint-disable-next-line
+    return (
+      typeof navigator !== 'undefined' && navigator.geolocation !== undefined
+    );
   }, []);
 
   const updateGeolocationData = useCallback(
@@ -27,7 +30,6 @@ export function useGeolocation() {
 
   const updateGeolocationError = useCallback(
     (newError: string | GeolocationPositionError): void => {
-      console.log(newError);
       setLocation({
         isLoading: false,
         // @ts-ignore; 'newError instanceof Erro' 구문이 GeolocationPositionError 체크를 해주지 않기때문에 발생하는 오류임

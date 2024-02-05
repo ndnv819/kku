@@ -1,20 +1,18 @@
-import { Container as MapDiv, Marker, NaverMap as Map } from 'react-naver-maps';
+import dynamic from 'next/dynamic';
+import type { JSX } from 'react';
+import { Suspense } from 'react';
 
-import { NaverMapProps } from './types';
+import type { NaverMapProps } from './types';
 
-export function NaverMap({
-  lat = 37.5666103,
-  lng = 126.9783882,
-}: NaverMapProps): JSX.Element {
+const DynamicNaverMapClient = dynamic(
+  () => import('./naver').then((mod) => mod.NaverMapClient),
+  { ssr: false },
+);
+
+export function NaverMap(props: NaverMapProps): JSX.Element {
   return (
-    <MapDiv
-      style={{
-        height: 400,
-      }}
-    >
-      <Map>
-        <Marker defaultPosition={{ lat, lng }} />
-      </Map>
-    </MapDiv>
+    <Suspense fallback={<div>Loading</div>}>
+      <DynamicNaverMapClient {...props} />
+    </Suspense>
   );
 }

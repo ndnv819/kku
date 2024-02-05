@@ -28,8 +28,8 @@ const config: Config = {
   coverageThreshold: {
     global: {
       branches: 0,
-      functions: 0,
       lines: 0,
+      functions: 0,
       statements: 0,
     },
   },
@@ -40,6 +40,7 @@ const config: Config = {
     '<rootDir>/tests/',
     '<rootDir>/__checks__/',
   ],
+  coveragePathIgnorePatterns: ['/node_modules/', '<rootDir>/src/presentation/'],
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
