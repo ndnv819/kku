@@ -101,6 +101,8 @@ type Story = StoryObj<typeof InfiniteListComponent>;
 export const Default: Story = {
   args: {
     rowHeight: 100,
+    emptyRenderer: () => <div>No items available.</div>,
+    bottomLoaderRender: () => <div>Loading more...</div>,
   },
   render: InfiniteListComponent,
 };
@@ -108,6 +110,8 @@ export const Default: Story = {
 export const RowHeight200: Story = {
   args: {
     rowHeight: 200,
+    emptyRenderer: () => <div>No items available.</div>,
+    bottomLoaderRender: () => <div>Loading more...</div>,
   },
   render: InfiniteListComponent,
 };

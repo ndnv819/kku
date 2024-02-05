@@ -29,6 +29,7 @@
     "prettier/prettier": "error",
     // type
     "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/no-explicit-any": "off",
     // import
     "import/no-unresolved": "error",

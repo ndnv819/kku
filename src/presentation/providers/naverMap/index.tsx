@@ -7,7 +7,7 @@ export function NaverMapProvider({
 }): JSX.Element {
   return (
     <NavermapsProvider
-      ncpClientId={process.env['NEXT_PUBLIC_NAVER_CLIENT_ID']!}
+      ncpClientId={process.env.NEXT_PUBLIC_NAVER_CLIENT_ID}
       submodules={['panorama']}
     >
       {children}

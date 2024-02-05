@@ -25,8 +25,8 @@ export interface InfiniteListProps<T> {
   // for react-query
   hasNextPage: boolean;
   isFetchingNextPage: boolean;
-  fetchNextPage: () => Promise<any>;
-  bottomLoaderComponent?: ComponentType;
+  fetchNextPage: () => Promise<any> | void;
+  bottomLoaderRender?: ComponentType;
 }
 
 export function InfiniteList<T>({
@@ -126,13 +126,13 @@ export function InfiniteList<T>({
                   width={width}
                   isScrolling={isScrolling}
                   scrollTop={scrollTop}
-                  onScroll={onChildScroll}
-                  noRowsRenderer={noRowsRenderer}
                   onRowsRendered={onRowsRendered}
-                  rowRenderer={rowRenderer}
-                  overscanRowCount={overscanRowCount}
-                  rowHeight={rowHeight}
                   rowCount={rowCount}
+                  rowHeight={rowHeight}
+                  rowRenderer={onRowRenderer}
+                  noRowsRenderer={onEmptyRenderer}
+                  overscanRowCount={overscanRowCount}
+                  onScroll={onChildScroll}
                 />
               )}
             </AutoSizer>

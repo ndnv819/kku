@@ -1,7 +1,7 @@
 import { useGeolocation } from '@application/hooks/common/use_geolocation';
 import { act, renderHook } from '@testing-library/react';
 
-describe('useGeolocation', () => {
+describe('[Hooks] useGeolocation', () => {
   // 테스트 환경은 브라우저가 아니기때문에 geolocation이 없음 따라서, mock 객체를 만들어줌
   const mockGeolocation = {
     getCurrentPosition: jest.fn(),

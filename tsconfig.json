@@ -10,6 +10,23 @@
     "jsx": "preserve",
     "incremental": true,
     "noEmit": true,
+    // Strictest
+    "strict": true,
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "isolatedModules": true,
+    "checkJs": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    // Root
     "baseUrl": ".",
     "plugins": [{ "name": "typescript-plugin-css-modules" }],
     "typeRoots": ["./node_modules/@types", "./types"],
@@ -21,5 +38,5 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "next.config.js"]
 }
