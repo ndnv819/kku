@@ -5,7 +5,7 @@ interface GetTest {
   userId: number;
   id: number;
   title: string;
-  completed: bolean;
+  completed: boolean;
 }
 
 describe('[Infrastructure] Network', () => {

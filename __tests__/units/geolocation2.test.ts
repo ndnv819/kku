@@ -1,4 +1,4 @@
-import { useGeolocation } from '@application/hooks/location/useGeolocation';
+import { useGeolocation } from '@application/hooks/location/use_geolocation';
 import { act, renderHook } from '@testing-library/react';
 
 describe('[Hooks] useGeolocation', () => {
@@ -44,7 +44,7 @@ describe('[Hooks] useGeolocation', () => {
     const errorMessage = 'denied geolocation';
     // getCurrentPosition의 스펙에 맞춰 콜백 함수 작성
     mockGeolocation.getCurrentPosition.mockImplementation(
-      (successCallback, errorCallback) => {
+      (_successCallback, errorCallback) => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         errorCallback(errorMessage);
       },
