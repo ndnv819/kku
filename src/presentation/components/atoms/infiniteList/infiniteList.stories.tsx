@@ -1,11 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable import/no-extraneous-dependencies */
-import { faker } from '@faker-js/faker';
-import { ListTypeProps } from '@presentation/components/atoms/verticalList';
+import { faker } from '@faker-js/faker'; // Adjust the import according to your project structure
 import { Meta, StoryObj } from '@storybook/react';
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { InfiniteList, type InfiniteListProps } from './index';
+import { InfiniteList, InfiniteListProps, InfiniteListRowType } from './index';
 
 interface User {
   id: string;
@@ -27,8 +26,8 @@ function createMockData(): User {
 
 const users: User[] = faker.helpers.multiple(createMockData, { count: 100 });
 
-function RowRenderer(props: ListTypeProps<User>) {
-  const { item, style } = props;
+function RowComponent(props: InfiniteListRowType<User>): JSX.Element {
+  const { rowIndex, item, style } = props;
 
   return (
     <div
@@ -41,6 +40,7 @@ function RowRenderer(props: ListTypeProps<User>) {
         ...style,
       }}
     >
+      <h3 style={{ marginRight: 16 }}>{rowIndex + 1}</h3>
       <img
         src={item.avatar}
         alt={item.username}
@@ -57,35 +57,33 @@ function RowRenderer(props: ListTypeProps<User>) {
 const InfiniteListComponent = (args: InfiniteListProps<User>): JSX.Element => {
   const [data, setData] = useState<User[]>(users.slice(0, 30));
   const [hasNextPage, setHasNextPage] = useState(true);
-  const [isFetching, setIsFetching] = useState(false);
 
-  const fetchNextPage = () => {
-    if (!isFetching) {
-      setIsFetching(true);
-      setTimeout(() => {
-        const moreData = users.slice(data.length, data.length + 30);
-        setData([...data, ...moreData]);
-        if (data.length >= users.length - 30) {
-          setHasNextPage(false);
-        }
-        setIsFetching(false);
-      }, 1000);
-    }
+  // eslint-disable-next-line @typescript-eslint/require-await
+  const fetchNextPage = async (): Promise<void> => {
+    setTimeout(() => {
+      const moreData = users.slice(data.length, data.length + 30);
+      setData((prevData) => [...prevData, ...moreData]);
+    }, 5000);
   };
+
+  useEffect(() => {
+    if (data.length >= users.length - 30) {
+      setHasNextPage(false);
+    }
+  }, [data, users]);
 
   return (
     <InfiniteList<User>
       {...args}
       data={data}
       hasNextPage={hasNextPage}
-      isFetchingNextPage={isFetching}
+      isFetchingNextPage={false}
       fetchNextPage={fetchNextPage}
-      rowRenderer={RowRenderer}
+      rowComponent={RowComponent}
     />
   );
 };
 
-// 1. MetaData
 export default {
   title: 'Atom/InfiniteList',
   component: InfiniteListComponent,
@@ -118,16 +116,39 @@ export const RowHeight200: Story = {
   render: InfiniteListComponent,
 };
 
+export const CustomBottomLoader: Story = {
+  args: {
+    rowHeight: 100,
+    bottomLoaderComponent: () => (
+      <div style={{ textAlign: 'center', marginTop: 20 }}>Loading more...</div>
+    ),
+  },
+  render: InfiniteListComponent,
+};
+
 export const Empty: Story = {
   args: {
-    data: [],
+    items: [],
     hasNextPage: false,
     isFetchingNextPage: false,
     fetchNextPage: () => {},
-    rowRenderer: RowRenderer,
+    rowComponent: RowComponent,
     rowHeight: 100,
-    emptyRenderer: () => <div>No items available.</div>,
-    bottomLoaderRender: () => <div>Loading more...</div>,
+  },
+  render: InfiniteListComponent,
+};
+
+export const CustomEmptyComponent: Story = {
+  args: {
+    items: [],
+    hasNextPage: false,
+    isFetchingNextPage: false,
+    fetchNextPage: () => {},
+    rowComponent: RowComponent,
+    rowHeight: 100,
+    emptyComponent: () => (
+      <div style={{ textAlign: 'center' }}>No items available.</div>
+    ),
   },
   render: InfiniteListComponent,
 };

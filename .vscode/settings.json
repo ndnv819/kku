@@ -9,7 +9,8 @@
   "editor.codeActionsOnSave": [
     "source.addMissingImports",
     "source.fixAll.eslint",
-    "source.fixAll.stylelint"
+    "source.fixAll.stylelint",
+    "source.organizeImports"
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,

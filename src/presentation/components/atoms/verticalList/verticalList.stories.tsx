@@ -23,7 +23,7 @@ function createMockData(): User {
   };
 }
 
-const users: User[] = faker.helpers.multiple(createMockData, {count: 100});
+const users: User[] = faker.helpers.multiple(createMockData, { count: 100 });
 
 function RowRenderer(props: ListTypeProps<User>) {
   const { item, style } = props;
