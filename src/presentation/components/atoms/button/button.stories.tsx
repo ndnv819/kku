@@ -1,6 +1,7 @@
-import { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
-import { Button, ButtonProps } from './index';
+import type { ButtonProps } from './index';
+import { Button } from './index';
 
 export default {
   title: 'Atom/Button',

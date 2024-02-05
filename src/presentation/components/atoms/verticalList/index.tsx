@@ -1,10 +1,7 @@
-import { ComponentType, CSSProperties, useCallback, useMemo } from 'react';
-import {
-  AutoSizer,
-  List,
-  ListRowProps,
-  WindowScroller,
-} from 'react-virtualized';
+import type { ComponentType, CSSProperties } from 'react';
+import { useCallback, useMemo } from 'react';
+import type { ListRowProps } from 'react-virtualized';
+import { AutoSizer, List, WindowScroller } from 'react-virtualized';
 
 import { EmptyView } from '../emptyView';
 
@@ -26,7 +23,7 @@ export interface ListProps<T> {
 // vertical
 export function VerticalList<T>({
   data,
-  totalElements, // 추가하면 좋은 속성
+  totalElements: _totalElements, // 추가하면 좋은 속성
   rowHeight = 100,
   rowRenderer: RowComponent,
   emptyRenderer: EmptyComponent,

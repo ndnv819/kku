@@ -1,10 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable import/no-extraneous-dependencies */
 import { faker } from '@faker-js/faker'; // Adjust the import according to your project structure
-import { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { useEffect, useState } from 'react';
 
-import { InfiniteList, InfiniteListProps, InfiniteListRowType } from './index';
+import type { InfiniteListProps, InfiniteListRowType } from './index';
+import { InfiniteList } from './index';
 
 interface User {
   id: string;
@@ -58,8 +59,7 @@ const InfiniteListComponent = (args: InfiniteListProps<User>): JSX.Element => {
   const [data, setData] = useState<User[]>(users.slice(0, 30));
   const [hasNextPage, setHasNextPage] = useState(true);
 
-  // eslint-disable-next-line @typescript-eslint/require-await
-  const fetchNextPage = async (): Promise<void> => {
+  const fetchNextPage = (): void => {
     setTimeout(() => {
       const moreData = users.slice(data.length, data.length + 30);
       setData((prevData) => [...prevData, ...moreData]);
@@ -101,8 +101,8 @@ type Story = StoryObj<typeof InfiniteListComponent>;
 export const Default: Story = {
   args: {
     rowHeight: 100,
-    emptyRenderer: () => <div>No items available.</div>,
-    bottomLoaderRender: () => <div>Loading more...</div>,
+    emptyComponent: () => <div>No items available.</div>,
+    bottomLoaderComponent: () => <div>Loading more...</div>,
   },
   render: InfiniteListComponent,
 };
@@ -110,8 +110,8 @@ export const Default: Story = {
 export const RowHeight200: Story = {
   args: {
     rowHeight: 200,
-    emptyRenderer: () => <div>No items available.</div>,
-    bottomLoaderRender: () => <div>Loading more...</div>,
+    emptyComponent: () => <div>No items available.</div>,
+    bottomLoaderComponent: () => <div>Loading more...</div>,
   },
   render: InfiniteListComponent,
 };
@@ -128,7 +128,7 @@ export const CustomBottomLoader: Story = {
 
 export const Empty: Story = {
   args: {
-    items: [],
+    data: [],
     hasNextPage: false,
     isFetchingNextPage: false,
     fetchNextPage: () => {},
@@ -140,7 +140,7 @@ export const Empty: Story = {
 
 export const CustomEmptyComponent: Story = {
   args: {
-    items: [],
+    data: [],
     hasNextPage: false,
     isFetchingNextPage: false,
     fetchNextPage: () => {},

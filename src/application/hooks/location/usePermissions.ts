@@ -6,7 +6,11 @@ export function usePermissions(name: PermissionName) {
   >();
 
   const handlePermission = useCallback(() => {
-    navigator.permissions
+    if (!window.navigator) {
+      return;
+    }
+
+    window.navigator.permissions
       .query({ name })
       .then((result) => {
         setPermissionState(result.state);
@@ -17,6 +21,10 @@ export function usePermissions(name: PermissionName) {
   }, []);
 
   useEffect(() => {
+    if (!window.navigator) {
+      return;
+    }
+
     handlePermission();
   }, []);
 

@@ -1,5 +1,5 @@
 import styles from './styles.module.scss';
-import { DefaultLoaderProps } from './types';
+import type { DefaultLoaderProps } from './types';
 
 export function DefaultLoader({ key, style }: DefaultLoaderProps): JSX.Element {
   return (
