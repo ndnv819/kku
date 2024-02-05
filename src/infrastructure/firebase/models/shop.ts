@@ -1,19 +1,15 @@
-import type { FirestoreDataConverter, Timestamp } from 'firebase/firestore';
+import type { FirestoreDataConverter } from 'firebase/firestore';
 
 export interface Shop {
   id: string;
-  text: string;
   name: string;
-  email: string;
-  image: string;
-  username: string;
-  createdAt: Timestamp;
-  createdBy: string;
+  latitude: number;
+  longitude: number;
 }
 
 export const shopConverter: FirestoreDataConverter<Shop> = {
-  toFirestore(guestbook) {
-    return guestbook;
+  toFirestore(model) {
+    return model;
   },
   fromFirestore(snapshot, options) {
     const { id } = snapshot;
