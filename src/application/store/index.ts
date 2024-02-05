@@ -7,7 +7,7 @@ import { bokjiFilterName, bokjiFilterReducer } from './shopFilter/slice';
 const rootReducer = combineReducers({
   [bokjiFilterName]: bokjiFilterReducer,
 });
-const store = configureStore({
+export const store = configureStore({
   reducer: rootReducer,
   devTools: process.env.NODE_ENV === 'development',
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
