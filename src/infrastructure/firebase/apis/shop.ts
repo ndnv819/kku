@@ -1,23 +1,26 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { doc, getDoc, getDocs, query } from '@firebase/firestore';
-import { shopsCollection } from '@infrastructure/firebase/collections';
+import type { CollectionReference, DocumentData } from 'firebase/firestore';
 import { deleteDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { omit } from 'lodash';
 
-import type { Shop } from '../models/shop';
-
-function getShopdocRef(id?: string) {
-  return id ? doc(shopsCollection, id) : doc(shopsCollection);
+function getdocRef(collectionName: CollectionReference, id?: string) {
+  return id ? doc(collectionName, id) : doc(collectionName);
 }
 
-export async function getShops(): Promise<Shop[]> {
-  const snapshot = await getDocs(query(shopsCollection));
+export async function getData(
+  collectionName: CollectionReference,
+): Promise<DocumentData[]> {
+  const snapshot = await getDocs(query(collectionName));
 
   return snapshot.docs.map((document) => document.data());
 }
 
-export async function getShopById(id: string): Promise<Shop> {
-  const docSnap = await getDoc(getShopdocRef(id));
+export async function getDataById(
+  collectionName: CollectionReference,
+  id: string,
+): Promise<DocumentData> {
+  const docSnap = await getDoc(getdocRef(collectionName, id));
 
   if (docSnap.exists()) {
     return docSnap.data();
@@ -25,42 +28,52 @@ export async function getShopById(id: string): Promise<Shop> {
   throw new Error('존재하지 않는 상점입니다.');
 }
 
-export async function addShop(shop: Omit<Shop, 'id'>): Promise<Shop> {
+export async function addData<T>(
+  collectionName: CollectionReference,
+  data: Omit<T, 'id'>,
+): Promise<{ id: string } & Omit<T, 'id'>> {
   try {
-    const docRef = getShopdocRef();
-    await setDoc(docRef, shop);
-    return { id: docRef.id, ...shop };
+    const docRef = getdocRef(collectionName);
+    await setDoc(docRef, data);
+    return { id: docRef.id, ...data };
   } catch (error) {
     throw new Error('상점 추가에 실패했습니다.');
   }
 }
 
-export async function putShop(shop: Shop): Promise<Shop> {
+export async function putShop<T extends { id: string }>(
+  collectionName: CollectionReference,
+  data: T,
+): Promise<T> {
   try {
-    await setDoc(getShopdocRef(shop.id), omit(shop, ['id']));
-    return shop;
+    await setDoc(getdocRef(collectionName, data.id), omit(data, ['id']));
+    return data;
   } catch (error) {
     throw new Error('상점 수정에 실패했습니다.');
   }
 }
 
-export async function patchShop(
+export async function patchShop<T>(
+  collectionName: CollectionReference,
   id: string,
-  shop: Partial<Shop>,
-): Promise<Shop> {
+  shop: Partial<T>,
+): Promise<DocumentData> {
   try {
-    await updateDoc(getShopdocRef(id), shop);
+    await updateDoc(getdocRef(collectionName, id), shop);
 
-    const patchDoc = await getDoc(getShopdocRef(id));
+    const patchDoc = await getDoc(getdocRef(collectionName, id));
     return patchDoc.data()!;
   } catch (error) {
     throw new Error('상점 수정에 실패했습니다.');
   }
 }
 
-export async function deleteShop(id: string): Promise<void> {
+export async function deleteShop(
+  collectionName: CollectionReference,
+  id: string,
+): Promise<void> {
   try {
-    await deleteDoc(getShopdocRef(id));
+    await deleteDoc(getdocRef(collectionName, id));
   } catch (error) {
     throw new Error('존재하지 않는 상점입니다.');
   }
