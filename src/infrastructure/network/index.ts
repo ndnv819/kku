@@ -2,7 +2,7 @@ import type { AxiosInstance, AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 
 export const instance: AxiosInstance = axios.create({
-  baseURL: 'https://json placeholder.typicode.com',
+  baseURL: 'https://jsonplaceholder.typicode.com',
   timeout: 5000,
 });
 
