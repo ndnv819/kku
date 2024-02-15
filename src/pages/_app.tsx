@@ -6,6 +6,7 @@ import { wrapper } from '@application/store';
 import { GraphqlProvider } from '@presentation/providers/graphQL';
 import { NaverMapProvider } from '@presentation/providers/naverMap';
 import { ToastProvider } from '@presentation/providers/toast';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
 import localFont from 'next/font/local';
 import { Provider } from 'react-redux';
@@ -49,6 +50,8 @@ const myFont = localFont({
   ],
 });
 
+const queryClient = new QueryClient();
+
 export default function App({
   Component,
   ...rest
@@ -57,18 +60,20 @@ export default function App({
   const { store, props } = wrapper.useWrappedStore(rest);
 
   return (
-    <GraphqlProvider pageProps={props.pageProps}>
-      <Provider store={store}>
-        <RecoilRoot>
-          <main className={myFont.className}>
-            <ToastProvider>
-              <NaverMapProvider>
-                <Component {...props.pageProps} />
-              </NaverMapProvider>
-            </ToastProvider>
-          </main>
-        </RecoilRoot>
-      </Provider>
-    </GraphqlProvider>
+    <QueryClientProvider client={queryClient}>
+      <GraphqlProvider pageProps={props.pageProps}>
+        <Provider store={store}>
+          <RecoilRoot>
+            <main className={myFont.className}>
+              <ToastProvider>
+                <NaverMapProvider>
+                  <Component {...props.pageProps} />
+                </NaverMapProvider>
+              </ToastProvider>
+            </main>
+          </RecoilRoot>
+        </Provider>
+      </GraphqlProvider>
+    </QueryClientProvider>
   );
 }
