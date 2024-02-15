@@ -10,7 +10,7 @@ const initialState: ShopFilterState = {
   type: '전체',
 };
 
-const bokjiFilterSlice = createSlice({
+const shopFilterSlice = createSlice({
   name: StoreEnumZod.Enum.shop_filter,
   initialState,
   reducers: {
@@ -26,12 +26,12 @@ const bokjiFilterSlice = createSlice({
       return {
         ...state,
         // @ts-ignore
-        ...action.payload[StoreEnum.BOKJI_FILTER],
+        ...action.payload[StoreEnum.SHOP_FILTER],
       };
     });
   },
 });
 
-export const bokjiFilterActions = bokjiFilterSlice.actions;
-export const bokjiFilterName = bokjiFilterSlice.name;
-export const bokjiFilterReducer = bokjiFilterSlice.reducer;
+export const shopFilterActions = shopFilterSlice.actions;
+export const shopFilterName = shopFilterSlice.name;
+export const shopFilterReducer = shopFilterSlice.reducer;

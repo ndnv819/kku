@@ -1,11 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper-future';
 
-import { bokjiFilterName, bokjiFilterReducer } from './shopFilter/slice';
+import { shopFilterName, shopFilterReducer } from './shopFilter/slice';
 
 // MARK: Store 정의
 const rootReducer = combineReducers({
-  [bokjiFilterName]: bokjiFilterReducer,
+  [shopFilterName]: shopFilterReducer,
 });
 
 // NOTE: test할 때는 export 추가
