@@ -1,4 +1,4 @@
-import { usePermission } from '@application/hooks/location/use_permission';
+import { usePermission } from '@application/hooks/common/use_permission2';
 import { renderHook, waitFor } from '@testing-library/react';
 
 describe('[Hooks] usePermissions', () => {

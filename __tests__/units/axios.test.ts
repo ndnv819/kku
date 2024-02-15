@@ -5,7 +5,7 @@ import {
   requestGet,
   requestPost,
   requestPut,
-} from '@infrastructure/axios';
+} from '@infrastructure/network';
 import MockAdapter from 'axios-mock-adapter';
 
 interface TodoType {
