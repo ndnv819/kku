@@ -8,7 +8,7 @@ import {
   WindowScroller,
 } from 'react-virtualized';
 
-import { DefaultLoader } from '../loader';
+import { DefaultLoader } from '../../atoms/loader';
 
 export interface InfiniteListRowType<T> {
   rowIndex: number;
