@@ -5,11 +5,15 @@ import { addData, deleteData, getData, getDataById, putData } from '../base';
 import { shopsCollection } from '../collections';
 import { type Shop } from '../models/shop';
 
+// TODO:: throw Errorrk를 Promise.reject로 변경
+// https://stackoverflow.com/questions/33445415/javascript-promises-reject-vs-throw
+
 export async function getShops(): Promise<Shop[]> {
   try {
     const res = await getData<Shop>(shopsCollection);
     return res;
   } catch (error) {
+    return Promise.reject(error);
     throw new Error('상점 목록 조회에 실패했습니다.');
   }
 }
