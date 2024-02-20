@@ -1,6 +1,7 @@
 export interface QueryProps<Res> {
   queryKey: string[];
   queryFn: () => Promise<Res>;
+  enabled?: boolean;
 }
 
 export interface QueryResult<Res> {
