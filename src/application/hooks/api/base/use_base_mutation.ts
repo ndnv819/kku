@@ -3,6 +3,8 @@ import type { AxiosError } from 'axios';
 
 import type { MutationProps, MutationResult } from './types';
 
+// NOTE:: v5부터 isLoading deprecated
+// https://tanstack.com/query/latest/docs/framework/react/reference/useMutation
 export function useBaseMutation<Res, Req>({
   mutationKey,
   mutationFn,
@@ -13,7 +15,7 @@ export function useBaseMutation<Res, Req>({
     Req
   >({
     mutationKey,
-    mutationFn: (req: Req) => mutationFn(req),
+    mutationFn,
   });
 
   return {
