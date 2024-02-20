@@ -5,8 +5,8 @@ import '../env';
 import { wrapper } from '@application/store';
 import { GraphqlProvider } from '@presentation/providers/graphQL';
 import { NaverMapProvider } from '@presentation/providers/naverMap';
+import { QueryProvider } from '@presentation/providers/query';
 import { ToastProvider } from '@presentation/providers/toast';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
 import localFont from 'next/font/local';
 import { Provider } from 'react-redux';
@@ -50,8 +50,6 @@ const myFont = localFont({
   ],
 });
 
-const queryClient = new QueryClient();
-
 export default function App({
   Component,
   ...rest
@@ -60,7 +58,7 @@ export default function App({
   const { store, props } = wrapper.useWrappedStore(rest);
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <QueryProvider>
       <GraphqlProvider pageProps={props.pageProps}>
         <Provider store={store}>
           <RecoilRoot>
@@ -74,6 +72,6 @@ export default function App({
           </RecoilRoot>
         </Provider>
       </GraphqlProvider>
-    </QueryClientProvider>
+    </QueryProvider>
   );
 }
