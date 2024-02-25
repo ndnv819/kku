@@ -30,6 +30,7 @@
     // type
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/consistent-type-imports": "error",
+    "@typescript-eslint/no-empty-interface": "off",
     "@typescript-eslint/no-explicit-any": "off",
     // import
     "import/no-unresolved": "error",
