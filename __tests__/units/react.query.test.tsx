@@ -22,7 +22,7 @@ describe('[react-query]', () => {
     const { result } = renderHook(() => useTestHook(), { wrapper });
 
     await waitFor(() => {
-      expect(result.current.data).; // 
+      expect(result.current.data).; //
     });
   });
 });

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Card } from '.';
+import { Card } from './index';
 import type { _CardProps } from './types';
 
 export default {
@@ -9,14 +9,12 @@ export default {
 } as Meta<typeof Card>;
 
 const Component = (args: _CardProps): JSX.Element => {
-  return <Card {...args} />;
+  const { children, ...rest } = args;
+  return <Card {...rest}>{children}</Card>;
 };
 
 type Story = StoryObj<typeof Card>;
 
 export const Default: Story = {
-  args: {
-    as: 'p',
-  },
   render: Component,
 };
