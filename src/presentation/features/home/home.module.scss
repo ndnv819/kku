@@ -1,6 +1,7 @@
 .home-wrapper {
   position: relative;
   display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
 }
@@ -10,5 +11,6 @@
 }
 
 .home-map-wrapper {
-  width: 70%;
+  width: 100%;
+  height: 100%;
 }

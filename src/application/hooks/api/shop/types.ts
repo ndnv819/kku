@@ -1,13 +1,13 @@
 import type { Shop } from '@infrastructure/firebase/models/shop';
 
-export interface ShopsDTO {
+export interface ShopsTypes {
   data?: Shop[];
   isError: boolean;
   isLoading: boolean;
   isFetching: boolean;
 }
 
-export interface ShopDTO {
+export interface ShopByIdTypes {
   data?: Shop;
   isError: boolean;
   isLoading: boolean;
