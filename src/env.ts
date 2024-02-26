@@ -12,6 +12,8 @@ const envSchema = z.object({
   NEXT_PUBLIC_FB_STORAGE_BUCKET: z.string(),
   NEXT_PUBLIC_FB_MESSAGING_SENDER_ID: z.string(),
   NEXT_PUBLIC_FB_APP_ID: z.string(),
+  NEXT_PUBLIC_KAKAO_CLIENT_ID: z.string(),
+  NEXT_PUBLIC_KAKAO_CLIENT_SECRET: z.string(),
 });
 
 const envParsed = envSchema.safeParse({
@@ -26,6 +28,8 @@ const envParsed = envSchema.safeParse({
   NEXT_PUBLIC_FB_MESSAGING_SENDER_ID:
     process.env.NEXT_PUBLIC_FB_MESSAGING_SENDER_ID,
   NEXT_PUBLIC_FB_APP_ID: process.env.NEXT_PUBLIC_FB_APP_ID,
+  NEXT_PUBLIC_KAKAO_CLIENT_ID: process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID,
+  NEXT_PUBLIC_KAKAO_CLIENT_SECRET: process.env.NEXT_PUBLIC_KAKAO_CLIENT_SECRET,
 });
 
 if (!envParsed.success) {
