@@ -3,6 +3,7 @@ import '@presentation/styles/global.scss';
 import '../env';
 
 import { wrapper } from '@application/store';
+import { AuthProvider } from '@presentation/providers/auth';
 import { GraphqlProvider } from '@presentation/providers/graphQL';
 import { NaverMapProvider } from '@presentation/providers/naverMap';
 import { QueryProvider } from '@presentation/providers/query';
@@ -17,6 +18,7 @@ RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 interface PageProps {
   pageProps: {
     initialApolloState: any;
+    session?: any;
   };
 }
 
@@ -53,24 +55,26 @@ const myFont = localFont({
 export default function App({
   Component,
   ...rest
-}: Omit<AppProps, 'pageProps'> & PageProps) {
+}: Omit<AppProps, 'pageProps'> & PageProps): JSX.Element {
   // @ts-ignore
   const { store, props } = wrapper.useWrappedStore(rest);
 
   return (
     <QueryProvider>
       <GraphqlProvider pageProps={props.pageProps}>
-        <Provider store={store}>
-          <RecoilRoot>
-            <main className={myFont.className}>
-              <ToastProvider>
-                <NaverMapProvider>
-                  <Component {...props.pageProps} />
-                </NaverMapProvider>
-              </ToastProvider>
-            </main>
-          </RecoilRoot>
-        </Provider>
+        <AuthProvider session={props.pageProps.session}>
+          <Provider store={store}>
+            <RecoilRoot>
+              <main className={myFont.className}>
+                <ToastProvider>
+                  <NaverMapProvider>
+                    <Component {...props.pageProps} />
+                  </NaverMapProvider>
+                </ToastProvider>
+              </main>
+            </RecoilRoot>
+          </Provider>
+        </AuthProvider>
       </GraphqlProvider>
     </QueryProvider>
   );
