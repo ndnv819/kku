@@ -1,0 +1,11 @@
+.app-bar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  height: var(--appbar-height);
+  padding: 12px var(--layout-padding);
+  background-color: transparent;
+}
