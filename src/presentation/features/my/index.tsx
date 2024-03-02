@@ -1,7 +1,10 @@
+import { BottomNavigation } from '@presentation/components/organism/bottomNavigation';
+
 export function My(): JSX.Element {
   return (
-    <section>
-      <h1>마이 페이지</h1>
-    </section>
+    <>
+      <section className="px-[16px]" />
+      <BottomNavigation />
+    </>
   );
 }
