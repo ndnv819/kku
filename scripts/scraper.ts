@@ -1,12 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
+import fs from 'fs';
 import { chromium } from 'playwright';
 
-interface RawMenuItem {
+export interface RawMenuItem {
   name: string;
   price: string;
 }
 
-interface RawShopItem {
+export interface RawShopItem {
+  id: string;
+  latitude: string;
+  longitude: string;
+  openingTime: string;
   name: string;
   category: string;
   address: string;
@@ -17,7 +22,11 @@ interface RawShopItem {
   canParking: boolean;
 }
 
-async function scrapeAdditionalData(itemId: string): Promise<RawShopItem> {
+async function scrapeAdditionalData(
+  itemId: string,
+  latitude: string,
+  longitude: string,
+): Promise<RawShopItem> {
   const browser = await chromium.launch({ headless: true, timeout: 120000 });
   const context = await browser.newContext();
   const page = await context.newPage();
@@ -29,7 +38,14 @@ async function scrapeAdditionalData(itemId: string): Promise<RawShopItem> {
 
     // 플레이스의 상세정보에 진입 후 상호명이 나오는지 기다려야함
     await page.waitForSelector('span.Fc1rA', { timeout: 120000 });
+    // 영업시간을 알기위해 영업시간 섹션 클릭
+    if ((await page.$('a.gKP9i')) !== null) {
+      await page.click('a.gKP9i');
+    }
 
+    const openingTime: string = await page
+      .$eval('a.gKP9i', (span) => (span as HTMLElement).innerText)
+      .catch(() => `영업시간을 찾지 못했습니다: PlaceId: ${itemId}`);
     const name: string = await page
       .$eval('span.Fc1rA', (span) => (span as HTMLElement).innerText)
       .catch(() => `상호명을 찾지 못했습니다: PlaceId: ${itemId}`);
@@ -86,6 +102,10 @@ async function scrapeAdditionalData(itemId: string): Promise<RawShopItem> {
       .catch(() => false);
 
     return {
+      id: itemId,
+      latitude,
+      longitude,
+      openingTime,
       name,
       category,
       address,
@@ -124,6 +144,8 @@ async function scrapeData(searchQuery: string) {
     return listItems.map((li) => ({
       id: li.getAttribute('data-id')!,
       title: li.getAttribute('data-title')!,
+      latitude: li.getAttribute('data-latitude')!,
+      longitude: li.getAttribute('data-longitude')!,
     }));
   });
 
@@ -131,15 +153,45 @@ async function scrapeData(searchQuery: string) {
   await browser.close();
 
   const results = await Promise.all(
-    data.slice(0, 1).map(({ id, title: _title }) => scrapeAdditionalData(id)),
+    data.map(({ id, title: _title, latitude, longitude }) =>
+      scrapeAdditionalData(id, latitude, longitude),
+    ),
   );
 
-  console.log(results);
+  return results;
 }
 
-scrapeData('해운대 애견 동반 카페').catch(console.error);
-scrapeData('연산 애견 동반 카페').catch(console.error);
-scrapeData('동래 애견 동반 카페').catch(console.error);
-scrapeData('센텀 애견 동반 카페').catch(console.error);
-scrapeData('전포 애견 동반 카페').catch(console.error);
-scrapeData('서면 애견 동반 카페').catch(console.error);
+async function main(): Promise<void> {
+  function flattenArray(arr: any[]): RawShopItem[] {
+    const flattened: any[] = [];
+    arr.forEach((item) => {
+      if (Array.isArray(item)) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        flattened.push(...flattenArray(item));
+      } else {
+        flattened.push(item);
+      }
+    });
+    return flattened;
+  }
+
+  await Promise.all([
+    scrapeData('해운대 애견 동반 카페'),
+    scrapeData('서면 애견 동반 카페'),
+  ]).then((results) => {
+    const final = flattenArray(results);
+    fs.writeFile(
+      './scripts/flattened_array.json',
+      JSON.stringify(final),
+      (err: any) => {
+        if (err) {
+          console.error('Error writing JSON file:', err);
+        } else {
+          console.log('JSON file has been saved.');
+        }
+      },
+    );
+  });
+}
+
+main().catch(console.error);
