@@ -106,6 +106,10 @@
   --c-transparent-danger-32: rgb(255 61 113 / 32%);
   --c-transparent-danger-40: rgb(255 61 113 / 40%);
   --c-transparent-danger-48: rgb(255 61 113 / 48%);
+
+  // layout
+  --layout-padding: 20px;
+  --appbar-height: 64px;
 }
 
 // Scss Variable
@@ -185,6 +189,11 @@ button {
   padding: 16px;
   border: none;
   border-radius: 4px;
+  outline: none;
+}
+
+input {
+  border: none;
   outline: none;
 }
 
