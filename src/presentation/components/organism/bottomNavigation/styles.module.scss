@@ -1,10 +1,11 @@
 .bottom-navigation-wrapper {
-  position: absolute;
+  position: fixed;
   right: 0;
   bottom: 0;
   left: 0;
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  width: var(--layout-base-width);
+  margin: 0 auto;
   background-color: #fff;
 }

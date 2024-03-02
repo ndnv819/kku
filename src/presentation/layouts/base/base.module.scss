@@ -1,6 +1,6 @@
 .base-layout-wrapper {
   position: relative;
-  width: 420px;
+  width: var(--layout-base-width);
   height: 100vh;
   margin: 0 auto;
 }
