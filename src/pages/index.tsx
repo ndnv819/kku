@@ -9,15 +9,13 @@ interface Shops {
   shops: ShopDTO[];
 }
 
-export const HomePage: NextPage<Shops> = ({ shops }) => {
+const HomePage: NextPage<Shops> = ({ shops }) => {
   return (
     <BaseLayout>
       <Home shops={shops} />
     </BaseLayout>
   );
 };
-
-export default HomePage;
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
@@ -37,3 +35,5 @@ export const getStaticProps: GetStaticProps = async () => {
     };
   }
 };
+
+export default HomePage;
