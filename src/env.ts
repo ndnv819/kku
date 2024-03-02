@@ -33,11 +33,11 @@ const envParsed = envSchema.safeParse({
 });
 
 if (!envParsed.success) {
-  console.error(envParsed.error.issues);
-  throw new Error('There is an error with the environment variables');
+  // console.error(envParsed.error.issues);
+  // throw new Error('There is an error with the environment variables');
 }
 
-export const envServerSchema = envParsed.data;
+// export const envServerSchema = envParsed.data;
 
 declare global {
   namespace NodeJS {

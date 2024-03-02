@@ -1,5 +1,4 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import Error from 'next/error';
 
 import { addData, deleteData, getData, getDataById, putData } from '../base';
 import { shopsCollection } from '../collections';
@@ -14,7 +13,7 @@ export async function getShops(): Promise<Shop[]> {
     return res;
   } catch (error) {
     return Promise.reject(error);
-    throw new Error('상점 목록 조회에 실패했습니다.');
+    // throw new Error('상점 목록 조회에 실패했습니다.');
   }
 }
 
