@@ -9,5 +9,5 @@ export interface NaverMapProps {
   lng: number;
   minZoom?: number;
   maxZoom?: number;
-  makers?: NaverMapMarker[];
+  markers?: NaverMapMarker[];
 }
