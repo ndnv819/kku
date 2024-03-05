@@ -39,6 +39,7 @@ export function useGeolocation() {
       ...prevLocation,
       isLoading: true,
     }));
+
     window.navigator.geolocation.getCurrentPosition(handleSuccess, handleError);
   }, []);
 
