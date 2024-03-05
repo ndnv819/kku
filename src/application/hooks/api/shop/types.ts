@@ -1,14 +1,15 @@
-import type { Shop } from '@infrastructure/firebase/models/shop';
+import type { ShopDTO } from 'src/pages/api/shop/dtos';
 
 export interface ShopsTypes {
-  data?: Shop[];
+  data?: ShopDTO[];
   isError: boolean;
   isLoading: boolean;
   isFetching: boolean;
+  groupByIsInBusiness?: (isInBusiness: boolean) => ShopDTO[] | undefined;
 }
 
 export interface ShopByIdTypes {
-  data?: Shop;
+  data?: ShopDTO;
   isError: boolean;
   isLoading: boolean;
   isFetching: boolean;
