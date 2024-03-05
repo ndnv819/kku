@@ -1,11 +1,13 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper-future';
 
+import { LocationName, LocationReducer } from './location/slice';
 import { shopFilterName, shopFilterReducer } from './shopFilter/slice';
 
 // MARK: Store 정의
 const rootReducer = combineReducers({
   [shopFilterName]: shopFilterReducer,
+  [LocationName]: LocationReducer,
 });
 
 // NOTE: test할 때는 export 추가
