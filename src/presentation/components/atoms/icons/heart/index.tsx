@@ -10,7 +10,7 @@ export function IcHeart({
     <svg
       width={width}
       height={height}
-      viewBox={`0 0 ${width} ${height}`}
+      viewBox="0 0 24 24"
       fill={type === 'outlined' ? 'none' : color}
       xmlns="http://www.w3.org/2000/svg"
     >
