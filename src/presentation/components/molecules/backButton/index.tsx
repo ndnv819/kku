@@ -3,7 +3,12 @@ import { IcChevronLeft } from '@presentation/components/atoms/icons/chevronLeft'
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 
-export function BackButton(): JSX.Element {
+import type { BackButtonProps } from './types';
+
+export function BackButton({
+  iconColor,
+  ...props
+}: BackButtonProps): JSX.Element {
   const router = useRouter();
 
   const toBack = useCallback((): void => {
@@ -11,8 +16,8 @@ export function BackButton(): JSX.Element {
   }, []);
 
   return (
-    <Button onClick={toBack}>
-      <IcChevronLeft color="white" />
+    <Button onClick={toBack} {...props}>
+      <IcChevronLeft color={iconColor} />
     </Button>
   );
 }
