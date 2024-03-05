@@ -7,11 +7,13 @@ export function useBaseQuery<Res>({
   queryKey,
   queryFn,
   enabled,
+  initialData,
 }: QueryProps<Res>): QueryResult<Res> {
   const { data, isError, isFetching, isLoading } = useQuery<Res, AxiosError>({
     queryKey,
     queryFn,
     enabled,
+    initialData,
   });
 
   return {
