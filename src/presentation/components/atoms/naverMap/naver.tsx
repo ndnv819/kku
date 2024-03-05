@@ -11,7 +11,7 @@ import {
 import type { NaverMapProps } from './types';
 
 export function NaverMapClient(props: NaverMapProps): JSX.Element {
-  const { lat, lng, minZoom, maxZoom, markers } = props;
+  const { lat, lng, minZoom, maxZoom, markers, children } = props;
   // eslint-disable-next-line
   const navermaps = useNavermaps();
 
@@ -21,7 +21,14 @@ export function NaverMapClient(props: NaverMapProps): JSX.Element {
     }
 
     return markers.map((m) => (
-      <Marker key={m.name} position={new navermaps.LatLng(m.lat, m.lng)} />
+      <Marker
+        key={m.name}
+        position={new navermaps.LatLng(m.lat, m.lng)}
+        title={m.name}
+        icon={{
+          content: `<p>${m.name}</p>`,
+        }}
+      />
     ));
   }, [markers]);
 
@@ -39,8 +46,10 @@ export function NaverMapClient(props: NaverMapProps): JSX.Element {
         defaultZoom={maxZoom ?? 16}
         minZoom={minZoom ?? 16}
         maxZoom={maxZoom ?? 21}
+        pinchZoom
       >
         {renderMarkers}
+        {children}
       </Map>
     </MapDiv>
   );

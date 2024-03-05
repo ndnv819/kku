@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 export interface NaverMapMarker {
   name: string;
   lat: number;
@@ -10,4 +12,5 @@ export interface NaverMapProps {
   minZoom?: number;
   maxZoom?: number;
   markers?: NaverMapMarker[];
+  children?: ReactNode;
 }
