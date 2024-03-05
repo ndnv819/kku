@@ -108,9 +108,10 @@
   --c-transparent-danger-48: rgb(255 61 113 / 48%);
 
   // layout
-  --layout-padding: 20px;
-  --appbar-height: 64px;
   --layout-base-width: 420px;
+  --layout-padding: 16px;
+  --appbar-height: 64px;
+  --bottom-navigation-height: 60px;
 }
 
 // Scss Variable
@@ -199,6 +200,7 @@ input {
 }
 
 html {
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
   font-size: 15px;
