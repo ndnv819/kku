@@ -1,5 +1,5 @@
-import type { Shop } from '@infrastructure/firebase/models/shop';
+import type { ShopDTO } from 'src/pages/api/shop/dtos';
 
 export interface ShopDetailProps {
-  shop?: Shop;
+  shop?: ShopDTO;
 }
