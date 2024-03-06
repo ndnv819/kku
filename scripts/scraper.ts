@@ -7,6 +7,12 @@ export interface RawMenuItem {
   price: string;
 }
 
+export interface RawReviewItem {
+  postLink: string;
+  postTitle: string;
+  postContentSnippet: string;
+}
+
 export interface RawShopItem {
   id: string;
   latitude: string;
@@ -18,8 +24,14 @@ export interface RawShopItem {
   tel: string;
   memo: string;
   menuList: RawMenuItem[];
+  reviewList: RawReviewItem[];
   introduction: string;
   canParking: boolean;
+  instagramLink: string;
+  youtubeLink: string;
+  blogLink: string;
+  kakaoLink: string;
+  imageUrls: string[];
 }
 
 async function scrapeAdditionalData(
@@ -27,17 +39,17 @@ async function scrapeAdditionalData(
   latitude: string,
   longitude: string,
 ): Promise<RawShopItem> {
-  const browser = await chromium.launch({ headless: true, timeout: 120000 });
+  const browser = await chromium.launch({ headless: true, timeout: 300000 });
   const context = await browser.newContext();
   const page = await context.newPage();
 
   try {
     await page.goto(`https://m.place.naver.com/restaurant/${itemId}/home`, {
-      timeout: 120000,
+      timeout: 300000,
     });
 
     // 플레이스의 상세정보에 진입 후 상호명이 나오는지 기다려야함
-    await page.waitForSelector('span.Fc1rA', { timeout: 120000 });
+    await page.waitForSelector('span.Fc1rA', { timeout: 300000 });
     // 영업시간을 알기위해 영업시간 섹션 클릭
     if ((await page.$('a.gKP9i')) !== null) {
       await page.click('a.gKP9i');
@@ -65,7 +77,7 @@ async function scrapeAdditionalData(
     // 메뉴정보를 불러오기 위해 메뉴섹션으로 이동
     await page.goto(
       `https://m.place.naver.com/restaurant/${itemId}/menu/list`,
-      { timeout: 120000 },
+      { timeout: 300000 },
     );
     const menuList = await page
       .$$eval(`div.place_section_content > ul > li`, (listItems) => {
@@ -87,7 +99,7 @@ async function scrapeAdditionalData(
     // 소개와 주차정보를 불러오기 위해 정보탭으로 이동
     await page.goto(
       `https://m.place.naver.com/restaurant/${itemId}/information`,
-      { timeout: 120000 },
+      { timeout: 300000 },
     );
     // 전체소개를 보기위해 더보기 버튼 클릭
     if ((await page.$('a.OWPIf')) !== null) {
@@ -100,6 +112,68 @@ async function scrapeAdditionalData(
     const canParking = await page
       .$eval('div.SGJcE', (_div) => true)
       .catch(() => false);
+    let instagramLink = '';
+    let youtubeLink = '';
+    let blogLink = '';
+    let kakaoLink = '';
+    const snsHrefs = await page.$$eval('ul.sihSR li.R7y09 a', (links) =>
+      links.map((link) => link.getAttribute('href')),
+    );
+    snsHrefs.forEach((snsHref) => {
+      if (!snsHref) {
+        return;
+      }
+
+      if (snsHref.includes('instagram')) {
+        instagramLink = snsHref;
+      }
+      if (snsHref.includes('youtube')) {
+        youtubeLink = snsHref;
+      }
+      if (snsHref.includes('blog')) {
+        blogLink = snsHref;
+      }
+      if (snsHref.includes('kakao')) {
+        kakaoLink = snsHref;
+      }
+    });
+
+    // 썸네일을 가져오기 위해 사진탭으로 이동
+    await page.goto(`https://m.place.naver.com/restaurant/${itemId}/photo`, {
+      timeout: 300000,
+    });
+    let imageUrls = await page.$$eval('div.wzrbN a img', (links) =>
+      links.map((link) => link.getAttribute('src')),
+    );
+    imageUrls = imageUrls.filter((imageUrl) => imageUrl !== null).slice(0, 5);
+
+    // 블로그 리뷰 정보를 불러오기 위해 후기탭으로 이동
+    await page.goto(
+      `https://m.place.naver.com/restaurant/${itemId}/review/ugc?type=photoView`,
+      { timeout: 300000 },
+    );
+    let reviewList: RawReviewItem[] = [];
+    if ((await page.$('.place_section_count')) !== null) {
+      reviewList = await page
+        .$$eval(`div.place_section_content > ul > li`, (listItems) => {
+          return listItems.map((li) => {
+            const postLink =
+              (li as HTMLElement).querySelector('a')?.getAttribute('href') ??
+              '';
+            const postTitle =
+              (li as HTMLElement)
+                .querySelector('div.hPTBw')
+                ?.textContent?.trim() ?? '';
+            const postContentSnippet =
+              (li as HTMLElement)
+                .querySelector('div.PRq7t')
+                ?.textContent?.trim() ?? '';
+
+            return { postLink, postTitle, postContentSnippet } as RawReviewItem;
+          });
+        })
+        .catch(() => []);
+    }
 
     return {
       id: itemId,
@@ -112,8 +186,15 @@ async function scrapeAdditionalData(
       tel,
       memo,
       menuList,
+      reviewList,
       introduction,
       canParking,
+      instagramLink,
+      youtubeLink,
+      blogLink,
+      kakaoLink,
+      // @ts-ignore
+      imageUrls,
     };
   } catch (error) {
     throw new Error(
@@ -126,7 +207,7 @@ async function scrapeAdditionalData(
 }
 
 async function scrapeData(searchQuery: string) {
-  const browser = await chromium.launch({ headless: true, timeout: 120000 });
+  const browser = await chromium.launch({ headless: true, timeout: 300000 });
   const page = await browser.newPage();
 
   // 네이버 플레이스 모바일 링크에서 검색어를 통해 크롤링 페이지 로드
@@ -134,7 +215,7 @@ async function scrapeData(searchQuery: string) {
   // 비동기 element가 아닌이상 wait를 따로사용할 필요가 없음
   await page.goto(
     `https://m.map.naver.com/search2/search.naver?query=${searchQuery}`,
-    { timeout: 120000 },
+    { timeout: 300000 },
   );
 
   // 플레이스의 검색결과는 비동기이기 때문에 리스트 컨테이너 (ul)부분을 기다려야함
@@ -179,7 +260,12 @@ async function main(): Promise<void> {
     scrapeData('해운대 애견 동반 카페'),
     scrapeData('서면 애견 동반 카페'),
   ]).then((results) => {
-    const final = flattenArray(results);
+    const final = flattenArray(results).map((raw) => {
+      return {
+        ...raw,
+        category: raw.category.includes('카페') ? '카페' : '식당',
+      };
+    });
     fs.writeFile(
       './scripts/flattened_array.json',
       JSON.stringify(final),
