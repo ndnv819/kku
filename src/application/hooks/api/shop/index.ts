@@ -12,7 +12,7 @@ export function useGetShops(initialData: ShopDTO[]): ShopsTypes {
     initialData,
   });
 
-  const groupByIsInBusiness = useCallback(
+  const dataGroupByIsInBusiness = useCallback(
     (isInBusiness: boolean): ShopDTO[] | undefined => {
       if (!isInBusiness) {
         return data;
@@ -31,7 +31,7 @@ export function useGetShops(initialData: ShopDTO[]): ShopsTypes {
     isError,
     isFetching,
     isLoading,
-    groupByIsInBusiness,
+    dataGroupByIsInBusiness,
   };
 }
 
