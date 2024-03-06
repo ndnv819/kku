@@ -8,7 +8,7 @@ import type { ShopByIdTypes, ShopsTypes } from './types';
 export function useGetShops(initialData: ShopDTO[]): ShopsTypes {
   const { data, isError, isFetching, isLoading } = useBaseQuery<ShopDTO[]>({
     queryKey: ['shops'],
-    queryFn: () => requestGet<ShopDTO[]>('/api/shops'),
+    queryFn: () => requestGet<ShopDTO[]>('/api/shop'),
     initialData,
   });
 
