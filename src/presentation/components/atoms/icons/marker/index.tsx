@@ -4,7 +4,7 @@ export function IcMarker({
   width = 24,
   height = 24,
   type = 'outlined',
-  color = '#21272A',
+  color = '#598bff',
 }: IcMarkerProps): JSX.Element {
   return (
     <svg
