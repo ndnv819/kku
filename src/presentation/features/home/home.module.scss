@@ -3,7 +3,8 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  height: 100dvh;
+  padding-top: var(--appbar-height);
 }
 
 .home-list-wrapper {

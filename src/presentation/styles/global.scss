@@ -1,6 +1,7 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+@import './vendors/reactResponsiveModal/styles.module';
 
 :root {
   // PRIMARY COLOR
@@ -107,39 +108,35 @@
   --c-transparent-danger-40: rgb(255 61 113 / 40%);
   --c-transparent-danger-48: rgb(255 61 113 / 48%);
 
-  // layout
-  --layout-base-width: 420px;
-  --layout-padding: 16px;
+  // LAYOUT
+  --base-layout-width: 420px;
+  --base-layout-padding: 16px;
   --appbar-height: 64px;
   --bottom-navigation-height: 60px;
+
+  // Z-INDEX
+  --appbar-z-index: 10;
+  --bottom-sheet-z-index: 10;
 }
 
 // Scss Variable
 $font-family-pretendard: 'Pretendard', sans-serif;
 
-.font-pretendard {
-  font-family: $font-family-pretendard;
-  font-weight: 400;
-}
-
-.font-pretendard-medium {
-  font-family: $font-family-pretendard;
+// Html
+html {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  font-size: 15px;
   font-weight: 500;
-}
+  line-height: 20px;
+  color: var(--c-basic-800);
+  background-color: #fff;
 
-.font-pretendard-semibold {
-  font-family: $font-family-pretendard;
-  font-weight: 600;
-}
-
-.font-pretendard-bold {
-  font-family: $font-family-pretendard;
-  font-weight: 700;
-}
-
-.font-pretendard-extrabold {
-  font-family: $font-family-pretendard;
-  font-weight: 800;
+  &.dark {
+    color: #fff;
+    background-color: var(--c-basic-800);
+  }
 }
 
 // Typography
@@ -185,6 +182,7 @@ h6 {
   line-height: 24px;
 }
 
+// Button
 button {
   display: flex;
   align-items: center;
@@ -192,25 +190,4 @@ button {
   border: none;
   border-radius: 4px;
   outline: none;
-}
-
-input {
-  border: none;
-  outline: none;
-}
-
-html {
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 20px;
-  color: var(--c-basic-800);
-  background-color: #fff;
-
-  &.dark {
-    color: #fff;
-    background-color: var(--c-basic-800);
-  }
 }
