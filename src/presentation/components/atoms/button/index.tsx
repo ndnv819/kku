@@ -34,15 +34,18 @@ export const Button = forwardRef(
     ref,
   ) => {
     const Element = 'button';
+
     const style = getColor(status, appearances);
-    // style 변수 위치
-    const className = classNames(style, {
-      [styles.tiny as any]: sizes === 'tiny',
-      [styles.small as any]: sizes === 'small',
-      [styles.medium as any]: sizes === 'medium',
-      [styles.large as any]: sizes === 'large',
-      [styles.giant as any]: sizes === 'giant',
-    });
+
+    const sizesStyle = {
+      tiny: styles.tiny,
+      small: styles.small,
+      medium: styles.medium,
+      large: styles.large,
+      giant: styles.giant,
+    };
+
+    const className = classNames(sizesStyle[sizes], style, props.className);
 
     return (
       // @ts-ignore

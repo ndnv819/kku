@@ -7,7 +7,13 @@ import { forwardRef } from 'react';
 
 import styles from './styles.module.scss';
 
-type TypographyStatus = 'primary' | 'success' | 'info' | 'warning' | 'danger';
+type TypographyStatus =
+  | 'primary'
+  | 'basic'
+  | 'success'
+  | 'info'
+  | 'warning'
+  | 'danger';
 export interface _TypographyProps {
   status?: TypographyStatus;
   category?: 's1' | 's2' | 'p1' | 'p2' | 'c1' | 'c2' | 'label';
@@ -23,23 +29,37 @@ export const Typography = forwardRef(
     ref: PolymorphicRef<T>,
   ) => {
     const Element = as ?? 'p';
-    const className = classNames({
-      'text-primary-500': status === 'primary',
-      'text-success-500': status === 'success',
-      'text-info-500': status === 'info',
-      'text-warning-500': status === 'warning',
-      'text-danger-500': status === 'danger',
-      [styles['typo-subtitle1'] as any]: category === 's1',
-      [styles['typo-subtitle2'] as any]: category === 's2',
-      [styles['typo-paragraph1'] as any]: category === 'p1',
-      [styles['typo-paragraph2'] as any]: category === 'p2',
-      [styles['typo-caption1'] as any]: category === 'c1',
-      [styles['typo-caption2'] as any]: category === 'c2',
-      [styles['typo-label'] as any]: category === 'label',
-    });
+
+    const statusStyles = {
+      primary: 'text-primary-400',
+      basic: 'text-basic-800',
+      success: 'text-success-500',
+      info: 'text-info-500',
+      warning: 'text-warning-500',
+      danger: 'text-danger-500',
+    };
+
+    const categoryStyles = {
+      s1: styles['typo-subtitle1'],
+      s2: styles['typo-subtitle2'],
+      p1: styles['typo-paragraph1'],
+      p2: styles['typo-paragraph2'],
+      c1: styles['typo-caption1'],
+      c2: styles['typo-caption2'],
+      label: styles['typo-label'],
+    };
 
     // @ts-ignore
-    return <Element ref={ref} className={className} {...props} />;
+    return (
+      <Element
+        ref={ref}
+        className={classNames(
+          status ? statusStyles[status] : null,
+          category ? categoryStyles[category] : null,
+        )}
+        {...props}
+      />
+    );
   },
 );
 

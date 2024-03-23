@@ -147,10 +147,18 @@ const config: Config = {
         },
       },
       padding: {
-        'layout-container': 'var(--layout-padding)',
+        'base-layout': 'var(--base-layout-padding)',
+        'for-appbar': 'var(--appbar-height)',
       },
     },
   },
   plugins: [],
+  safelist: [
+    {
+      pattern:
+        /(bg|text|border)-(primary|basic|success|info|warning)-(100|200|300|400|500|600|700|800)/,
+    },
+  ],
 };
+
 export default config;
