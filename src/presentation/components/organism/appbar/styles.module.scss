@@ -3,9 +3,11 @@
   top: 0;
   right: 0;
   left: 0;
+  z-index: var(--appbar-z-index);
   display: flex;
+  align-items: center;
   justify-content: space-between;
   height: var(--appbar-height);
-  padding: 12px var(--layout-padding);
+  padding: 12px var(--base-layout-padding);
   background-color: transparent;
 }

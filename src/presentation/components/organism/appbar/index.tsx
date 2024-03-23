@@ -1,8 +1,9 @@
-import { SearchInput } from '@presentation/components/atoms/searchInput';
 import { BackButton } from '@presentation/components/molecules/backButton';
 import { HeartButton } from '@presentation/components/molecules/heartButton';
 
+import { AppbarDummy } from './dummy';
 import styles from './styles.module.scss';
+import { AppbarTitle } from './title';
 import type { AppbarProps } from './types';
 
 export function Appbar({ children }: AppbarProps): JSX.Element {
@@ -11,4 +12,5 @@ export function Appbar({ children }: AppbarProps): JSX.Element {
 
 Appbar.BackButton = BackButton;
 Appbar.HeartButton = HeartButton;
-Appbar.SearchInput = SearchInput;
+Appbar.Title = AppbarTitle;
+Appbar.Dummy = AppbarDummy;
