@@ -14,7 +14,7 @@ export function AuthLayout({ children }: AuthLayoutProps): JSX.Element {
   useEffect(() => {
     if (!session) {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      router.replace('/auth/signUp');
+      router.replace('/auth/signIn');
     }
   }, [session]);
 
