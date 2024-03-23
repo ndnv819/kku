@@ -1,35 +1,43 @@
-import { useChangeView } from '@application/hooks/logics/view';
-import { Button } from '@presentation/components/atoms/button';
-import { NaverMap } from '@presentation/components/atoms/naverMap';
-import { BottomNavigation } from '@presentation/components/organism/bottomNavigation';
-import { useState } from 'react';
+import { useShopFilterCategory } from '@application/hooks/logics/shopFilter/use_shop_filter_category';
+import { useShopFilterStaus } from '@application/hooks/logics/shopFilter/use_shop_filter_status';
+import { useBookmark } from '@application/hooks/store/bookmark/use_bookmark';
+import { useLocation } from '@application/hooks/store/location/use_location';
+import { Typography } from '@presentation/components/atoms/typography';
+import { Appbar } from '@presentation/components/organism/appbar';
+import { ShopView } from '@presentation/components/templates/shopView';
+import classNames from 'classnames';
 
-import { ListView } from '../../components/organism/listView';
 import styles from './styles.module.scss';
 
 export function Bookmark(): JSX.Element {
-  const { isMapView, changeView } = useChangeView();
-  const [isOpened, _setIsOpened] = useState<boolean>(false);
+  const { locationState } = useLocation();
+  const { bookmarkList, filteredBookmarkList } = useBookmark();
+  const { status } = useShopFilterStaus();
+  const { category } = useShopFilterCategory();
 
   return (
     <>
-      <section className={styles['bookmark-wrapper']}>
-        <Button onClick={() => console.log('click')}>
-          {isOpened ? '영업 중' : '전체'}
-        </Button>
-        {isMapView ? (
-          <NaverMap lat={0} lng={0} minZoom={6} />
-        ) : (
-          <ListView shops={undefined} />
+      <Appbar>
+        <Appbar.BackButton />
+        <Appbar.Title title="북마크" />
+        <Appbar.Dummy />
+      </Appbar>
+      <section
+        className={classNames(
+          styles['bookmark-wrapper'],
+          bookmarkList.length === 0 && 'justify-center items-center',
         )}
-        <Button
-          onClick={changeView}
-          className="fixed bottom-[80px] left-[50%] translate-x-[-50%] bg-orange-500 text-white"
-        >
-          {isMapView ? '리스트 보기' : '지도 보기'}
-        </Button>
+      >
+        {!bookmarkList || bookmarkList.length === 0 ? (
+          <Typography>아직 북마크한 가게가 없어요!</Typography>
+        ) : (
+          <ShopView
+            lat={locationState.lat}
+            lng={locationState.lng}
+            shops={filteredBookmarkList(status, category)}
+          />
+        )}
       </section>
-      <BottomNavigation />
     </>
   );
 }
