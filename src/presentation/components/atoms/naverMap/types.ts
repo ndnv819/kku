@@ -1,16 +1,13 @@
 import type { ReactNode } from 'react';
-
-export interface NaverMapMarker {
-  name: string;
-  lat: number;
-  lng: number;
-}
+import type { ShopDTO } from 'src/pages/api/shop/dtos';
 
 export interface NaverMapProps {
   lat: number;
   lng: number;
   minZoom?: number;
   maxZoom?: number;
-  markers?: NaverMapMarker[];
+  markers?: ShopDTO[];
+  markerHandler?: (marker: ShopDTO) => void;
+  markerIconRenderer?: (marker: ShopDTO) => string;
   children?: ReactNode;
 }
