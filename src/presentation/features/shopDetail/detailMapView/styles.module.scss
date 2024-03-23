@@ -1,0 +1,20 @@
+.marker-wrapper {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  width: max-content;
+  padding: 4px 8px;
+  background-color: #fff;
+  border: 1px solid var(--c-primary-500);
+  border-radius: 99px;
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: var(--c-primary-500);
+  border-radius: 99px;
+}
