@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 import '@presentation/styles/global.scss';
+import '@presentation/styles/reset.scss';
 import '../env';
 
-import { wrapper } from '@application/store';
+import { persistor, wrapper } from '@application/store';
 import { AuthProvider } from '@presentation/providers/auth';
-import { GraphqlProvider } from '@presentation/providers/graphQL';
+import { ModalProvider } from '@presentation/providers/modal';
 import { NaverMapProvider } from '@presentation/providers/naverMap';
 import { QueryProvider } from '@presentation/providers/query';
 import { ToastProvider } from '@presentation/providers/toast';
@@ -12,6 +13,7 @@ import type { AppProps } from 'next/app';
 import localFont from 'next/font/local';
 import { Provider } from 'react-redux';
 import { RecoilEnv, RecoilRoot } from 'recoil';
+import { PersistGate } from 'redux-persist/integration/react';
 
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
@@ -61,21 +63,23 @@ export default function App({
 
   return (
     <QueryProvider>
-      <GraphqlProvider pageProps={props.pageProps}>
-        <AuthProvider session={props.pageProps.session}>
-          <Provider store={store}>
+      <AuthProvider session={props.pageProps.session}>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
             <RecoilRoot>
               <main className={myFont.className}>
                 <ToastProvider>
                   <NaverMapProvider>
-                    <Component {...props.pageProps} />
+                    <ModalProvider>
+                      <Component {...props.pageProps} />
+                    </ModalProvider>
                   </NaverMapProvider>
                 </ToastProvider>
               </main>
             </RecoilRoot>
-          </Provider>
-        </AuthProvider>
-      </GraphqlProvider>
+          </PersistGate>
+        </Provider>
+      </AuthProvider>
     </QueryProvider>
   );
 }
