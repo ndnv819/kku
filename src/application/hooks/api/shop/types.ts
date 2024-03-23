@@ -5,7 +5,7 @@ export interface ShopsTypes {
   isError: boolean;
   isLoading: boolean;
   isFetching: boolean;
-  dataGroupByIsInBusiness?: (isInBusiness: boolean) => ShopDTO[] | undefined;
+  filteredShops: (status: boolean, category?: string) => ShopDTO[];
 }
 
 export interface ShopByIdTypes {
