@@ -16,7 +16,7 @@ export function BackButton({
   }, []);
 
   return (
-    <Button onClick={toBack} {...props}>
+    <Button onClick={toBack} {...props} className="p-[0]">
       <IcChevronLeft color={iconColor} />
     </Button>
   );
