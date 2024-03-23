@@ -1,21 +1,37 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper-future';
+import { persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
-import { LocationName, LocationReducer } from './location/slice';
+import { bookmarkName, bookmarkReducer } from './bookmark/slice';
+import { bottomSheetName, bottomSheetReducer } from './bottomSheet/slice';
+import { locationName, locationReducer } from './locationPosition/slice';
 import { shopFilterName, shopFilterReducer } from './shopFilter/slice';
 
 // MARK: Store 정의
 const rootReducer = combineReducers({
   [shopFilterName]: shopFilterReducer,
-  [LocationName]: LocationReducer,
+  [locationName]: locationReducer,
+  [bottomSheetName]: bottomSheetReducer,
+  [bookmarkName]: bookmarkReducer,
 });
 
-// NOTE: test할 때는 export 추가
+// NOTE:: redux-persist 정의
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: [bookmarkName],
+};
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 export const store = configureStore({
-  reducer: rootReducer,
+  reducer: persistedReducer,
   devTools: process.env.NODE_ENV === 'development',
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
+
+export const persistor = persistStore(store);
+
 const makeStore = () => store;
 
 // MARK: Store type 정의

@@ -3,21 +3,21 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper-future';
 
-import { LocationEnumZod } from '../constants';
-import type { LocationState } from './types';
+import { StoreEnumZod } from '../constants';
+import type { LocationActionType, LocationState } from './types';
 
-const initialState: LocationState = {
-  lat: undefined,
-  lng: undefined,
-};
+const initialState: LocationState = {};
 
-const LocationSlice = createSlice({
-  name: LocationEnumZod.Enum.location,
+const locationSlice = createSlice({
+  name: StoreEnumZod.Enum.location,
   initialState,
   reducers: {
-    changeType: (state, action: PayloadAction<LocationState>) => {
-      state.lat = action.payload.lat;
-      state.lng = action.payload.lng;
+    setLocation: (
+      state: LocationState,
+      action: PayloadAction<LocationActionType>,
+    ) => {
+      state.lat = action.payload?.lat;
+      state.lng = action.payload?.lng;
     },
     clear: (_state) => {
       return initialState;
@@ -34,6 +34,6 @@ const LocationSlice = createSlice({
   },
 });
 
-export const LocationActions = LocationSlice.actions;
-export const LocationName = LocationSlice.name;
-export const LocationReducer = LocationSlice.reducer;
+export const locationActions = locationSlice.actions;
+export const locationName = locationSlice.name;
+export const locationReducer = locationSlice.reducer;
