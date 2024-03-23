@@ -14,7 +14,7 @@ export default async function handler(
     const { id } = req.query;
     const jsonFile = await fsPromises.readFile(jsonPath, 'utf-8');
     const result = JSON.parse(jsonFile) as ShopDTO[];
-    const shop = result.find((r) => r.id === id);
+    const shop = result.find((r) => r!.id === id);
 
     res.status(200).json(shop);
   }

@@ -21,8 +21,8 @@ const ShopDetailPage: NextPage<ShopDetailPageProps> = ({
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const result = await parseJson();
-  const paths = result.map((s) => ({
-    params: { id: s.id },
+  const paths = result.map((r) => ({
+    params: { id: r!.id },
   }));
 
   return {
@@ -42,7 +42,7 @@ export const getStaticProps: GetStaticProps<ShopDetailPageProps> = async (
   }
 
   const result = await parseJson();
-  const shop = result.find((r) => r.id === params.id);
+  const shop = result.find((r) => r!.id === params.id);
 
   if (!shop) {
     return {
