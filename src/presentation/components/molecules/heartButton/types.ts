@@ -1,7 +1,8 @@
+import type { ButtonHTMLAttributes } from 'react';
+
 type IcHeartType = 'filled' | 'outlined';
 
-export interface HeartButtonProps {
+export interface HeartButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
   iconType: IcHeartType;
-  onClick: () => void;
-  className: string;
 }
