@@ -11,7 +11,16 @@ export function ToastProvider({
   return (
     <>
       {children}
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-center"
+        autoClose={2000}
+        hideProgressBar
+        newestOnTop
+        rtl={false}
+        closeOnClick
+        closeButton={false}
+        theme="dark"
+      />
     </>
   );
 }

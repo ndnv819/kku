@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 export function useToast() {
   const showInfo = useCallback((message: string): void => {
-    toast(message);
+    toast.info(message);
   }, []);
 
   return {
