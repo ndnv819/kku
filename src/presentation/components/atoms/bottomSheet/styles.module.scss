@@ -1,0 +1,25 @@
+.bottom-sheet {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: var(--bottom-sheet-z-index);
+  width: var(--base-layout-width);
+  padding: 20px;
+  margin: 0;
+  border-radius: 40px 40px 0 0;
+  box-shadow: none;
+
+  @media (min-width: var(--base-layout-width)) {
+    width: 100%;
+  }
+}
+
+.bottom-sheet-overlay {
+  width: 420px;
+  margin: 0 auto;
+  background-color: transparent;
+
+  @media (min-width: var(--base-layout-width)) {
+    width: 100%;
+  }
+}
