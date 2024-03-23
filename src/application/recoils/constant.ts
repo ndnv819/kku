@@ -1,5 +1,5 @@
 export enum RecoilAtomKeys {
-  MAP_MARKERS = 'map_markers',
-  VIEW_CATEGORY_IS_MAP = 'view_category_is_map',
-  IS_IN_BUSINESS = 'is_in_business',
+  IS_MAP_VIEW = 'is_map_view',
+  SHOPS_CATEGORY = 'shops_category',
+  SHOPS_BUSINESS_STATUS = 'shops_business_status',
 }
