@@ -51,7 +51,7 @@ export function VerticalList<T>({
     if (EmptyComponent) {
       return <EmptyComponent />;
     }
-    return <EmptyView />;
+    return <EmptyView title="데이터가 없습니다." />;
   }, [EmptyComponent]);
 
   return (

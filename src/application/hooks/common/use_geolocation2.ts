@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-interface Geolocation {
+export interface Geolocation {
   isLoading: boolean;
   error?: GeolocationPositionError;
   data?: GeolocationPosition;
