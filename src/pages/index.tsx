@@ -20,6 +20,7 @@ const HomePage: NextPage<Shops> = ({ shops }) => {
 export const getStaticProps: GetStaticProps = async () => {
   try {
     const shops = await requestGet('/api/shop');
+    console.log('getStaticProps', shops);
 
     return {
       props: {
