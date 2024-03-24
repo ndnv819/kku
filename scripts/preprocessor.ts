@@ -1,5 +1,6 @@
-// import fs from 'fs';
-// import { chromium } from 'playwright';
+/*
+import fs from 'fs';
+import { chromium } from 'playwright';
 
 // import type { RawShopItem } from './scraper';
 
@@ -54,4 +55,5 @@
 //   });
 // }
 
-// main().catch(console.error);
+main().catch(console.error);
+*/
