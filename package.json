@@ -28,7 +28,8 @@
     "storybook:serve": "http-server storybook-static --port 6006 --silent",
     "serve-storybook": "run-s storybook:*",
     "test-storybook:ci": "start-server-and-test serve-storybook http://127.0.0.1:6006 test-storybook",
-    "scrape": "ts-node --project tsconfig.scripts.json scripts/scraper.ts"
+    "scrape": "ts-node --project tsconfig.scripts.json scripts/scraper.ts",
+    "preprocess": "ts-node --project tsconfig.scripts.json scripts/preprocessor.ts"
   },
   "dependencies": {
     "@apollo/client": "3.8.8",

@@ -20,6 +20,7 @@ export interface RawShopItem {
   openingTime: string;
   name: string;
   category: string;
+  subCategory: string;
   address: string;
   tel: string;
   memo: string;
@@ -56,7 +57,15 @@ async function scrapeAdditionalData(
     }
 
     const openingTime: string = await page
-      .$eval('a.gKP9i', (span) => (span as HTMLElement).innerText)
+      .$eval(
+        'a.gKP9i .w9QyJ',
+        (spans) =>
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
+          spans
+            // @ts-ignore
+            .map((span) => (span as HTMLElement).innerText)
+            .join('\n') as string,
+      )
       .catch(() => `영업시간을 찾지 못했습니다: PlaceId: ${itemId}`);
     const name: string = await page
       .$eval('span.Fc1rA', (span) => (span as HTMLElement).innerText)
@@ -66,13 +75,13 @@ async function scrapeAdditionalData(
       .catch(() => `카테고리를 찾지 못했습니다: PlaceId: ${itemId}`);
     const address: string = await page
       .$eval('span.LDgIH', (span) => (span as HTMLElement).innerText)
-      .catch(() => `주소를 찾지 못했습니다: PlaceId: ${itemId}`);
+      .catch(() => ''); // `주소를 찾지 못했습니다: PlaceId: ${itemId}`);
     const tel: string = await page
       .$eval('span.xlx7Q', (span) => (span as HTMLElement).innerText)
-      .catch(() => `주소를 찾지 못했습니다: PlaceId: ${itemId}`);
+      .catch(() => ''); // `주소를 찾지 못했습니다: PlaceId: ${itemId}`);
     const memo: string = await page
       .$eval('div.xPvPE', (span) => (span as HTMLElement).innerText)
-      .catch(() => `주소를 찾지 못했습니다: PlaceId: ${itemId}`);
+      .catch(() => ''); // `주소를 찾지 못했습니다: PlaceId: ${itemId}`);
 
     // 메뉴정보를 불러오기 위해 메뉴섹션으로 이동
     await page.goto(
@@ -264,6 +273,7 @@ async function main(): Promise<void> {
       return {
         ...raw,
         category: raw.category.includes('카페') ? '카페' : '식당',
+        subCategory: raw.category,
       };
     });
     fs.writeFile(
