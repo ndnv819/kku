@@ -1,3 +1,4 @@
+/*
 import fs from 'fs';
 import { chromium } from 'playwright';
 
@@ -55,3 +56,4 @@ async function main(): Promise<void> {
 }
 
 main().catch(console.error);
+*/
