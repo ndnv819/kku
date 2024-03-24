@@ -17,6 +17,7 @@ const nextConfig = {
   images: {
     unoptimized: !isProd,
   },
+  output: "standalone",
   webpack(config, { webpack }) {
     // https://www.apollographql.com/docs/react/development-testing/reducing-bundle-size#nextjs
     config.plugins.push(
