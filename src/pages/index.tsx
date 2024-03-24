@@ -1,15 +1,15 @@
-import { requestGet } from '@infrastructure/network';
+import { parseJson } from '@application/helpers/json/parse_json';
 import { Home } from '@presentation/features/home';
 import { BaseLayout } from '@presentation/layouts/base';
 import type { GetStaticProps, NextPage } from 'next';
 
 import type { ShopDTO } from './api/shop/dtos';
 
-interface Shops {
+interface HomePageProps {
   shops: ShopDTO[];
 }
 
-const HomePage: NextPage<Shops> = ({ shops }) => {
+const HomePage: NextPage<HomePageProps> = ({ shops }: HomePageProps) => {
   return (
     <BaseLayout>
       <Home shops={shops} />
@@ -17,14 +17,13 @@ const HomePage: NextPage<Shops> = ({ shops }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
   try {
-    const shops = await requestGet('/api/shop');
-    console.log('getStaticProps', shops);
+    const result = await parseJson();
 
     return {
       props: {
-        shops,
+        shops: result,
       },
     };
   } catch (error) {
