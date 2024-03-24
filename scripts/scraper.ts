@@ -20,7 +20,6 @@ export interface RawShopItem {
   openingTime: string;
   name: string;
   category: string;
-  subCategory: string;
   address: string;
   tel: string;
   memo: string;
@@ -57,14 +56,8 @@ async function scrapeAdditionalData(
     }
 
     const openingTime: string = await page
-      .$eval(
-        'a.gKP9i .w9QyJ',
-        (spans) =>
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-          spans
-            // @ts-ignore
-            .map((span) => (span as HTMLElement).innerText)
-            .join('\n') as string,
+      .$$eval('a.gKP9i .w9QyJ', (spans) =>
+        (spans as HTMLElement[]).map((span) => span.innerText).join('\n'),
       )
       .catch(() => `영업시간을 찾지 못했습니다: PlaceId: ${itemId}`);
     const name: string = await page
