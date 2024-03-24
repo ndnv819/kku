@@ -1,3 +1,4 @@
+/* eslint-disable simple-import-sort/imports */
 import { useShopFilterCategory } from '@application/hooks/logics/shopFilter/use_shop_filter_category';
 import { useShopFilterStaus } from '@application/hooks/logics/shopFilter/use_shop_filter_status';
 import { useBookmark } from '@application/hooks/store/bookmark/use_bookmark';
@@ -7,9 +8,9 @@ import { Appbar } from '@presentation/components/organism/appbar';
 import { LoadingView } from '@presentation/components/organism/loadingView';
 import { ShopView } from '@presentation/components/templates/shopView';
 import classNames from 'classnames';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import session from 'redux-persist/es/storage/session';
 
 import styles from './styles.module.scss';
 
@@ -19,6 +20,7 @@ export function Bookmark(): JSX.Element {
   const { status } = useShopFilterStaus();
   const { category } = useShopFilterCategory();
   const router = useRouter();
+  const { data: session } = useSession();
 
   useEffect(() => {
     if (!session) {
