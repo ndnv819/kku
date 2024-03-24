@@ -45,7 +45,7 @@ export function Home({ shops }: HomeProps): JSX.Element {
     <>
       <Appbar>
         <Typography as="h3" status="primary">
-          kku
+          멍꾹
         </Typography>
         <Link href="/my">MY</Link>
       </Appbar>
