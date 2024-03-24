@@ -16,7 +16,6 @@ const bottomSheetSlice = createSlice({
   reducers: {
     openBottomSheet: (state, action: PayloadAction<BottomSheetActionType>) => {
       state.isOpened = true;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       state.shop = action.payload;
     },
     closeBottomSheet: () => {

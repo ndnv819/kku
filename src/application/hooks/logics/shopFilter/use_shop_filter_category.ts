@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 
 import type { ShopFilterCategoryResult } from './types';
 
+// TODO:: state와 setter 분리
 export function useShopFilterCategory(): ShopFilterCategoryResult {
   const [category, setCategory] = useRecoilState(shopsCategoryAtom);
 

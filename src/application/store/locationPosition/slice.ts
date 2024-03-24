@@ -16,8 +16,8 @@ const locationSlice = createSlice({
       state: LocationState,
       action: PayloadAction<LocationActionType>,
     ) => {
-      state.lat = action.payload?.lat;
-      state.lng = action.payload?.lng;
+      state.lat = action.payload.lat;
+      state.lng = action.payload.lng;
     },
     clear: (_state) => {
       return initialState;

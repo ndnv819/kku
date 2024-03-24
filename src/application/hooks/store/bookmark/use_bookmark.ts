@@ -7,6 +7,9 @@ import type { ShopDTO } from 'src/pages/api/shop/dtos';
 
 import type { bookmarkResultType } from './types';
 
+// TODO:: isBookmarked,filteredBookmarkList와 dispatch 함수 분리
+// TODO:: toggleBookmark 추가
+// TODO:: Hook 이름 수정
 export function useBookmark(): bookmarkResultType {
   const bookmarkState: BookmarkState = useSelector<RootState, BookmarkState>(
     (state) => state.bookmark,
