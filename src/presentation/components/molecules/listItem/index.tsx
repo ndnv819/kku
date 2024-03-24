@@ -29,7 +29,7 @@ export function ListItem({ shop }: ListItemProps): JSX.Element | null {
       return;
     }
     deleteBookmark(shop.id);
-  }, [shop, isBookmarked, addBookmark, deleteBookmark]);
+  }, [session, shop]);
 
   if (!shop) {
     return null;
