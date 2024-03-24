@@ -15,10 +15,6 @@ export function My(): JSX.Element {
     signOut({ callbackUrl: '/' });
   }, []);
 
-  if (!session) {
-    return <p>no session</p>;
-  }
-
   return (
     <>
       <Appbar>
@@ -30,12 +26,12 @@ export function My(): JSX.Element {
         <div className="flex items-center gap-[6px]">
           <Image
             alt="profile"
-            src={session.user!.image!}
+            src={session!.user!.image!}
             width={40}
             height={40}
             className="rounded-full"
           />
-          <Typography as="h6">{session.user!.name}</Typography>
+          <Typography as="h6">{session!.user!.name}</Typography>
         </div>
         <ul className="mt-[20px] flex flex-col divide-y">
           <li className="py-[16px]">
