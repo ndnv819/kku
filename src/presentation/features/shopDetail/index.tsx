@@ -7,6 +7,7 @@ import { Typography } from '@presentation/components/atoms/typography';
 import { Appbar } from '@presentation/components/organism/appbar';
 import { EmptyView } from '@presentation/components/organism/emptyView';
 import { LoadingView } from '@presentation/components/organism/loadingView';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useState } from 'react';
 
@@ -53,7 +54,7 @@ export function ShopDetail({ shop }: ShopDetailProps): JSX.Element | null {
         />
       </Appbar>
       <section className="px-[16px] pb-[20px] pt-for-appbar">
-        <div className="flex items-center gap-[8px]">
+        <div className="flex flex-wrap items-center gap-[8px]">
           <Typography as="h5">{data?.name}</Typography>
           <Typography>{data?.category}</Typography>
         </div>
@@ -71,6 +72,23 @@ export function ShopDetail({ shop }: ShopDetailProps): JSX.Element | null {
             </Typography>
           </Button>
         </div>
+        {data.imageUrls.length !== 0 && (
+          <ul className="flex items-center gap-[4px] overflow-x-scroll">
+            {data.imageUrls.map((img, index) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <li key={index} className="h-[200px] min-w-[200px]">
+                <Image
+                  src={img}
+                  alt="썸네일"
+                  objectFit="cover"
+                  width={200}
+                  height={200}
+                  className="h-[200px] rounded object-cover"
+                />
+              </li>
+            ))}
+          </ul>
+        )}
         <Typography as="h6" className="mb-[8px] mt-[36px]">
           영업시간
         </Typography>
