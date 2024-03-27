@@ -10,7 +10,7 @@
   border-radius: 40px 40px 0 0;
   box-shadow: none;
 
-  @media (min-width: var(--base-layout-width)) {
+  @media (width <= 420px) {
     width: 100%;
   }
 }
@@ -20,7 +20,7 @@
   margin: 0 auto;
   background-color: transparent;
 
-  @media (min-width: var(--base-layout-width)) {
+  @media (width <= 420px) {
     width: 100%;
   }
 }
