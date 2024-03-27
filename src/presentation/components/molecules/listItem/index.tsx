@@ -47,7 +47,7 @@ export function ListItem({ shop }: ListItemProps): JSX.Element | null {
         <Typography category="c1" className="mt-[4px] truncate">
           {shop.address}
         </Typography>
-        {shop.imageUrls && (
+        {shop.imageUrls.length !== 0 && (
           <ul className="mt-[10px] flex items-center gap-[4px] overflow-scroll">
             {shop.imageUrls.map((img, index) => (
               // eslint-disable-next-line react/no-array-index-key
