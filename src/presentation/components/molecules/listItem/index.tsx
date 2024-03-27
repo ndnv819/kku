@@ -47,21 +47,23 @@ export function ListItem({ shop }: ListItemProps): JSX.Element | null {
         <Typography category="c1" className="mt-[4px] truncate">
           {shop.address}
         </Typography>
-        <ul className="mt-[10px] flex items-center gap-[4px] overflow-scroll">
-          {shop.imageUrls.map((img, index) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <li key={index} className="h-[140px] min-w-[104px]">
-              <Image
-                src={img}
-                alt="썸네일"
-                objectFit="cover"
-                width={104}
-                height={140}
-                className="h-[140px] rounded object-cover"
-              />
-            </li>
-          ))}
-        </ul>
+        {shop.imageUrls && (
+          <ul className="mt-[10px] flex items-center gap-[4px] overflow-scroll">
+            {shop.imageUrls.map((img, index) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <li key={index} className="h-[140px] min-w-[104px]">
+                <Image
+                  src={img}
+                  alt="썸네일"
+                  objectFit="cover"
+                  width={104}
+                  height={140}
+                  className="h-[140px] rounded object-cover"
+                />
+              </li>
+            ))}
+          </ul>
+        )}
       </Link>
       <HeartButton
         className="absolute right-0 top-0 items-end"
