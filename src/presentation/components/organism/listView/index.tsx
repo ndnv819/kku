@@ -4,10 +4,10 @@ import type { ListViewProps } from './types';
 
 export function ListView({ shops }: ListViewProps): JSX.Element {
   return (
-    <ul className="divide-y px-[16px]">
+    <ul className="divide-y">
       {shops!.map((shop) => {
         return (
-          <li key={shop!.id} className="relative py-[16px]">
+          <li key={shop!.id} className="relative p-[16px]">
             <ListItem shop={shop} />
           </li>
         );

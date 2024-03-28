@@ -70,7 +70,7 @@ export function ListItem({ shop }: ListItemProps): JSX.Element | null {
         )}
       </Link>
       <BookmarkButton
-        className="absolute right-[0] top-[12px] items-end p-[0]"
+        className="absolute right-[12px] top-[12px] items-end p-[0]"
         onClick={onBookmarkClick}
         status={isBookmarked(shop.id) ? 'active' : 'inactive'}
       />
