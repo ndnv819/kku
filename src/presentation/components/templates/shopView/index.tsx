@@ -26,22 +26,24 @@ export function ShopView({ lat, lng, shops }: ShopViewProps): JSX.Element {
 
   return (
     <section className={styles['view-wrapper']}>
-      <div className="flex gap-[12px] p-[0] px-[16px] pb-[12px]">
-        <FilterButton onClick={changeView} isChecked>
+      <div className="flex gap-[12px] overflow-x-scroll p-[0] px-[16px] pb-[12px]">
+        <FilterButton onClick={changeView} isChecked className="min-w-fit">
           {isMapView ? '리스트 보기' : '지도 보기'}
         </FilterButton>
-        <FilterButton onClick={changeStatus} isChecked>
+        <FilterButton onClick={changeStatus} isChecked className="min-w-fit">
           {status ? '영업 중' : '전체'}
         </FilterButton>
         <FilterButton
           onClick={() => changeCategory(ShopCategoryEnum.CAFE)}
           isChecked={category === ShopCategoryEnum.CAFE}
+          className="min-w-fit"
         >
           ☕️ 카페
         </FilterButton>
         <FilterButton
           onClick={() => changeCategory(ShopCategoryEnum.RESTAURANT)}
           isChecked={category === ShopCategoryEnum.RESTAURANT}
+          className="min-w-fit"
         >
           🍚 식당
         </FilterButton>
