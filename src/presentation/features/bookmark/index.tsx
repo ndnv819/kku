@@ -47,7 +47,7 @@ export function Bookmark(): JSX.Element {
         )}
       >
         {!bookmarkList || bookmarkList.length === 0 ? (
-          <Typography>아직 북마크한 가게가 없어요!</Typography>
+          <Typography>아직 꾹마크한 가게가 없어요!</Typography>
         ) : (
           <ShopView
             lat={locationState.lat}
