@@ -40,15 +40,33 @@ export function My(): JSX.Element {
         </div>
         <ul className="mt-[20px] flex flex-col divide-y">
           <li className="py-[16px]">
-            <Link href="/bookmark">북마크</Link>
+            <Link href="/bookmark">
+              <ul className="flex items-center gap-[10px]">
+                <li>
+                  <Image
+                    src="/assets/images/3d/3d_paw.png"
+                    width={24}
+                    height={24}
+                    alt="paw"
+                  />
+                </li>
+                <li>꾹마크</li>
+              </ul>
+            </Link>
           </li>
           <li className="py-[16px]">
             <Button
               onClick={onSignOutClick}
               appearances="ghost"
               status="basic"
-              className="p-0"
+              className="gap-[10px] p-0"
             >
+              <Image
+                src="/assets/images/3d/3d_waving_hand.png"
+                width={24}
+                height={24}
+                alt="waving hand"
+              />
               로그아웃
             </Button>
           </li>
