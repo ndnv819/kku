@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useCallback } from 'react';
 
 import { useToast } from '@application/hooks/toast';
-import { HeartButton } from '../heartButton';
+import { BookmarkButton } from '../bookmarkButton';
 import type { ListItemProps } from './types';
 
 export function ListItem({ shop }: ListItemProps): JSX.Element | null {
@@ -15,7 +15,7 @@ export function ListItem({ shop }: ListItemProps): JSX.Element | null {
   const { data: session } = useSession();
   const { showInfo } = useToast();
 
-  const toggleBookmark = useCallback((): void => {
+  const onBookmarkClick = useCallback((): void => {
     if (!session) {
       showInfo('회원만 가능합니다.');
       return;
@@ -40,15 +40,19 @@ export function ListItem({ shop }: ListItemProps): JSX.Element | null {
       <Link href={`/shop/${shop.id}`}>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-[8px]">
-            <Typography as="h6">{shop.name}</Typography>
-            <Typography>{shop.category}</Typography>
+            <Typography as="h6">
+              {shop.name.length >= 16
+                ? `${shop.name.slice(0, 16)}..`
+                : shop.name}
+            </Typography>
+            <Typography className="min-w-fit">{shop.category}</Typography>
           </div>
         </div>
         <Typography category="c1" className="mt-[4px] truncate">
           {shop.address}
         </Typography>
         {shop.imageUrls.length !== 0 && (
-          <ul className="mt-[10px] flex items-center gap-[4px] overflow-scroll">
+          <ul className="mt-[10px] flex items-center gap-[4px] overflow-y-hidden overflow-x-scroll">
             {shop.imageUrls.map((img, index) => (
               // eslint-disable-next-line react/no-array-index-key
               <li key={index} className="h-[140px] min-w-[104px]">
@@ -65,10 +69,10 @@ export function ListItem({ shop }: ListItemProps): JSX.Element | null {
           </ul>
         )}
       </Link>
-      <HeartButton
-        className="absolute right-0 top-0 items-end"
-        onClick={toggleBookmark}
-        iconType={isBookmarked(shop.id) ? 'filled' : 'outlined'}
+      <BookmarkButton
+        className="absolute right-[0] top-[12px] items-end p-[0]"
+        onClick={onBookmarkClick}
+        status={isBookmarked(shop.id) ? 'active' : 'inactive'}
       />
     </>
   );

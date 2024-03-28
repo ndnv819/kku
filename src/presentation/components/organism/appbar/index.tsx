@@ -1,5 +1,5 @@
 import { BackButton } from '@presentation/components/molecules/backButton';
-import { HeartButton } from '@presentation/components/molecules/heartButton';
+import { BookmarkButton } from '@presentation/components/molecules/bookmarkButton';
 
 import { AppbarDummy } from './dummy';
 import styles from './styles.module.scss';
@@ -11,6 +11,6 @@ export function Appbar({ children }: AppbarProps): JSX.Element {
 }
 
 Appbar.BackButton = BackButton;
-Appbar.HeartButton = HeartButton;
+Appbar.BookmarkButton = BookmarkButton;
 Appbar.Title = AppbarTitle;
 Appbar.Dummy = AppbarDummy;
