@@ -16,10 +16,10 @@ const nextConfig = {
   },
   images: {
     unoptimized: !isProd,
-    remotePatterns: {
+    remotePatterns: [{
       protocol: 'https',
       hostname: "**",
-    }
+    }],
   },
   output: "standalone",
   webpack(config, { webpack }) {
