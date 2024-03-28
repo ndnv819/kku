@@ -48,9 +48,10 @@ export function ShopDetail({ shop }: ShopDetailProps): JSX.Element | null {
     <>
       <Appbar>
         <Appbar.BackButton />
-        <Appbar.HeartButton
+        <Appbar.BookmarkButton
+          className="p-[0]"
           onClick={toggleBookmark}
-          iconType={isBookmarked(data.id) ? 'filled' : 'outlined'}
+          status={isBookmarked(data.id) ? 'active' : 'inactive'}
         />
       </Appbar>
       <section className="px-[16px] pb-[20px] pt-for-appbar">
@@ -59,21 +60,18 @@ export function ShopDetail({ shop }: ShopDetailProps): JSX.Element | null {
           <Typography>{data?.category}</Typography>
         </div>
         <div className="flex items-center gap-[4px]">
-          <IcMarker width={16} height={16} type="filled" />
-          <Typography category="p2">{data?.address}</Typography>
           <Button
             sizes="tiny"
             appearances="ghost"
             onClick={changeView}
-            className="min-w-fit p-[8px]"
+            className="w-full px-[0] py-[4px]"
           >
-            <Typography category="p2" status="primary">
-              지도보기
-            </Typography>
+            <IcMarker width={16} height={16} type="filled" />
+            <Typography category="p2">{data?.address}</Typography>
           </Button>
         </div>
         {data.imageUrls.length !== 0 && (
-          <ul className="flex items-center gap-[4px] overflow-x-scroll">
+          <ul className="mt-[4px] flex items-center gap-[4px] overflow-x-scroll">
             {data.imageUrls.map((img, index) => (
               // eslint-disable-next-line react/no-array-index-key
               <li key={index} className="h-[200px] min-w-[200px]">
