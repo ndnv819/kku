@@ -25,7 +25,7 @@ export type TypographyProps<T extends TypographyAllowedTags = 'p'> =
 
 export const Typography = forwardRef(
   <T extends TypographyAllowedTags = 'p'>(
-    { as, category, status, ...props }: TypographyProps<T>,
+    { as, category, status, className, ...props }: TypographyProps<T>,
     ref: PolymorphicRef<T>,
   ) => {
     const Element = as ?? 'p';
@@ -54,6 +54,7 @@ export const Typography = forwardRef(
       <Element
         ref={ref}
         className={classNames(
+          className,
           status ? statusStyles[status] : null,
           category ? categoryStyles[category] : null,
         )}

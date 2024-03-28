@@ -6,6 +6,7 @@ import type { FilterButtonProps } from './types';
 
 export function FilterButton({
   isChecked = false,
+  className,
   ...props
 }: FilterButtonProps): JSX.Element {
   return (
@@ -13,6 +14,7 @@ export function FilterButton({
       className={classNames(
         isChecked && 'border border-solid border-basic-600',
         styles['filter-button'],
+        className,
       )}
       {...props}
     />
