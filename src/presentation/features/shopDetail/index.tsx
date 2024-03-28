@@ -1,12 +1,15 @@
+/* eslint-disable simple-import-sort/imports */
 /* eslint-disable react/no-array-index-key */
 import { useGetShopsById } from '@application/hooks/api/shop/use_get_shops_id';
 import { useBookmark } from '@application/hooks/store/bookmark/use_bookmark';
+import { useToast } from '@application/hooks/toast';
 import { Button } from '@presentation/components/atoms/button';
 import { IcMarker } from '@presentation/components/atoms/icons/marker';
 import { Typography } from '@presentation/components/atoms/typography';
 import { Appbar } from '@presentation/components/organism/appbar';
 import { EmptyView } from '@presentation/components/organism/emptyView';
 import { LoadingView } from '@presentation/components/organism/loadingView';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useState } from 'react';
@@ -18,12 +21,18 @@ export function ShopDetail({ shop }: ShopDetailProps): JSX.Element | null {
   const { data, isLoading, isFetching } = useGetShopsById(shop!.id, shop);
   const { addBookmark, deleteBookmark, isBookmarked } = useBookmark();
   const [showShopDetailMap, setShowShopDetailMap] = useState<boolean>(false);
+  const { data: session } = useSession();
+  const { showInfo } = useToast();
 
   const changeView = useCallback((): void => {
     setShowShopDetailMap((prev) => !prev);
   }, []);
 
   const toggleBookmark = useCallback(() => {
+    if (!session) {
+      showInfo('회원만 가능합니다.');
+      return;
+    }
     if (!data) {
       return;
     }
@@ -33,7 +42,7 @@ export function ShopDetail({ shop }: ShopDetailProps): JSX.Element | null {
       return;
     }
     deleteBookmark(data.id);
-  }, [data]);
+  }, [session, data]);
 
   if (isLoading || isFetching) {
     return <LoadingView />;
