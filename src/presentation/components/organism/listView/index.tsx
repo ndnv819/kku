@@ -7,7 +7,7 @@ export function ListView({ shops }: ListViewProps): JSX.Element {
     <ul className="divide-y px-[16px]">
       {shops!.map((shop) => {
         return (
-          <li key={shop!.id} className="relative p-base-layout">
+          <li key={shop!.id} className="relative py-[16px]">
             <ListItem shop={shop} />
           </li>
         );
