@@ -6,7 +6,6 @@ import { FilterButton } from '@presentation/components/molecules/filterButton';
 import { EmptyView } from '@presentation/components/organism/emptyView';
 import { ListView } from '@presentation/components/organism/listView';
 import { MapView } from '@presentation/components/organism/mapView';
-import { useEffect } from 'react';
 
 import styles from './styles.module.scss';
 import type { ShopViewProps } from './types';
@@ -16,17 +15,13 @@ export function ShopView({ lat, lng, shops }: ShopViewProps): JSX.Element {
   const { status, changeStatus } = useShopFilterStaus();
   const { category, changeCategory } = useShopFilterCategory();
 
-  useEffect(() => {
-    console.log('shops', shops);
-  }, [shops]);
-
   if (!shops) {
     return <EmptyView title="가게 정보를 찾을 수 없습니다." />;
   }
 
   return (
     <section className={styles['view-wrapper']}>
-      <div className="flex gap-[12px] overflow-x-scroll p-[0] px-[16px] pb-[12px]">
+      <div className="flex gap-[12px] p-[0] px-[16px] pb-[12px]">
         <FilterButton onClick={changeView} isChecked className="min-w-fit">
           {isMapView ? '리스트 보기' : '지도 보기'}
         </FilterButton>
