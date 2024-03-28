@@ -150,6 +150,10 @@ const config: Config = {
         'base-layout': 'var(--base-layout-padding)',
         'for-appbar': 'var(--appbar-height)',
       },
+      fontFamily: {
+        pretandard: ['var(--font-pretendard)'],
+        chab: ['var(--font-chab)'],
+      },
     },
   },
   plugins: [],

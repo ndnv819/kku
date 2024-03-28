@@ -119,9 +119,6 @@
   --bottom-sheet-z-index: 10;
 }
 
-// Scss Variable
-$font-family-pretendard: 'Pretendard', sans-serif;
-
 // Html
 html {
   box-sizing: border-box;
@@ -137,6 +134,10 @@ html {
     color: #fff;
     background-color: var(--c-basic-800);
   }
+}
+
+main {
+  font-family: var(--font-pretendard);
 }
 
 // Typography

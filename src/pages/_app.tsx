@@ -24,7 +24,7 @@ interface PageProps {
   };
 }
 
-const myFont = localFont({
+const baseFont = localFont({
   src: [
     {
       path: '../../public/fonts/Pretendard-Regular.woff2',
@@ -52,6 +52,18 @@ const myFont = localFont({
       style: 'normal',
     },
   ],
+  variable: '--font-pretendard',
+});
+
+const subFont = localFont({
+  src: [
+    {
+      path: '../../public/fonts/LotteriaChab.woff2',
+      weight: 'normal',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-chab',
 });
 
 export default function App({
@@ -67,7 +79,7 @@ export default function App({
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             <RecoilRoot>
-              <main className={myFont.className}>
+              <main className={`${subFont.variable} ${baseFont.variable}`}>
                 <ToastProvider>
                   <NaverMapProvider>
                     <ModalProvider>

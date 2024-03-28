@@ -4,7 +4,6 @@ import { useGeolocation } from '@application/hooks/common/use_geolocation2';
 import { useShopFilterCategory } from '@application/hooks/logics/shopFilter/use_shop_filter_category';
 import { useShopFilterStaus } from '@application/hooks/logics/shopFilter/use_shop_filter_status';
 import { useLocation } from '@application/hooks/store/location/use_location';
-import { Typography } from '@presentation/components/atoms/typography';
 import { Appbar } from '@presentation/components/organism/appbar';
 import { LoadingView } from '@presentation/components/organism/loadingView';
 import { ShopView } from '@presentation/components/templates/shopView';
@@ -44,9 +43,7 @@ export function Home({ shops }: HomeProps): JSX.Element {
   return (
     <>
       <Appbar>
-        <Typography as="h3" status="primary">
-          멍꾹
-        </Typography>
+        <h1 className="font-chab font-normal text-primary-400">멍꾹</h1>
         <Link href="/my">MY</Link>
       </Appbar>
       <section className={styles['home-wrapper']}>
