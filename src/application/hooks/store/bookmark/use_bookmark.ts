@@ -23,7 +23,7 @@ export function useBookmark(): bookmarkResultType {
       }
       return false;
     },
-    [bookmarkState.bookmarkList],
+    [bookmarkState],
   );
 
   const addBookmark = useCallback((shop: ShopDTO): void => {
@@ -33,6 +33,21 @@ export function useBookmark(): bookmarkResultType {
   const deleteBookmark = useCallback((id: string): void => {
     dispatch(bookmarkActions.deleteBookmark(id));
   }, []);
+
+  const toggleBookmark = useCallback(
+    (shop: ShopDTO): void => {
+      if (!shop) {
+        return;
+      }
+      const is = isBookmarked(shop.id);
+      if (!is) {
+        addBookmark(shop);
+        return;
+      }
+      deleteBookmark(shop.id);
+    },
+    [bookmarkState],
+  );
 
   const filteredBookmarkList = useCallback(
     (status: boolean, category?: string): ShopDTO[] | [] => {
@@ -74,5 +89,6 @@ export function useBookmark(): bookmarkResultType {
     isBookmarked,
     addBookmark,
     deleteBookmark,
+    toggleBookmark,
   };
 }

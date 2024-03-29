@@ -11,25 +11,20 @@ import { BookmarkButton } from '../bookmarkButton';
 import type { ListItemProps } from './types';
 
 export function ListItem({ shop }: ListItemProps): JSX.Element | null {
-  const { addBookmark, deleteBookmark, isBookmarked } = useBookmark();
+  const { isBookmarked, bookmarkList, toggleBookmark } = useBookmark();
   const { data: session } = useSession();
   const { showInfo } = useToast();
 
   const onBookmarkClick = useCallback((): void => {
     if (!session) {
-      showInfo('회원만 가능합니다.');
+      showInfo('꾹마크는 로그인 후에 사용할 수 있어요!');
       return;
     }
     if (!shop) {
       return;
     }
-    const is = isBookmarked(shop.id);
-    if (!is) {
-      addBookmark(shop);
-      return;
-    }
-    deleteBookmark(shop.id);
-  }, [session, shop]);
+    toggleBookmark(shop);
+  }, [session, shop, bookmarkList]);
 
   if (!shop) {
     return null;

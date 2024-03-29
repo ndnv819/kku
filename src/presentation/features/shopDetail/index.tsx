@@ -19,7 +19,7 @@ import type { ShopDetailProps } from './types';
 
 export function ShopDetail({ shop }: ShopDetailProps): JSX.Element | null {
   const { data, isLoading, isFetching } = useGetShopsById(shop!.id, shop);
-  const { addBookmark, deleteBookmark, isBookmarked } = useBookmark();
+  const { toggleBookmark, bookmarkList, isBookmarked } = useBookmark();
   const [showShopDetailMap, setShowShopDetailMap] = useState<boolean>(false);
   const { data: session } = useSession();
   const { showInfo } = useToast();
@@ -28,27 +28,22 @@ export function ShopDetail({ shop }: ShopDetailProps): JSX.Element | null {
     setShowShopDetailMap((prev) => !prev);
   }, []);
 
-  const toggleBookmark = useCallback(() => {
+  const onBookmarkClick = useCallback(() => {
     if (!session) {
-      showInfo('회원만 가능합니다.');
+      showInfo('꾹마크는 로그인 후에 사용할 수 있어요!');
       return;
     }
-    if (!data) {
+    if (!shop) {
       return;
     }
-    const is = isBookmarked(data.id);
-    if (!is) {
-      addBookmark(data);
-      return;
-    }
-    deleteBookmark(data.id);
-  }, [session, data]);
+    toggleBookmark(shop);
+  }, [session, shop, bookmarkList]);
 
   if (isLoading || isFetching) {
     return <LoadingView />;
   }
   if (!data) {
-    return <EmptyView title="가게 정보를 불러오는 데 실패했습니다." />;
+    return <EmptyView title="가게 정보를 불러오는 데 실패했어요." />;
   }
 
   return showShopDetailMap ? (
@@ -59,7 +54,7 @@ export function ShopDetail({ shop }: ShopDetailProps): JSX.Element | null {
         <Appbar.BackButton />
         <Appbar.BookmarkButton
           className="p-[0]"
-          onClick={toggleBookmark}
+          onClick={onBookmarkClick}
           status={isBookmarked(data.id) ? 'active' : 'inactive'}
         />
       </Appbar>
@@ -152,10 +147,7 @@ export function ShopDetail({ shop }: ShopDetailProps): JSX.Element | null {
             <li key={index} className="py-[16px]">
               <Link href={r.postLink} target="_blank">
                 <Typography>{r.postTitle}</Typography>
-                <Typography
-                  category="s2"
-                  className="mt-[6px] text-[13px] text-basic-600"
-                >
+                <Typography className="mt-[6px] text-[13px] leading-[20px] text-slate-500">
                   {r.postContentSnippet}
                 </Typography>
               </Link>
