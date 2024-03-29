@@ -87,8 +87,6 @@ export function useBookmark(): bookmarkResultType {
     bookmarkList: bookmarkState.bookmarkList,
     filteredBookmarkList,
     isBookmarked,
-    addBookmark,
-    deleteBookmark,
     toggleBookmark,
   };
 }

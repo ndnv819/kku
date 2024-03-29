@@ -4,6 +4,5 @@ export interface bookmarkResultType {
   bookmarkList: ShopDTO[];
   filteredBookmarkList: (status: boolean, category?: string) => ShopDTO[];
   isBookmarked: (id: string) => boolean;
-  addBookmark: (shop: ShopDTO) => void;
-  deleteBookmark: (id: string) => void;
+  toggleBookmark: (shop: ShopDTO) => void;
 }
