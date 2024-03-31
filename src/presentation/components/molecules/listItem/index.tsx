@@ -4,9 +4,10 @@ import { Typography } from '@presentation/components/atoms/typography';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { useToast } from '@application/hooks/toast';
+import type { IcPawStates } from '@presentation/components/atoms/icons/paw/types';
 import { BookmarkButton } from '../bookmarkButton';
 import type { ListItemProps } from './types';
 
@@ -24,6 +25,16 @@ export function ListItem({ shop }: ListItemProps): JSX.Element | null {
       return;
     }
     toggleBookmark(shop);
+  }, [session, shop, bookmarkList]);
+
+  const setBookmarkStates = useMemo((): IcPawStates => {
+    if (!session) {
+      return 'inactive';
+    }
+    if (!shop) {
+      return 'inactive';
+    }
+    return isBookmarked(shop.id) ? 'active' : 'inactive';
   }, [session, shop, bookmarkList]);
 
   if (!shop) {
@@ -67,7 +78,7 @@ export function ListItem({ shop }: ListItemProps): JSX.Element | null {
       <BookmarkButton
         className="absolute right-[12px] top-[12px] items-end p-[0]"
         onClick={onBookmarkClick}
-        status={isBookmarked(shop.id) ? 'active' : 'inactive'}
+        states={setBookmarkStates}
       />
     </>
   );

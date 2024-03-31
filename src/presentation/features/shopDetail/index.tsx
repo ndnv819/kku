@@ -12,8 +12,9 @@ import { LoadingView } from '@presentation/components/organism/loadingView';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
+import type { IcPawStates } from '@presentation/components/atoms/icons/paw/types';
 import { ShopDetailMapView } from './detailMapView';
 import type { ShopDetailProps } from './types';
 
@@ -33,11 +34,21 @@ export function ShopDetail({ shop }: ShopDetailProps): JSX.Element | null {
       showInfo('꾹마크는 로그인 후에 사용할 수 있어요!');
       return;
     }
-    if (!shop) {
+    if (!data) {
       return;
     }
-    toggleBookmark(shop);
-  }, [session, shop, bookmarkList]);
+    toggleBookmark(data);
+  }, [session, data, bookmarkList]);
+
+  const setBookmarkStates = useMemo((): IcPawStates => {
+    if (!session) {
+      return 'inactive';
+    }
+    if (!data) {
+      return 'inactive';
+    }
+    return isBookmarked(data.id) ? 'active' : 'inactive';
+  }, [session, data, bookmarkList]);
 
   if (isLoading || isFetching) {
     return <LoadingView />;
@@ -55,7 +66,7 @@ export function ShopDetail({ shop }: ShopDetailProps): JSX.Element | null {
         <Appbar.BookmarkButton
           className="p-[0]"
           onClick={onBookmarkClick}
-          status={isBookmarked(data.id) ? 'active' : 'inactive'}
+          states={setBookmarkStates}
         />
       </Appbar>
       <section className="px-[16px] pb-[20px] pt-for-appbar">

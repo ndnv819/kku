@@ -1,7 +1,7 @@
-export type IcPawStatus = 'active' | 'inactive';
+export type IcPawStates = 'active' | 'inactive';
 
 export interface IcPawProps {
-  status?: IcPawStatus;
+  states?: IcPawStates;
   width?: number;
   height?: number;
   activeColor?: string;
