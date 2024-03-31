@@ -13,7 +13,7 @@ import type { MapViewProps } from './types';
 
 export function ShopDetailMapView({
   shop,
-  changeView,
+  changeDetailView,
 }: MapViewProps): JSX.Element {
   const renderMarkerIcon = useCallback((marker: ShopDTO): string => {
     let iconElement = <IcRestaurant color="#fff" width={14} height={14} />;
@@ -42,7 +42,7 @@ export function ShopDetailMapView({
   return (
     <div className="absolute inset-0 z-10 h-[100dvh] w-[100%] bg-white">
       <Button
-        onClick={changeView}
+        onClick={changeDetailView}
         className="absolute right-[16px] top-[16px] z-50 flex h-[30px] w-[30px] items-center justify-center rounded-full bg-white p-[0]"
       >
         <IcClose />
