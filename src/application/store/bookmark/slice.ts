@@ -14,7 +14,12 @@ const bookmarkSlice = createSlice({
   initialState,
   reducers: {
     addBookmark: (state, action: PayloadAction<BookmarkActionType>) => {
-      state.bookmarkList.push(action.payload);
+      const isBookmarked = state.bookmarkList.find(
+        (b) => b!.id === action.payload!.id,
+      );
+      if (!isBookmarked) {
+        state.bookmarkList.push(action.payload);
+      }
     },
     deleteBookmark: (state, action: PayloadAction<string>) => {
       state.bookmarkList = state.bookmarkList.filter(
