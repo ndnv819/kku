@@ -107,25 +107,6 @@ const config: Config = {
             '48': 'var(--c-transparent-info-48)',
           },
         },
-        warning: {
-          '100': 'var(--c-warning-100)',
-          '200': 'var(--c-warning-200)',
-          '300': 'var(--c-warning-300)',
-          '400': 'var(--c-warning-400)',
-          '500': 'var(--c-warning-500)',
-          '600': 'var(--c-warning-600)',
-          '700': 'var(--c-warning-700)',
-          '800': 'var(--c-warning-800)',
-          '900': 'var(--c-warning-900)',
-          transparent: {
-            '8': 'var(--c-transparent-warning-8)',
-            '16': 'var(--c-transparent-warning-16)',
-            '24': 'var(--c-transparent-warning-24)',
-            '32': 'var(--c-transparent-warning-32)',
-            '40': 'var(--c-transparent-warning-40)',
-            '48': 'var(--c-transparent-warning-48)',
-          },
-        },
         danger: {
           '100': 'var(--c-danger-100)',
           '200': 'var(--c-danger-200)',
@@ -160,7 +141,7 @@ const config: Config = {
   safelist: [
     {
       pattern:
-        /(bg|text|border)-(primary|basic|success|info|warning)-(100|200|300|400|500|600|700|800)/,
+        /(bg|text|border)-(primary|basic|success|info)-(100|200|300|400|500|600|700|800)/,
     },
   ],
 };
