@@ -14,7 +14,7 @@ interface ShopDetailPageProps {
 const ShopDetailPage: NextPage<ShopDetailPageProps> = ({
   shop,
 }: ShopDetailPageProps) => {
-  const { data } = useGetShopsById(shop!.id, shop);
+  const { data, isLoading, isFetching } = useGetShopsById(shop!.id, shop);
 
   return (
     <>
@@ -36,7 +36,7 @@ const ShopDetailPage: NextPage<ShopDetailPageProps> = ({
         }}
       />
       <BaseLayout>
-        <ShopDetail shop={data} />
+        <ShopDetail shop={data} isLoading={isLoading} isFetching={isFetching} />
       </BaseLayout>
     </>
   );
