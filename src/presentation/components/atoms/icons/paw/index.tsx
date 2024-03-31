@@ -4,7 +4,7 @@ export function IcPaw({
   states = 'inactive',
   width = 28,
   height = 28,
-  activeColor = '#598bff',
+  activeColor = '#fa0', // NOTE:: primary-500
   inactiveColor = '#8f9bb3',
 }: IcPawProps): JSX.Element {
   return (

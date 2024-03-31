@@ -10,7 +10,7 @@ export default {
     status: {
       control: {
         type: 'select',
-        options: ['basic', 'primary', 'success', 'info', 'warning', 'danger'],
+        options: ['basic', 'primary', 'success', 'info', 'danger'],
       },
     },
     appearances: {

@@ -11,7 +11,7 @@ export default {
     status: {
       control: {
         type: 'select',
-        options: ['primary', 'success', 'info', 'warning', 'danger'],
+        options: ['primary', 'success', 'info', 'danger'],
       },
     },
     category: {

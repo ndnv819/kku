@@ -5,13 +5,7 @@ import { forwardRef } from 'react';
 
 import styles from './styles.module.scss';
 
-type ButtonStatus =
-  | 'basic'
-  | 'primary'
-  | 'success'
-  | 'info'
-  | 'warning'
-  | 'danger';
+type ButtonStatus = 'basic' | 'primary' | 'success' | 'info' | 'danger';
 type ButtonAppearances = 'filled' | 'outline' | 'ghost';
 type ButtonSizes = 'tiny' | 'small' | 'medium' | 'large' | 'giant';
 

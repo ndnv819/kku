@@ -7,13 +7,7 @@ import { forwardRef } from 'react';
 
 import styles from './styles.module.scss';
 
-type TypographyStatus =
-  | 'primary'
-  | 'basic'
-  | 'success'
-  | 'info'
-  | 'warning'
-  | 'danger';
+type TypographyStatus = 'primary' | 'basic' | 'success' | 'info' | 'danger';
 export interface _TypographyProps {
   status?: TypographyStatus;
   category?: 's1' | 's2' | 'p1' | 'p2' | 'c1' | 'c2' | 'label';
@@ -31,11 +25,10 @@ export const Typography = forwardRef(
     const Element = as ?? 'p';
 
     const statusStyles = {
-      primary: 'text-primary-400',
+      primary: 'text-primary-500',
       basic: 'text-basic-800',
       success: 'text-success-500',
       info: 'text-info-500',
-      warning: 'text-warning-500',
       danger: 'text-danger-500',
     };
 

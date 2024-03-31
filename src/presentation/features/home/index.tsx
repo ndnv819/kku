@@ -43,7 +43,7 @@ export function Home({ shops }: HomeProps): JSX.Element {
   return (
     <>
       <Appbar>
-        <h1 className="font-chab font-normal text-primary-400">멍꾹</h1>
+        <h1 className="font-chab font-normal text-primary-500">멍꾹</h1>
         <Link href="/my">MY</Link>
       </Appbar>
       <section className={styles['home-wrapper']}>

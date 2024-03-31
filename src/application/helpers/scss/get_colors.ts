@@ -1,5 +1,5 @@
 export const getColor = (
-  status: 'basic' | 'primary' | 'success' | 'info' | 'warning' | 'danger',
+  status: 'basic' | 'primary' | 'success' | 'info' | 'danger',
   appearances: 'filled' | 'outline' | 'ghost',
 ) => {
   const baseColor = {
@@ -23,12 +23,6 @@ export const getColor = (
       filled: 'bg-info-500 text-basic-100',
       outline: 'bg-info-transparent-8 border border-info-500 text-info-500',
       ghost: 'text-info-500',
-    },
-    warning: {
-      filled: 'bg-warning-500 text-basic-100',
-      outline:
-        'bg-warning-transparent-8 border border-warning-500 text-warning-500',
-      ghost: 'text-warning-500',
     },
     danger: {
       filled: 'bg-danger-500 text-basic-100',
