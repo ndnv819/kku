@@ -259,8 +259,14 @@ async function main(): Promise<void> {
   }
 
   await Promise.all([
-    scrapeData('해운대 애견 동반 카페'),
+    scrapeData('해운대 반려견 동반 카페'),
+    scrapeData('해운대 반려견 동반 식당'),
+    scrapeData('기장 반려견 동반 카페'),
+    scrapeData('기장 반려견 동반 식당'),
+    scrapeData('광안리 반려견 동반 카페'),
+    scrapeData('광안리 반려견 동반 식당'),
     scrapeData('서면 애견 동반 카페'),
+    scrapeData('서면 반려견 동반 카페'),
   ]).then((results) => {
     const final = flattenArray(results).map((raw) => {
       return {
