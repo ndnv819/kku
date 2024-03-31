@@ -16,7 +16,7 @@
 }
 
 .bottom-sheet-overlay {
-  width: 420px;
+  width: var(--base-layout-width);
   margin: 0 auto;
   background-color: transparent;
 

@@ -1,5 +1,5 @@
 .react-responsive-modal-root {
-  width: 420px;
+  width: var(--base-layout-width);
   margin: 0 auto;
 
   @media (width <= 420px) {
