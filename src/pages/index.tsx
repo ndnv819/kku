@@ -1,4 +1,4 @@
-import { parseJson } from '@application/helpers/json/parse_json';
+import { parseScriptToJson } from '@application/helpers/json/parse_script_to_json';
 import { Home } from '@presentation/features/home';
 import { BaseLayout } from '@presentation/layouts/base';
 import type { GetStaticProps, NextPage } from 'next';
@@ -19,7 +19,8 @@ const HomePage: NextPage<HomePageProps> = ({ shops }: HomePageProps) => {
 
 export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
   try {
-    const result = await parseJson();
+    const result = await parseScriptToJson();
+    console.log('res', result.length);
 
     return {
       props: {

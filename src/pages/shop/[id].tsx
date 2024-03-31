@@ -1,4 +1,4 @@
-import { parseJson } from '@application/helpers/json/parse_json';
+import { parseScriptToJson } from '@application/helpers/json/parse_script_to_json';
 import { useGetShopsById } from '@application/hooks/api/shop/use_get_shops_id';
 import { ShopDetail } from '@presentation/features/shopDetail';
 import { BaseLayout } from '@presentation/layouts/base';
@@ -43,7 +43,7 @@ const ShopDetailPage: NextPage<ShopDetailPageProps> = ({
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const result = await parseJson();
+  const result = await parseScriptToJson();
   const paths = result.map((r) => ({
     params: { id: r!.id },
   }));
@@ -64,7 +64,7 @@ export const getStaticProps: GetStaticProps<ShopDetailPageProps> = async (
     };
   }
 
-  const result = await parseJson();
+  const result = await parseScriptToJson();
   const shop = result.find((r) => r!.id === params.id);
 
   if (!shop) {
