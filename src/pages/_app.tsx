@@ -1,3 +1,4 @@
+/* eslint-disable simple-import-sort/imports */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 import '@presentation/styles/global.scss';
 import '@presentation/styles/reset.scss';
@@ -9,6 +10,8 @@ import { ModalProvider } from '@presentation/providers/modal';
 import { NaverMapProvider } from '@presentation/providers/naverMap';
 import { QueryProvider } from '@presentation/providers/query';
 import { ToastProvider } from '@presentation/providers/toast';
+import { DefaultSeo } from 'next-seo';
+import { defaultSeo } from 'next-seo.config';
 import type { AppProps } from 'next/app';
 import localFont from 'next/font/local';
 import { Provider } from 'react-redux';
@@ -74,24 +77,27 @@ export default function App({
   const { store, props } = wrapper.useWrappedStore(rest);
 
   return (
-    <QueryProvider>
-      <AuthProvider session={props.pageProps.session}>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <RecoilRoot>
-              <main className={`${subFont.variable} ${baseFont.variable}`}>
-                <ToastProvider>
-                  <NaverMapProvider>
-                    <ModalProvider>
-                      <Component {...props.pageProps} />
-                    </ModalProvider>
-                  </NaverMapProvider>
-                </ToastProvider>
-              </main>
-            </RecoilRoot>
-          </PersistGate>
-        </Provider>
-      </AuthProvider>
-    </QueryProvider>
+    <>
+      <DefaultSeo {...defaultSeo} />
+      <QueryProvider>
+        <AuthProvider session={props.pageProps.session}>
+          <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+              <RecoilRoot>
+                <main className={`${subFont.variable} ${baseFont.variable}`}>
+                  <ToastProvider>
+                    <NaverMapProvider>
+                      <ModalProvider>
+                        <Component {...props.pageProps} />
+                      </ModalProvider>
+                    </NaverMapProvider>
+                  </ToastProvider>
+                </main>
+              </RecoilRoot>
+            </PersistGate>
+          </Provider>
+        </AuthProvider>
+      </QueryProvider>
+    </>
   );
 }
