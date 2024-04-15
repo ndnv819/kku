@@ -26,7 +26,7 @@ const shopFilterSlice = createSlice({
       return {
         ...state,
         // @ts-ignore
-        ...action.payload[StoreEnum.SHOP_FILTER],
+        ...action.payload[StoreEnumZod.Enum.shop_filter],
       };
     });
   },

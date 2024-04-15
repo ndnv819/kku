@@ -16,6 +16,16 @@ const rootReducer = combineReducers({
   [bookmarkName]: bookmarkReducer,
 });
 
+/* eslint-disable */
+const loggerMiddleware = (store: any) => (next: any) => (action: any) => {
+  console.log(`액션: ${JSON.stringify(action)}`);
+  const result = next(action);
+  console.log(`업데이트됨: ${JSON.stringify(store.getState())}`);
+
+  return result;
+};
+/* eslint-enable */
+
 // NOTE:: redux-persist 정의
 const persistConfig = {
   key: 'root',
@@ -27,7 +37,17 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({
   reducer: persistedReducer,
   devTools: process.env.NODE_ENV === 'development',
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  middleware: (getDefaultMiddleware) => {
+    const options = {
+      serializableCheck: {
+        ignoredActions: ['persist/PERSIST'],
+      },
+    };
+    if (process.env.NODE_ENV === 'development') {
+      return getDefaultMiddleware(options).concat(loggerMiddleware);
+    }
+    return getDefaultMiddleware(options);
+  },
 });
 
 export const persistor = persistStore(store);

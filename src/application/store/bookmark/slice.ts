@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access */
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
+import { HYDRATE } from 'next-redux-wrapper-future';
 
 // 1. initial state 2. createSlice
 import { StoreEnumZod } from '../constants';
@@ -26,6 +28,15 @@ const bookmarkSlice = createSlice({
         (b) => b!.id !== action.payload,
       );
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(HYDRATE, (state, action) => {
+      return {
+        ...state,
+        // @ts-ignore
+        ...action.payload[StoreEnumZod.Enum.bookmark],
+      };
+    });
   },
 });
 
