@@ -221,7 +221,21 @@ async function scrapeData(searchQuery: string) {
   );
 
   // 플레이스의 검색결과는 비동기이기 때문에 리스트 컨테이너 (ul)부분을 기다려야함
-  await page.waitForSelector('ul.search_list._items');
+  await page.goto(
+    `https://m.map.naver.com/search2/search.naver?query=${searchQuery}`,
+    { timeout: 300000 },
+  );
+
+  if ((await page.$('div.section_err')) !== null) {
+    console.log(`플레이스 검색결과가 없습니다: Query: ${searchQuery}`);
+    return [];
+  }
+  try {
+    await page.waitForSelector('ul.search_list._items');
+  } catch {
+    console.log(`플레이스 검색결과를 찾을 수 없습니다: Query: ${searchQuery}`);
+    return [];
+  }
 
   const data = await page.$$eval('ul.search_list._items > li', (listItems) => {
     return listItems.map((li) => ({
@@ -244,49 +258,52 @@ async function scrapeData(searchQuery: string) {
   return results;
 }
 
+function flattenArray(arr: any[]): RawShopItem[] {
+  const flattened: any[] = [];
+  arr.forEach((item) => {
+    if (Array.isArray(item)) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      flattened.push(...flattenArray(item));
+    } else {
+      flattened.push(item);
+    }
+  });
+  return flattened;
+}
+
 async function main(): Promise<void> {
-  function flattenArray(arr: any[]): RawShopItem[] {
-    const flattened: any[] = [];
-    arr.forEach((item) => {
-      if (Array.isArray(item)) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        flattened.push(...flattenArray(item));
-      } else {
-        flattened.push(item);
-      }
-    });
-    return flattened;
+  const results = await Promise.all([
+    scrapeData('센텀 반려견 동반 카페'),
+    scrapeData('센텀 반려견 동반 식당'),
+    scrapeData('송정 반려견 동반 카페'),
+    scrapeData('송정 반려견 동반 식당'),
+  ]);
+
+  const flatten = flattenArray(results);
+  if (!flatten || flatten.length < 1) {
+    process.exit(1);
   }
 
-  await Promise.all([
-    scrapeData('해운대 반려견 동반 카페'),
-    scrapeData('해운대 반려견 동반 식당'),
-    scrapeData('기장 반려견 동반 카페'),
-    scrapeData('기장 반려견 동반 식당'),
-    scrapeData('광안리 반려견 동반 카페'),
-    scrapeData('광안리 반려견 동반 식당'),
-    scrapeData('서면 애견 동반 카페'),
-    scrapeData('서면 반려견 동반 카페'),
-  ]).then((results) => {
-    const final = flattenArray(results).map((raw) => {
-      return {
-        ...raw,
-        category: raw.category.includes('카페') ? '카페' : '식당',
-        subCategory: raw.category,
-      };
-    });
-    fs.writeFile(
-      './scripts/flattened_array.json',
-      JSON.stringify(final),
-      (err: any) => {
-        if (err) {
-          console.error('Error writing JSON file:', err);
-        } else {
-          console.log('JSON file has been saved.');
-        }
-      },
-    );
+  const final = flatten.map((raw) => {
+    return {
+      ...raw,
+      category: raw.category.includes('카페') ? '카페' : '식당',
+      subCategory: raw.category,
+    };
   });
+  fs.writeFile(
+    './scripts/flattened_array.json',
+    JSON.stringify(final),
+    (err: any) => {
+      if (err) {
+        console.error('Error writing JSON file:', err);
+      } else {
+        console.log('JSON file has been saved.');
+      }
+    },
+  );
+
+  process.exit(1);
 }
 
 main().catch(console.error);
