@@ -28,7 +28,7 @@ const locationSlice = createSlice({
       return {
         ...state,
         // @ts-ignore
-        ...action.payload[StoreEnum.LOCATION],
+        ...action.payload[StoreEnumZod.Enum.location],
       };
     });
   },

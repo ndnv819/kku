@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access */
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit/react';
+import { HYDRATE } from 'next-redux-wrapper-future';
 
 import { StoreEnumZod } from '../constants';
 import type { BottomSheetActionType, BottomSheetState } from './types';
@@ -21,6 +23,15 @@ const bottomSheetSlice = createSlice({
     closeBottomSheet: () => {
       return initialState;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(HYDRATE, (state, action) => {
+      return {
+        ...state,
+        // @ts-ignore
+        ...action.payload[StoreEnumZod.Enum.bottom_sheet],
+      };
+    });
   },
 });
 
