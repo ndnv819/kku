@@ -57,7 +57,11 @@ async function scrapeAdditionalData(
 
     const openingTime: string = await page
       .$$eval('a.gKP9i .w9QyJ', (spans) =>
-        (spans as HTMLElement[]).map((span) => span.innerText).join('\n'),
+        (spans as HTMLElement[])
+          .map((span) => span.innerText)
+          .join('\n')
+          .replace('접기', '')
+          .replace('영업 중', ''),
       )
       .catch(() => `영업시간을 찾지 못했습니다: PlaceId: ${itemId}`);
     const name: string = await page
@@ -272,12 +276,7 @@ function flattenArray(arr: any[]): RawShopItem[] {
 }
 
 async function main(): Promise<void> {
-  const results = await Promise.all([
-    scrapeData('센텀 반려견 동반 카페'),
-    scrapeData('센텀 반려견 동반 식당'),
-    scrapeData('송정 반려견 동반 카페'),
-    scrapeData('송정 반려견 동반 식당'),
-  ]);
+  const results = await Promise.all([scrapeData('센텀 애견 카페')]);
 
   const flatten = flattenArray(results);
   if (!flatten || flatten.length < 1) {
@@ -302,8 +301,6 @@ async function main(): Promise<void> {
       }
     },
   );
-
-  process.exit(1);
 }
 
 main().catch(console.error);
