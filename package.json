@@ -13,6 +13,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "next dev -p 3000",
+    "prebuild": "yarn scrape",
     "build": "npm run lint:fix && next build",
     "build:withgraphql": "npm run generate && npm run lint:fix && next build",
     "build:analyze": "ANALYZE=true next build",

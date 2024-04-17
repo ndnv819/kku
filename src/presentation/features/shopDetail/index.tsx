@@ -58,7 +58,6 @@ export function ShopDetail({
   if (!shop) {
     return <EmptyView title="가게 정보를 불러오는 데 실패했어요." />;
   }
-
   return showShopDetailMap ? (
     <ShopDetailMapView shop={shop} changeDetailView={changeDetailView} />
   ) : (
@@ -107,7 +106,9 @@ export function ShopDetail({
         <Typography as="h6" className="mb-[8px] mt-[36px]">
           영업시간
         </Typography>
-        <Typography>{shop?.openingTime}</Typography>
+        <Typography style={{ whiteSpace: 'pre-line' }}>
+          {shop?.openingTime}
+        </Typography>
         <Typography as="h6" className="mb-[8px] mt-[36px]">
           기본정보
         </Typography>
