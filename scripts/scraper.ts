@@ -60,8 +60,7 @@ async function scrapeAdditionalData(
         (spans as HTMLElement[])
           .map((span) => span.innerText)
           .join('\n')
-          .replace('접기', '')
-          .replace('영업 중', ''),
+          .replace('접기', ''),
       )
       .catch(() => `영업시간을 찾지 못했습니다: PlaceId: ${itemId}`);
     const name: string = await page
@@ -276,7 +275,18 @@ function flattenArray(arr: any[]): RawShopItem[] {
 }
 
 async function main(): Promise<void> {
-  const results = await Promise.all([scrapeData('센텀 애견 동반 카페')]);
+  const results = await Promise.all([
+    scrapeData('센텀 반려견 동반 식당'),
+    scrapeData('송정 반려견 동반 식당'),
+    scrapeData('광안리 반려견 동반 식당'),
+    scrapeData('서면 반려견 동반 식당'),
+    scrapeData('전포 반려견 동반 식당'),
+    scrapeData('센텀 반려견 동반 카페'),
+    scrapeData('송정 반려견 동반 카페'),
+    scrapeData('광안리 반려견 동반 카페'),
+    scrapeData('서면 반려견 동반 카페'),
+    scrapeData('전포 반려견 동반 카페'),
+  ]);
 
   const flatten = flattenArray(results);
   if (!flatten || flatten.length < 1) {
@@ -296,8 +306,10 @@ async function main(): Promise<void> {
     (err: any) => {
       if (err) {
         console.error('Error writing JSON file:', err);
+        process.exit(1);
       } else {
         console.log('JSON file has been saved.');
+        process.exit(1);
       }
     },
   );
