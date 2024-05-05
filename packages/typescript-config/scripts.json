@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Script",
+  "extends": "./base.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "noEmit": false,
+    "isolatedModules": false
+},
+  "exclude": ["node_modules"]
+}

@@ -12,7 +12,8 @@
     "next/core-web-vitals",
     "plugin:tailwindcss/recommended",
     "plugin:@tanstack/eslint-plugin-query/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "@typescript-eslint/parser"
   ],
   "parserOptions": {
     "project": "./tsconfig.json",
@@ -25,14 +26,11 @@
     "@tanstack/query"
   ],
   "rules": {
-    // prettier
     "prettier/prettier": "error",
-    // type
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/no-empty-interface": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    // import
     "import/no-unresolved": "error",
     "import/prefer-default-export": "off",
     "@typescript-eslint/no-unused-vars": "off",
@@ -51,7 +49,6 @@
     "import/first": "error",
     "import/newline-after-import": "error",
     "import/no-duplicates": "error",
-    // react
     "react/jsx-props-no-spreading": "off",
     "react/function-component-definition": [
       "error",
@@ -60,11 +57,9 @@
         "unnamedComponents": ["arrow-function"]
       }
     ],
-    "react/require-default-props": "off", // defaultProps를 사용하지 않고 object style로 직접선언함
+    "react/require-default-props": "off",
     "react-hooks/exhaustive-deps": "off",
-    // naming
     "no-param-reassign": ["error", { "props": false }],
-    "no-underscore-dangle": ["error", { "allow": ["_id"] }], // MongoDB _id 는 제외
     "@typescript-eslint/naming-convention": [
       "error",
       {
