@@ -7,20 +7,14 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\" --ignore-path .gitignore"
   },
   "devDependencies": {
-    "@types/uuid": "^9.0.8",
     "turbo": "latest"
   },
   "engines": {
     "node": ">=18"
   },
   "packageManager": "npm@10.2.4",
-  "workspaces": {
-    "packages": [
-      "apps/*",
-      "packages/*"
-    ],
-    "nohoist": [
-      "uuid"
-    ]
-  }
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
 }
